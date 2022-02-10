@@ -1,0 +1,15 @@
+.share {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 10px;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 18px;
+  opacity: 0.6;
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}

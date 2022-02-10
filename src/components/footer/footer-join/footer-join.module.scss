@@ -1,0 +1,91 @@
+.wrapper {
+  width: 100%;
+  background-color: #121212;
+  color: #ffffff;
+  padding: 0 6px;
+}
+
+.joingBlock {
+  max-width: 1110px;
+  padding: 12px 0;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.joing {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.joingButton {
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.9;
+  padding: 7px 24px;
+  border: #ffffff solid 1px;
+}
+
+.joingButton:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.input {
+  margin-right: 12px;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 18px;
+  color: rgba(255, 255, 255, 0.9);
+  text-indent: 16px;
+  width: 400px;
+  height: 32px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.input::placeholder {
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 18px;
+  color: #ffffff;
+  opacity: 0.4;
+}
+
+.input:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25);
+}
+
+.title {
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 800px) {
+  .input {
+    width: 200px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .joingBlock {
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 8px;
+  }
+  .joing {
+    flex-direction: column;
+    row-gap: 8px;
+  }
+}

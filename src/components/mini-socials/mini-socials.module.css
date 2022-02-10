@@ -1,0 +1,11 @@
+.webLinks {
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ico:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}

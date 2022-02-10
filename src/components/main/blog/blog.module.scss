@@ -1,0 +1,110 @@
+.wrapper {
+  width: 100%;
+  .blog {
+    max-width: 1110px;
+    margin: 96px auto 0;
+
+    .titleBlock {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      .title {
+        font-weight: 600;
+        font-size: 22px;
+        line-height: 25px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .seeAll {
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 13px;
+        letter-spacing: 0.06em;
+        opacity: 0.6;
+        text-decoration: none;
+        color: #121212;
+      }
+    }
+    .blogItems {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-top: 48px;
+      column-gap: 30px;
+      .item {
+        max-width: 350px;
+        .img {
+          width: 100%;
+        }
+        .itemTitleBlock {
+          background-color: #ffffff;
+          padding: 24px 16px;
+          max-width: 302px;
+          margin: 0 auto;
+          box-sizing: border-box;
+          transform: translateY(-56px);
+          .itemTitle {
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 22px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+          }
+
+          .subtitle {
+            font-size: 14px;
+            line-height: 22px;
+            opacity: 0.8;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1125px) {
+  .wrapper {
+    .blog {
+      .blogItems {
+        justify-content: center;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .wrapper {
+    .blog {
+      margin-top: 48px;
+    }
+  }
+}
+@media screen and (max-width: 370px) {
+  .wrapper {
+    .blog {
+      .blogItems {
+        .item {
+          max-width: 318px;
+          .itemTitleBlock {
+            transform: translateY(-45px);
+            padding: 12px 8px;
+            .itemTitle {
+              font-size: 10px;
+              line-height: 11px;
+              margin-bottom: 8px;
+            }
+            .subtitle {
+              font-size: 8px;
+              line-height: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

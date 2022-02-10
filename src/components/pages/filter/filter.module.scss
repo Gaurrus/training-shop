@@ -1,0 +1,68 @@
+.wrapper {
+  width: 100%;
+  margin: 40px 0;
+  .filtres {
+    margin: 0 auto;
+    max-width: 1110px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    .filter {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      align-items: center;
+      column-gap: 12px;
+      font-weight: 500;
+      font-size: 13px;
+      line-height: 15px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+    .viewStyle {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      align-items: center;
+      column-gap: 24px;
+      &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+    .bestsellers {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      align-items: center;
+      column-gap: 7px;
+      font-weight: 500;
+      font-size: 13px;
+      line-height: 15px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .wrapper {
+    .filtres {
+      .viewStyle {
+        column-gap: 12px;
+      }
+    }
+  }
+}

@@ -1,0 +1,122 @@
+.wrapper {
+  width: 100%;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-family: Spartan;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: #121212;
+  max-width: 1110px;
+  margin: 0 auto;
+  padding: 15px 0 19px;
+}
+
+.itemBlock {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 30px;
+}
+
+.logo {
+  font-family: Playfair Display SC;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 32px;
+  &::first-letter {
+    font-size: 32px;
+  }
+}
+
+.navLink {
+  text-decoration: none;
+  color: #121212;
+}
+.navLinkActive {
+  color: #121212;
+  text-decoration: underline;
+}
+
+.navList {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  column-gap: 32px;
+}
+
+.navList li:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.line {
+  width: 100%;
+  height: 2px;
+}
+
+.burger {
+  width: 23px;
+  height: 23px;
+  padding: 4px;
+  display: none;
+  cursor: pointer;
+  transition: all 0.5s;
+
+  .burgerLine {
+    height: 3px;
+    background-color: #121212;
+    transition: all 0.5s;
+  }
+}
+
+@media screen and (max-width: 945px) {
+  .burger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.5s;
+  }
+
+  .navList {
+    display: none;
+  }
+
+  .active {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    row-gap: 20px;
+    z-index: 10;
+  }
+}
+
+@media screen and (max-width: 416px) {
+  .nav {
+    justify-content: center;
+    gap: 8px;
+    .itemBlock{
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 365px) {
+  .itemBlock {
+    justify-content: space-evenly;
+    width: 100%;
+  }
+}

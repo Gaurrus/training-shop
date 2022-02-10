@@ -1,0 +1,68 @@
+@media screen and (max-width: 945px) {
+  .active-list {
+    padding: 8px;
+    position: fixed;
+    top: 85px;
+    right: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
+    row-gap: 20px;
+    z-index: 10;
+    background: linear-gradient(to left, #ffffff, rgba(255, 255, 255, 0.3));
+    transition: all 0.5s;
+  }
+
+  .activeBurger {
+    .middleLine {
+      display: none;
+      transition: all 0.5s;
+    }
+    .topLine {
+      transform: translateY(7px) rotate(135deg);
+      transition: all 0.5s;
+    }
+    .bottomLine {
+      transform: translateY(-5px) rotate(-135deg);
+      transition: all 0.5s;
+    }
+  }
+
+  .shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 2;
+  }
+  .shadow-active {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 601px) {
+  .active-list {
+    top: 95px;
+  }
+}
+@media screen and (max-width: 594px) {
+  .active-list {
+    top: 115px;
+  }
+}
+
+@media screen and (max-width: 490px) {
+  .active-list {
+    top: 135px;
+  }
+}
+@media screen and (max-width: 416px) {
+  .active-list {
+    top: 175px;
+  }
+}

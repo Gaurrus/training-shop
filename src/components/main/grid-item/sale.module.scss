@@ -1,0 +1,28 @@
+.sale {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #e91e63;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 13px;
+  color: #ffffff;
+  padding: 9px 8px;
+  display: none;
+}
+.active {
+  display: block;
+}
+
+.oldPrice {
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 13px;
+  text-decoration: line-through;
+  opacity: 0.4;
+  display: none;
+}
+
+.oldPriceActive {
+  display: inline;
+}

@@ -1,0 +1,11 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 9;
+  top: 0;
+  background-color: #ffffff;
+}

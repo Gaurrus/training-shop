@@ -1,0 +1,78 @@
+.titleBlock {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 96px;
+  margin-bottom: 48px;
+}
+
+.title {
+  margin-left: 0;
+  margin-right: auto;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 25px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.gridList {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  column-gap: 32px;
+  font-size: 12px;
+  line-height: 13px;
+  letter-spacing: 0.06em;
+  opacity: 0.6;
+}
+
+.gridList li:hover,
+.title:hover {
+  text-decoration: underline;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.button {
+  width: 100%;
+  background-color: #f8f8f8;
+  border: 2px solid #f8f8f8;
+  text-align: center;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 15px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding-top: 18px;
+  padding-bottom: 15px;
+  margin-top: 48px;
+  opacity: 0.8;
+  &:hover {
+    box-shadow: #121212 0 0 2px;
+  }
+}
+
+@media screen and (max-width: 810px) {
+  .titleBlock {
+    justify-content: center;
+    row-gap: 10px;
+    .title {
+      margin: 0;
+    }
+    .gridList {
+      justify-content: center;
+      row-gap: 8px;
+    }
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .titleBlock {
+    margin-top: 48px;
+    margin-bottom: 24px;
+  }
+}

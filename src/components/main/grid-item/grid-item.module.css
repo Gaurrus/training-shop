@@ -1,0 +1,42 @@
+.item {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 255px;
+  box-sizing: content-box;
+  justify-self: center;
+}
+
+.priceBlock {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 12px;
+}
+
+.title {
+  font-size: 14px;
+  line-height: 16px;
+  color: #121212;
+  opacity: 0.6;
+  align-self: flex-start;
+  margin-top: 16px;
+}
+
+.price {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.item:hover {
+  box-shadow: #121212 0px 0px 2px;
+}
+
+.notRelated {
+  display: none;
+}
