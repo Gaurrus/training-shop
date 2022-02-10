@@ -16,7 +16,7 @@ export const App = () => {
   useEffect(() => window.scrollTo(0, 0), [pathname]);
 
   useEffect(() => {
-    document.title = 'MiSto';
+    document.title = 'CleverShop';
   }, []);
   return (
     <div data-test-id='app'>
