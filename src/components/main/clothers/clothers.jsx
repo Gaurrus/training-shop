@@ -6,7 +6,7 @@ import { GridBlock } from '../grid-block/grid-block';
 import styles from './clothers.module.scss';
 
 export const Clothers = ({ dresses, productType }) => (
-  <div data-test-id={`clothers-${productType}`}>
+  <div data-test-id={`clothes-${productType}`}>
     <div className={styles.titleBlock}>
       <NavLink to={`/${productType}`}>
         <span className={styles.title}>{productType}’S</span>
