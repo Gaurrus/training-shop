@@ -22,7 +22,7 @@ export const App = () => {
     <div data-test-id='app'>
       <Header />
       <Routes>
-        <Route exact path='/training-shop' element={<Main />} />
+        <Route exact path='/' element={<Main />} />
         <Route exact path='women' element={<GenderPage dresses={store.womensDress} productType='women' />} />
         <Route exact path='men' element={<GenderPage dresses={store.mensDress} productType='men' />} />
         <Route exact path='women/:id' element={<ProductPage dresses={store.womensDress} productType='women' />} />

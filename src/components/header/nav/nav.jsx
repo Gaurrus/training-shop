@@ -56,7 +56,7 @@ export const Nav = () => {
   return (
     <nav className={styles.wrapper}>
       <div className={styles.nav}>
-        <NavLink to='/training-shop' className={styles.navLink} data-test-id='header-logo-link'>
+        <NavLink to='/' className={styles.navLink} data-test-id='header-logo-link'>
           <img src={logo} alt='logo' />
         </NavLink>
         <div className={styles.itemBlock}>

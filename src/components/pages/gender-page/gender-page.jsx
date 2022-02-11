@@ -15,7 +15,7 @@ export const GenderPage = ({ productType, dresses }) => (
           <div className={styles.nav}>
             <ul className={styles.navList}>
               <li className={styles.navItem}>
-                <NavLink to='/training-shop' className={styles.navLink}>
+                <NavLink to='/' className={styles.navLink}>
                   Home
                 </NavLink>
               </li>
