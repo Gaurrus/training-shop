@@ -32,7 +32,7 @@ export const Intro = () => (
             <SwiperSlide key={item.id}>
               <div className={styles.sliderWrapper}>
                 <img className={styles.sliderBackground} src={item.img} alt='slider-pic' />
-                <NavLink to='/training-shop'>
+                <NavLink to='/'>
                   <div className={styles.title}>
                     <p className={styles.banner}>{item.banner}</p>
                     <h1 className={styles.titleText}>{item.title}</h1>
