@@ -13,7 +13,7 @@ export const GridBlock = ({ dresses, productType }) => (
           key={item.id}
           to={`/${productType}/${item.id}`}
           className={styles.link}
-          data-test-id={`clothers-card-${productType}`}
+          data-test-id={`clothes-card-${productType}`}
         >
           <GridItem
             key={item.id}
