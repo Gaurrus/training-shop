@@ -8,8 +8,8 @@ import { ProductPage } from '../pages/product-page/product-page';
 
 import { store } from '../constants/store';
 
-import './reset.css';
-import './App.css';
+import './reset.scss';
+import './App.scss';
 
 export const App = () => {
   const { pathname } = useLocation();
