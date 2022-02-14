@@ -63,6 +63,38 @@
   }
 }
 
+.menu {
+  display: none;
+  animation: unSlideFilter 1s ease-in-out;
+}
+
+.menuActive {
+  display: block;
+  animation: slideFilter 1s ease-in-out;
+}
+
+@keyframes slideFilter {
+  0% {
+    transform: translateY(-320px);
+    height: 0;
+  }
+  100% {
+    transform: translateY(0);
+    height: 320px;
+  }
+}
+
+@keyframes unSlideFilter {
+  0% {
+    transform: translateY(0);
+    height: 320px;
+  }
+  100% {
+    transform: translateY(-320px);
+    height: 0;
+  }
+}
+
 @keyframes moving {
   100% {
     transform: rotate(360deg);

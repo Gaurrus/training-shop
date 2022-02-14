@@ -1,3 +1,5 @@
+import { PropTypes } from 'prop-types';
+
 import filter from './assets/filter-ico.svg';
 import lines from './assets/view-list-lines.svg';
 import grid from './assets/view-list-grid.svg';
@@ -5,10 +7,10 @@ import downArrow from './assets/arrow.svg';
 
 import styles from './filter.module.scss';
 
-export const Filter = () => (
+export const Filter = ({ filterOnCick }) => (
   <div className={styles.wrapper}>
     <div className={styles.filtres}>
-      <div className={styles.filter}>
+      <div className={styles.filter} aria-hidden onClick={filterOnCick}>
         <img src={filter} alt='' />
         <span className={styles.filerText}>Filter</span>
       </div>
@@ -23,3 +25,7 @@ export const Filter = () => (
     </div>
   </div>
 );
+
+Filter.propTypes = {
+  filterOnCick: PropTypes.func.isRequired,
+};
