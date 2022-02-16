@@ -6,7 +6,7 @@ import { Main } from '../main';
 import { GenderPage } from '../pages/gender-page';
 import { ProductPage } from '../pages/product-page/product-page';
 
-import realMarketJson from '../constants/real-market.json';
+import { realMarket } from '../constants/real-market';
 
 import './reset.scss';
 import './App.scss';
@@ -22,11 +22,11 @@ export const App = () => {
     <div data-test-id='app'>
       <Header />
       <Routes>
-        <Route exact path='/' element={<Main realMarketJson={realMarketJson} />} />
-        <Route exact path='women' element={<GenderPage dresses={realMarketJson.women} productType='women' />} />
-        <Route exact path='men' element={<GenderPage dresses={realMarketJson.men} productType='men' />} />
-        <Route exact path='women/:id' element={<ProductPage dresses={realMarketJson.women} productType='women' />} />
-        <Route exact path='men/:id' element={<ProductPage dresses={realMarketJson.men} productType='men' />} />
+        <Route exact path='/' element={<Main realMarketJson={realMarket} />} />
+        <Route exact path='women' element={<GenderPage dresses={realMarket.women} productType='women' />} />
+        <Route exact path='men' element={<GenderPage dresses={realMarket.men} productType='men' />} />
+        <Route exact path='women/:id' element={<ProductPage dresses={realMarket.women} productType='women' />} />
+        <Route exact path='men/:id' element={<ProductPage dresses={realMarket.men} productType='men' />} />
       </Routes>
       <Footer />
     </div>

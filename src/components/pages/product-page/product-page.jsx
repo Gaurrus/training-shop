@@ -84,6 +84,8 @@ export const ProductPage = ({ dresses, productType }) => {
 
   console.log(dress);
 
+  // const colors = Array.from(new Set(dress.images.map(({ color }) => color)));
+
   return (
     <div className='wrapper' data-test-id={`product-page-${productType}`}>
       <div className='header-wrapper'>
@@ -121,7 +123,7 @@ export const ProductPage = ({ dresses, productType }) => {
       </div>
       <div className='product'>
         <div className='left-block'>
-          <ProductSwiper />
+          <ProductSwiper images={dress.images} />
         </div>
         <div className='right-block'>
           <div className='specifications'>
@@ -192,7 +194,7 @@ export const ProductPage = ({ dresses, productType }) => {
                 </span>
                 <span className='additional-parameter'>
                   Material:
-                  <span className='parameters'> 100% Polyester</span>
+                  <span className='parameters'> {dress.material}</span>
                 </span>
               </div>
             </div>
@@ -235,13 +237,33 @@ export const ProductPage = ({ dresses, productType }) => {
 
 ProductPage.propTypes = {
   dresses: PropTypes.arrayOf({
-    sex: PropTypes.string,
-    title: PropTypes.string,
-    img: PropTypes.string,
-    price: PropTypes.string,
+    particulars: PropTypes.objectOf({
+      isNewArrivals: PropTypes.bool,
+      isSpecial: PropTypes.bool,
+      isBestseller: PropTypes.bool,
+      isMostViewed: PropTypes.bool,
+      isFeatured: PropTypes.bool,
+    }),
+    name: PropTypes.string,
+    category: PropTypes.string,
+    brand: PropTypes.string,
+    material: PropTypes.string,
+    rating: PropTypes.number,
+    price: PropTypes.number,
+    sizes: PropTypes.arrayOf([]),
+    discount: PropTypes.number,
+    reviews: PropTypes.arrayOf({
+      name: PropTypes.string,
+      text: PropTypes.string,
+      rating: PropTypes.number,
+      id: PropTypes.string,
+    }),
+    images: PropTypes.arrayOf({
+      color: PropTypes.string,
+      url: PropTypes.string,
+      id: PropTypes.string,
+    }),
     id: PropTypes.string,
-    rating: PropTypes.string,
-    sale: PropTypes.bool,
   }).isRequired,
   productType: PropTypes.string.isRequired,
 };
