@@ -82,6 +82,8 @@ export const ProductPage = ({ dresses, productType }) => {
     setDress(dresses.find((item) => item.id === id));
   }, [dresses, setDress, id]);
 
+  console.log(dress);
+
   return (
     <div className='wrapper' data-test-id={`product-page-${productType}`}>
       <div className='header-wrapper'>
@@ -209,28 +211,16 @@ export const ProductPage = ({ dresses, productType }) => {
                   <span className='write-review-text'>Write a review</span>
                 </div>
                 <div className='posts'>
-                  <div className='post'>
-                    <div className='post-title'>
-                      <span className='user-name'>Oleh Chabanov</span>
-                      <span className='time-of-review'>3 months ago</span>
-                      <Rating rating={dress.rating} />
+                  {/* {dress.reviews.map((post) => (
+                    <div className='post'>
+                      <div className='post-title'>
+                        <span className='user-name'>{post.name}</span>
+                        <span className='time-of-review'>3 months ago</span>
+                        <Rating rating={post.rating} />
+                      </div>
+                      <p className='post-text'>{post.text}</p>
                     </div>
-                    <p className='post-text'>
-                      On the other hand, we denounce with righteous indignation and like men who are so beguiled and
-                      demoralized by the charms of pleasure of the moment
-                    </p>
-                  </div>
-                  <div className='post'>
-                    <div className='post-title'>
-                      <span className='user-name'>ShAmAn design</span>
-                      <span className='time-of-review'>3 months ago</span>
-                      <Rating rating={dress.rating} />
-                    </div>
-                    <p className='post-text'>
-                      At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-                      deleniti
-                    </p>
-                  </div>
+                  ))} */}
                 </div>
                 <div className='horisontal-line' />
               </div>
@@ -238,7 +228,7 @@ export const ProductPage = ({ dresses, productType }) => {
           </div>
         </div>
       </div>
-      <Related dresses={store.relatedProducts} productType={productType} />
+      <Related dresses={dresses} productType={productType} />
     </div>
   );
 };

@@ -62,9 +62,8 @@ export const Nav = () => {
         <div className={styles.itemBlock}>
           <ul className={classNames(styles.navList, { 'active-list': isBurgerActive })} data-test-id='menu'>
             {navList.map((navItem) => (
-              <li>
+              <li key={navItem.path}>
                 <NavLink
-                  key={navItem.id}
                   data-test-id={`menu-link-${navItem.path}`}
                   to={`/${navItem.path}`}
                   className={({ isActive }) => (isActive ? styles.navLinkActive : styles.navLink)}

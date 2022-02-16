@@ -24,8 +24,8 @@ export const GridItem = ({ img, title, price, sale, notRelated, rating }) => (
 GridItem.propTypes = {
   img: propTypes.string.isRequired,
   title: propTypes.string.isRequired,
-  price: propTypes.string.isRequired,
-  sale: propTypes.bool.isRequired,
+  price: propTypes.number.isRequired,
+  sale: propTypes.string.isRequired,
   notRelated: propTypes.bool.isRequired,
   rating: propTypes.number.isRequired,
 };

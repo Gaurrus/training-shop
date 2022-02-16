@@ -83,8 +83,8 @@ export const FooterNav = () => (
         <h3 className={styles.title}>CATEGORIES</h3>
         <ul className={styles.list}>
           {footerNavListFirst.map((item) => (
-            <li>
-              <NavLink key={item.id} to={`${item.path}`} data-test-id={`footer-nav-link-${item.path}`}>
+            <li key={item.path}>
+              <NavLink to={`${item.path}`} data-test-id={`footer-nav-link-${item.path}`}>
                 {item.title}
               </NavLink>
             </li>
@@ -95,8 +95,8 @@ export const FooterNav = () => (
         <h3 className={styles.title}>INFORMATION</h3>
         <ul className={styles.list}>
           {footerNavListSecond.map((item) => (
-            <li>
-              <NavLink key={item.id} to={`${item.path}`} data-test-id={`footer-nav-link-${item.path}`}>
+            <li key={item.path}>
+              <NavLink to={`${item.path}`} data-test-id={`footer-nav-link-${item.path}`}>
                 {item.title}
               </NavLink>
             </li>
@@ -107,8 +107,8 @@ export const FooterNav = () => (
         <h3 className={styles.title}>USEFUL LINKS</h3>
         <ul className={styles.list}>
           {usefulLinks.map((item) => (
-            <li>
-              <NavLink key={item.id} to={`${item.path}`} data-test-id={`footer-nav-link-${item.path}`}>
+            <li key={item.path}>
+              <NavLink to={`${item.path}`} data-test-id={`footer-nav-link-${item.path}`}>
                 {item.title}
               </NavLink>
             </li>
@@ -118,19 +118,19 @@ export const FooterNav = () => (
       <div className={styles.footerItem}>
         <h3 className={styles.title}>CONTACT US</h3>
         <ul className={styles.list}>
-          <li>
+          <li key='location-ico'>
             <img src={location} alt='location-ico' />
             Belarus, Gomel, Lange 17
           </li>
-          <li>
+          <li key='phone-ico'>
             <img src={phone} alt='phone-ico' />
             +375 29 100 20 30
           </li>
-          <li>
+          <li key='clock-ico'>
             <img src={clock} alt='clock-ico' />
             All week 24/7
           </li>
-          <li>
+          <li key='mail-ico'>
             <img src={mail} alt='mail-ico' />
             info@clevertec.ru
           </li>
