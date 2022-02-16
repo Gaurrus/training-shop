@@ -6,8 +6,6 @@ import { Main } from '../main';
 import { GenderPage } from '../pages/gender-page';
 import { ProductPage } from '../pages/product-page/product-page';
 
-import { store } from '../constants/store';
-
 import realMarketJson from '../constants/real-market.json';
 
 import './reset.scss';
@@ -24,11 +22,11 @@ export const App = () => {
     <div data-test-id='app'>
       <Header />
       <Routes>
-        <Route exact path='/' element={<Main />} />
+        <Route exact path='/' element={<Main realMarketJson={realMarketJson} />} />
         <Route exact path='women' element={<GenderPage dresses={realMarketJson.women} productType='women' />} />
         <Route exact path='men' element={<GenderPage dresses={realMarketJson.men} productType='men' />} />
-        <Route exact path='women/:id' element={<ProductPage dresses={store.womensDress} productType='women' />} />
-        <Route exact path='men/:id' element={<ProductPage dresses={store.mensDress} productType='men' />} />
+        <Route exact path='women/:id' element={<ProductPage dresses={realMarketJson.women} productType='women' />} />
+        <Route exact path='men/:id' element={<ProductPage dresses={realMarketJson.men} productType='men' />} />
       </Routes>
       <Footer />
     </div>

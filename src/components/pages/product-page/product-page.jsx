@@ -93,14 +93,14 @@ export const ProductPage = ({ dresses, productType }) => {
               </li>
               <li className='nav-item'>►</li>
               <li className='nav-item'>
-                <NavLink to={`/${productType}`}>{dress.sex}</NavLink>
+                <NavLink to={`/${productType}`}>{dress.category}</NavLink>
               </li>
               <li className='nav-item'>►</li>
-              <li className='nav-item'>{dress.title}</li>
+              <li className='nav-item'>{dress.name}</li>
             </ul>
             <Share />
           </div>
-          <h2 className='title'>{dress.title}</h2>
+          <h2 className='title'>{dress.name}</h2>
           <div className='rating'>
             <div className='stars'>
               <div className='starsBlock'>
