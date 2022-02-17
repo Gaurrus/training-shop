@@ -6,8 +6,6 @@ import { Intro } from './intro/intro';
 import { Subscription } from './subscription/subscription';
 import { Blog } from './blog';
 
-import { store } from '../constants/store';
-
 import styles from './main.module.scss';
 
 export const Main = ({ realMarketJson }) => (

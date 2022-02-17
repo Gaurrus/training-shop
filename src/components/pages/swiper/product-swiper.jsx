@@ -29,11 +29,13 @@ export const ProductSwiper = ({ images }) => {
           modules={[Navigation, Thumbs, Controller]}
           className='product-thumb-swiper'
         >
-          {images.map((image) => (
-            <SwiperSlide>
-              <img src={`https://training.cleverland.by/shop${image.url}`} alt='img' />
-            </SwiperSlide>
-          ))}
+          {images
+            .filter((_, index) => index <= 3)
+            .map((image) => (
+              <SwiperSlide>
+                <img src={`https://training.cleverland.by/shop${image.url}`} alt='img' />
+              </SwiperSlide>
+            ))}
         </Swiper>
       </div>
       <Swiper

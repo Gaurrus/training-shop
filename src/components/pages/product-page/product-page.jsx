@@ -41,21 +41,6 @@ const colorChoice = [
   },
 ];
 
-const sizeArr = [
-  {
-    size: 'XS',
-  },
-  {
-    size: 'S',
-  },
-  {
-    size: 'M',
-  },
-  {
-    size: 'L',
-  },
-];
-
 const deliveryInfo = [
   {
     id: '01',
@@ -141,8 +126,8 @@ export const ProductPage = ({ dresses, productType }) => {
             <span className='specifications-title'>Size: </span>
             <span className='colorised-text'>S</span>
             <ul className='size-choice-list'>
-              {sizeArr.map((item) => (
-                <li className='size-choice-item'>{item.size}</li>
+              {dress.sizes.map((item) => (
+                <li className='size-choice-item'>{item}</li>
               ))}
             </ul>
             <div className='size-guide'>
@@ -184,11 +169,19 @@ export const ProductPage = ({ dresses, productType }) => {
               <div className='parameters-wrapper'>
                 <span className='additional-parameter'>
                   Color:
-                  <span className='parameters'> Blue, White, Black, Grey</span>
+                  <span className='parameters'>
+                    {colors.map((item) => (
+                      <span> {item}</span>
+                    ))}
+                  </span>
                 </span>
                 <span className='additional-parameter'>
                   Size:
-                  <span className='parameters'> XS, S, M, L</span>
+                  <span className='parameters'>
+                    {dress.sizes.map((item) => (
+                      <span className='size-choice-item'> {item}</span>
+                    ))}
+                  </span>
                 </span>
                 <span className='additional-parameter'>
                   Material:
@@ -204,7 +197,7 @@ export const ProductPage = ({ dresses, productType }) => {
                   <div className='starsBlock'>
                     <RatingBig rating={dress.rating} />
                   </div>
-                  <span className='num-of-reviews'>2 Reviews</span>
+                  <span className='num-of-reviews'>{dress.reviews.length} Reviews</span>
                 </div>
                 <div className='write-review'>
                   <img src={review} alt='' className='review-ico' />
