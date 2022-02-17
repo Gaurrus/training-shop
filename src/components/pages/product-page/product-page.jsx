@@ -22,7 +22,7 @@ import mail from './assets/mail.svg';
 import review from './assets/review.svg';
 
 import { brendsColor } from '../../constants/brends-color';
-import { store } from '../../constants/store';
+import { INITIAL_DRESS } from '../../constants/initial-dress';
 
 import './product.scss';
 
@@ -76,15 +76,13 @@ const deliveryInfo = [
 
 export const ProductPage = ({ dresses, productType }) => {
   const { id } = useParams();
-  const [dress, setDress] = useState({});
+  const [dress, setDress] = useState(INITIAL_DRESS);
 
   useEffect(() => {
     setDress(dresses.find((item) => item.id === id));
   }, [dresses, setDress, id]);
 
-  console.log(dress);
-
-  // const colors = Array.from(new Set(dress.images.map(({ color }) => color)));
+  const colors = Array.from(new Set(dress.images.map(({ color }) => color)));
 
   return (
     <div className='wrapper' data-test-id={`product-page-${productType}`}>
@@ -213,7 +211,7 @@ export const ProductPage = ({ dresses, productType }) => {
                   <span className='write-review-text'>Write a review</span>
                 </div>
                 <div className='posts'>
-                  {/* {dress.reviews.map((post) => (
+                  {dress.reviews.map((post) => (
                     <div className='post'>
                       <div className='post-title'>
                         <span className='user-name'>{post.name}</span>
@@ -222,7 +220,7 @@ export const ProductPage = ({ dresses, productType }) => {
                       </div>
                       <p className='post-text'>{post.text}</p>
                     </div>
-                  ))} */}
+                  ))}
                 </div>
                 <div className='horisontal-line' />
               </div>

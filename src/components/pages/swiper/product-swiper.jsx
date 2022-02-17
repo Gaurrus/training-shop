@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable import/no-unresolved */
 import React, { useState } from 'react';
 
@@ -6,26 +7,9 @@ import { Controller, FreeMode, Navigation, Thumbs } from 'swiper';
 
 import 'swiper/css/bundle';
 
-import thumb01 from '../product-page/assets/product01-max.jpg';
-
 import styles from './product-swiper.scss';
 
-const images = [
-  {
-    src: thumb01,
-  },
-  {
-    src: thumb01,
-  },
-  {
-    src: thumb01,
-  },
-  {
-    src: thumb01,
-  },
-];
-
-export const ProductSwiper = () => {
+export const ProductSwiper = ({ images }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [controlledSwiper, setControlledSwiper] = useState(null);
   const setNext = () => controlledSwiper.slideNext();
@@ -47,7 +31,7 @@ export const ProductSwiper = () => {
         >
           {images.map((image) => (
             <SwiperSlide>
-              <img src={image.src} alt='img' />
+              <img src={`https://training.cleverland.by/shop${image.url}`} alt='img' />
             </SwiperSlide>
           ))}
         </Swiper>
@@ -63,7 +47,7 @@ export const ProductSwiper = () => {
       >
         {images.map((image) => (
           <SwiperSlide className={styles.big}>
-            <img src={image.src} alt='img' />
+            <img src={`https://training.cleverland.by/shop${image.url}`} alt='img' />
           </SwiperSlide>
         ))}
       </Swiper>
