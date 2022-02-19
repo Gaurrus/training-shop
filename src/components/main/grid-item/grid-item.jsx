@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { Rating } from '../../rating/rating';
 
-import styles from './grid-item.module.css';
+import styles from './grid-item.module.scss';
 import saleStyles from './sale.module.scss';
 
 export const GridItem = ({ img, title, price, sale, notRelated, rating }) => (

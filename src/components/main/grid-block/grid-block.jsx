@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 
 import { GridItem } from '../grid-item';
 
-import styles from './grid-block.module.css';
+import styles from './grid-block.module.scss';
 
 export const GridBlock = ({ dresses, productType }) => (
   <div className={styles.wrapper}>

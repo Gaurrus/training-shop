@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { HashRouter } from 'react-router-dom';
 import { App } from './components/app';
 
-import './index.css';
+import './index.scss';
 
 import reportWebVitals from './reportWebVitals';
 

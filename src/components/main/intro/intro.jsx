@@ -14,20 +14,8 @@ import 'swiper/css/bundle';
 export const Intro = () => (
   <div className={styles.wrapper}>
     <div className={styles.intro}>
-      <div className={styles.slider}>
-        <Swiper
-          modules={[Navigation, Pagination, Autoplay, EffectFade]}
-          navigation
-          pagination
-          effect='fade'
-          loop
-          autoplay={{
-            delay: 5000,
-            disableOnInteraction: false,
-          }}
-          spaceBetween={50}
-          slidesPerView={1}
-        >
+      <div className={styles.slider} data-test-id='main-slider'>
+        <Swiper modules={[Navigation, EffectFade]} navigation effect='fade' spaceBetween={50} slidesPerView={1}>
           {sliderStore.map((item) => (
             <SwiperSlide key={item.id}>
               <div className={styles.sliderWrapper}>

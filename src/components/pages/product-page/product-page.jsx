@@ -119,7 +119,7 @@ export const ProductPage = ({ dresses, productType }) => {
       </div>
       <div className='product'>
         <div className='left-block'>
-          <ProductSwiper />
+          <ProductSwiper data-test-id='main-slider' />
         </div>
         <div className='right-block'>
           <div className='specifications'>
