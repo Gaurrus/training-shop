@@ -60,7 +60,7 @@ export const Nav = () => {
           <img src={logo} alt='logo' />
         </NavLink>
         <div className={styles.itemBlock}>
-          <ul className={classNames(styles.navList, { 'active-list': isBurgerActive })} data-test-id='menu'>
+          <ul className={classNames(styles.navList, { 'active-list': isBurgerActive })} data-test-id='burger-menu'>
             {navList.map((navItem) => (
               <li>
                 <NavLink
@@ -86,6 +86,7 @@ export const Nav = () => {
           <img src={cart} alt='Cart' />
           <div
             className={classNames(styles.burger, { activeBurger: isBurgerActive })}
+            data-test-id='burger-manu-btn'
             aria-hidden
             onClick={() => {
               setIsBurgerActive(!isBurgerActive);

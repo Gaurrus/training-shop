@@ -30,6 +30,7 @@ export const Related = ({ dresses, productType }) => {
         </div>
         <div className={styles.related}>
           <Swiper
+            data-test-id='related-slider'
             className={styles.relatedSwiper}
             // onSwiper={setControlledSwiper}
             spaceBetween={10}
