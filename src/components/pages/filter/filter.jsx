@@ -18,10 +18,10 @@ export const Filter = ({ filterOnCick }) => (
         <img src={lines} alt='' />
         <img src={grid} alt='' />
       </div>
-      <div className={styles.bestsellers}>
+      {/* <div className={styles.bestsellers}>
         <span className={styles.bestsellersText}>BESTSELLERS</span>
         <img src={downArrow} alt='arrow' className={styles.downArrow} />
-      </div>
+      </div> */}
     </div>
   </div>
 );

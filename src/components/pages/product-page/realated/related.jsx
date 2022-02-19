@@ -52,21 +52,22 @@ export const Related = ({ dresses, productType }) => {
             modules={[Controller, Autoplay]}
             onSwiper={setControlledSwiper}
           >
-            {dresses.map((item) => (
-              <SwiperSlide className={styles.slideItem}>
-                <NavLink key={item.id} to={`/${productType}/${item.id}`}>
-                  <GridItem
-                    key={item.id}
-                    img={item.img}
-                    title={item.title}
-                    price={item.price}
-                    sale={item.sale}
-                    notRelated={item.notRelated}
-                    rating={item.rating}
-                  />
-                </NavLink>
-              </SwiperSlide>
-            ))}
+            {dresses
+              .filter((item) => item.rating > 4)
+              .map((item) => (
+                <SwiperSlide className={styles.slideItem}>
+                  <NavLink key={item.id} to={`/${productType}/${item.id}`}>
+                    <GridItem
+                      key={item.id}
+                      img={item.images[0].url}
+                      title={item.title}
+                      price={item.price}
+                      sale={item.discount}
+                      rating={item.rating}
+                    />
+                  </NavLink>
+                </SwiperSlide>
+              ))}
           </Swiper>
         </div>
       </div>

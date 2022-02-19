@@ -28,14 +28,17 @@ export const ProductSwiper = ({ images }) => {
           watchSlidesProgress
           modules={[Navigation, Thumbs, Controller]}
           className='product-thumb-swiper'
+          breakpoints={{
+            1135: {
+              direction: 'vertical',
+            },
+          }}
         >
-          {images
-            .filter((_, index) => index <= 3)
-            .map((image) => (
-              <SwiperSlide>
-                <img src={`https://training.cleverland.by/shop${image.url}`} alt='img' />
-              </SwiperSlide>
-            ))}
+          {images.map((image) => (
+            <SwiperSlide>
+              <img src={`https://training.cleverland.by/shop${image.url}`} alt='img' />
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
       <Swiper
