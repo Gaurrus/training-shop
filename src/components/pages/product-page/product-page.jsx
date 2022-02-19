@@ -106,7 +106,7 @@ export const ProductPage = ({ dresses, productType }) => {
       </div>
       <div className='product'>
         <div className='left-block'>
-          <ProductSwiper images={dress.images} />
+          <ProductSwiper images={dress.images} data-test-id='main-slider' />
         </div>
         <div className='right-block'>
           <div className='specifications'>
