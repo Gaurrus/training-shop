@@ -86,7 +86,7 @@ export const Nav = () => {
           <img src={cart} alt='Cart' />
           <div
             className={classNames(styles.burger, { activeBurger: isBurgerActive })}
-            data-test-id='burger-manu-btn'
+            data-test-id='burger-menu-btn'
             aria-hidden
             onClick={() => {
               setIsBurgerActive(!isBurgerActive);
