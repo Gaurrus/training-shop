@@ -5,6 +5,8 @@ import { Footer } from '../footer';
 import { Main } from '../main';
 import { GenderPage } from '../pages/gender-page';
 import { ProductPage } from '../pages/product-page/product-page';
+import { Modal } from '../modal';
+import { Cart } from '../cart';
 
 import { realMarket } from '../constants/real-market';
 
@@ -28,6 +30,9 @@ export const App = () => {
         <Route exact path='women/:id' element={<ProductPage dresses={realMarket.women} productType='women' />} />
         <Route exact path='men/:id' element={<ProductPage dresses={realMarket.men} productType='men' />} />
       </Routes>
+      <Modal>
+        <Cart />
+      </Modal>
       <Footer />
     </div>
   );
