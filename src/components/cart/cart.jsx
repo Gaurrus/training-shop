@@ -1,7 +1,34 @@
+import { useState, useEffect } from 'react';
+
+import { CartProducts } from './cart-products';
+import { CartDelivery } from './cart-delivery/cart-delivery';
+import { CartPayment } from './cart-payment';
+
 import styles from './cart.module.scss';
 
 export const Cart = () => {
-  const cart = [];
+  const [isProductsActive, setIsProductsActive] = useState(false);
+  const [isDelyveryActive, setIsDelyveryActive] = useState(false);
+  const [isPaymentActive, setIsPaymentActive] = useState(false);
+
+  useEffect(() => setIsProductsActive(true), []);
+
+  const cartProductsOnClick = () => {
+    setIsProductsActive(true);
+    setIsPaymentActive(false);
+    setIsDelyveryActive(false);
+  };
+  const cartDelyveryOnClick = () => {
+    setIsProductsActive(false);
+    setIsDelyveryActive(true);
+    setIsPaymentActive(false);
+  };
+  const cartPaymentOnClick = () => {
+    setIsProductsActive(false);
+    setIsDelyveryActive(false);
+    setIsPaymentActive(true);
+  };
+
   return (
     <div className={styles.cart}>
       <div className={styles.cartHeader}>
@@ -12,14 +39,22 @@ export const Cart = () => {
         </div>
       </div>
       <div className={styles.cartNav}>
-        <span className={styles.navItem}>Item in Cart</span>/<span className={styles.navItem}>Delivery Info</span>/
-        <span className={styles.navItem}>Payment</span>
+        <span aria-hidden className={styles.navItem} onClick={cartProductsOnClick}>
+          Item in Cart
+        </span>
+        /
+        <span aria-hidden className={styles.navItem} onClick={cartDelyveryOnClick}>
+          Delivery Info
+        </span>
+        /
+        <span aria-hidden className={styles.navItem} onClick={cartPaymentOnClick}>
+          Payment
+        </span>
       </div>
       <div className={styles.cartMain}>
-        <div className={styles.products}>
-          <div className={styles.product}>Продукт</div>
-          <div className={styles.horisontalLine} />
-        </div>
+        {isProductsActive && <CartProducts />}
+        {isDelyveryActive && <CartDelivery />}
+        {isPaymentActive && <CartPayment />}
       </div>
     </div>
   );
