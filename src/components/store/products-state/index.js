@@ -1,24 +1,26 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-
-const initialProductsState = {
-  isLoading: false,
-  isError: false,
-  products: {
-    men: [],
-    women: [],
-  },
-};
+import { initialProductsState } from './initial-state';
 
 const productsSlice = createSlice({
   name: 'productsReducer',
   initialState: initialProductsState,
-  redusers: {
-    getProducts: (state) => {
+  reducers: {
+    getProductsRequest: (state) => {
       state.isLoading = true;
+      state.isError = false;
+      state.data = initialProductsState.data;
+    },
+    getProductsSeccess: (state, action) => {
+      state.isLoading = false;
+      state.isError = false;
+      state.data = action.payload;
+    },
+    getProductsError: (state) => {
+      state.isError = true;
     },
   },
 });
 
+export const { getProductsRequest, getProductsSeccess, getProductsError } = productsSlice.actions;
 export default productsSlice.reducer;
-export const { getProducts } = productsSlice.actions;

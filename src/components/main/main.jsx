@@ -8,14 +8,14 @@ import { Blog } from './blog';
 
 import styles from './main.module.scss';
 
-export const Main = ({ realMarketJson }) => (
+export const Main = ({ products }) => (
   <main className={styles.wrapper}>
     <div className={styles.main}>
       <Intro />
       <Advantage />
       <div className={styles.contentWrapper}>
-        <Clothers dresses={realMarketJson.women} productType='women' />
-        <Clothers dresses={realMarketJson.men} productType='men' />
+        <Clothers dresses={products?.women} productType='women' />
+        <Clothers dresses={products?.men} productType='men' />
       </div>
       <Promotion />
       <Subscription />
