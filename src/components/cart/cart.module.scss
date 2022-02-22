@@ -17,15 +17,19 @@
       text-transform: uppercase;
       color: #ffffff;
     }
-    .line {
+    .crossButton {
       width: 12px;
-      height: 1px;
-      background-color: #ffffff;
-      &:first-of-type {
-        transform: translateY(1px) rotate(45deg);
-      }
-      &:last-of-type {
-        transform: rotate(-45deg);
+      height: 12px;
+      .line {
+        width: 12px;
+        height: 1px;
+        background-color: #ffffff;
+        &:first-of-type {
+          transform: translateY(5px) rotate(45deg);
+        }
+        &:last-of-type {
+          transform: translateY(4px) rotate(-45deg);
+        }
       }
     }
   }

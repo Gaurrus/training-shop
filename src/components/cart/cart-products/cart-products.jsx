@@ -1,4 +1,7 @@
+import classNames from 'classnames';
 import { realMarket } from '../../constants/real-market';
+
+import trashIco from './assets/trash-ico.svg';
 
 import styles from './cart-products.module.scss';
 
@@ -25,12 +28,25 @@ export const CartProducts = () => (
                 <div className={styles.priceAndAmount}>
                   <input type='number' className={styles.amount} />
                   <span className={styles.price}>${item.price}</span>
+                  <img src={trashIco} alt='trashIco' className={styles.trash} />
                 </div>
               </div>
             </div>
             <div className={styles.horisontalLine} />
           </div>
         ))}
+    </div>
+    <div className={styles.cardFooter}>
+      <div className={styles.totalPrice}>
+        <span className={styles.totalText}>Total</span>
+        <span className={styles.totalPrice}>$100.500</span>
+      </div>
+      <button type='button' className={classNames(styles.further, styles.button)}>
+        Further
+      </button>
+      <button type='button' className={classNames(styles.viewCart, styles.button)}>
+        View Cart
+      </button>
     </div>
   </div>
 );

@@ -1,7 +1,51 @@
 .wrapper {
   .cards {
+    padding: 0 24px;
     .card {
       .productInfo {
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+        width: 100%;
+        .productShortInfo {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          width: 100%;
+          .textInfo {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            .title {
+              font-size: 14px;
+              line-height: 22px;
+              opacity: 0.6;
+            }
+            .properties {
+              font-weight: 600;
+              font-size: 12px;
+              line-height: 18px;
+            }
+          }
+          .priceAndAmount {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            .amount {
+              max-width: 81px;
+            }
+            .price {
+              font-weight: bold;
+              font-size: 14px;
+              line-height: 22px;
+            }
+            .trash {
+              margin: 0 0 0 auto;
+            }
+          }
+        }
         .cardImg {
           max-width: 83px;
         }
@@ -11,6 +55,57 @@
         height: 4px;
         background-color: #e6e6e6;
         margin: 12px 0;
+        &:last-of-type {
+          margin-bottom: 150px;
+        }
+      }
+    }
+  }
+  .cardFooter {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    gap: 12px;
+    .totalPrice {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      .totalText {
+        font-size: 14px;
+        line-height: 22px;
+      }
+      .totalPrice {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+    }
+    .button {
+      padding: 16px 0;
+      background-color: #121212;
+      font-weight: 500;
+      font-size: 13px;
+      line-height: 15px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.9);
+      border: unset;
+      min-width: 70px;
+    }
+    .further {
+      background-color: #121212;
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+    .viewCart {
+      background-color: #f8f8f8;
+      color: rgba(18, 18, 18, 0.9);
+      &:hover {
+        background-color: #121212;
+        color: #ffffff;
       }
     }
   }

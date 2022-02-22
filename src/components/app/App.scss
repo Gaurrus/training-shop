@@ -1,0 +1,15 @@
+.shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  background-color: #121212;
+  opacity: 0.8;
+  z-index: 4;
+}
+
+.shadow-active {
+  display: block;
+}

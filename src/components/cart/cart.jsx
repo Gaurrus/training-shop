@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { PropTypes } from 'prop-types';
 
 import { CartProducts } from './cart-products';
 import { CartDelivery } from './cart-delivery/cart-delivery';
@@ -6,7 +7,7 @@ import { CartPayment } from './cart-payment';
 
 import styles from './cart.module.scss';
 
-export const Cart = () => {
+export const Cart = ({ closeCart }) => {
   const [isProductsActive, setIsProductsActive] = useState(false);
   const [isDelyveryActive, setIsDelyveryActive] = useState(false);
   const [isPaymentActive, setIsPaymentActive] = useState(false);
@@ -33,7 +34,7 @@ export const Cart = () => {
     <div className={styles.cart}>
       <div className={styles.cartHeader}>
         <span className={styles.title}>Shopping Cart</span>
-        <div className={styles.crossButton}>
+        <div aria-hidden onClick={closeCart} className={styles.crossButton}>
           <div className={styles.line} />
           <div className={styles.line} />
         </div>
@@ -58,4 +59,8 @@ export const Cart = () => {
       </div>
     </div>
   );
+};
+
+Cart.propTypes = {
+  closeCart: PropTypes.func.isRequired,
 };
