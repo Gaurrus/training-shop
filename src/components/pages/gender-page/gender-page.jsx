@@ -12,8 +12,24 @@ import styles from './gender-page.module.scss';
 
 export const GenderPage = ({ productType, dresses }) => {
   const [isFilterActive, setIsFIlterActive] = useState(false);
+  const [checkedColors, setCheckedColors] = useState([]);
 
   const filterOnCick = () => setIsFIlterActive(!isFilterActive);
+
+  const giveUniqueColors = () =>
+    dresses?.reduce((acc, dress) => Array.from(new Set([...acc, ...dress.images.map((image) => image.color)])), []);
+  const giveUniqueBrands = () => Array.from(new Set(dresses?.map((dress) => dress.brand)));
+  const giveUniqueSizes = () => dresses?.reduce((acc, dress) => Array.from(new Set([...acc, ...dress.sizes])), []);
+
+  const onColorChange = (item) => {
+    if (checkedColors.includes(item)) {
+      setCheckedColors(checkedColors.filter((color) => color !== item));
+    } else {
+      setCheckedColors(...checkedColors, item);
+    }
+  };
+
+  console.log(checkedColors);
   return (
     <div className={styles.wrapper} data-test-id={`products-page-${productType}`}>
       <div className={styles.women}>
@@ -36,7 +52,12 @@ export const GenderPage = ({ productType, dresses }) => {
         </div>
         <Filter filterOnCick={filterOnCick} />
         <div className={classNames(styles.menu, { [styles.menuActive]: isFilterActive })}>
-          <FilterMenu />
+          <FilterMenu
+            giveUniqueColors={giveUniqueColors}
+            giveUniqueSizes={giveUniqueSizes}
+            giveUniqueBrands={giveUniqueBrands}
+            onColorChange={onColorChange}
+          />
         </div>
         <GridBlock dresses={dresses} productType={productType} />
         <div className={styles.loading}>
