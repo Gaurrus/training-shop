@@ -1,89 +1,43 @@
+import { PropTypes } from 'prop-types';
+
 import styles from './filter-menu.module.scss';
 
 const filterData = {
-  colors: [
-    {
-      prop: 'Black',
-    },
-    {
-      prop: 'Cyan',
-    },
-    {
-      prop: 'Green',
-    },
-    {
-      prop: 'Grey',
-    },
-    {
-      prop: 'Pink',
-    },
-    {
-      prop: 'White',
-    },
-    {
-      prop: 'Blue',
-    },
-  ],
-  sizes: [
-    {
-      prop: 'XL',
-    },
-    {
-      prop: 'L',
-    },
-    {
-      prop: 'M',
-    },
-    {
-      prop: 'S',
-    },
-    {
-      prop: 'XS',
-    },
-  ],
-  brands: [
-    {
-      prop: 'Ck',
-    },
-    {
-      prop: 'H&M',
-    },
-    {
-      prop: 'Kalles',
-    },
-    {
-      prop: `Levi's`,
-    },
-    {
-      prop: 'Monki',
-    },
-    {
-      prop: 'Nike',
-    },
-  ],
   prices: [
     {
       prop: '$1200+',
+      min: 1200,
+      max: Infinity,
     },
     {
       prop: '$600-$1200',
+      min: 600,
+      max: 1200,
     },
     {
       prop: '$300-$600',
+      min: 300,
+      max: 600,
     },
     {
       prop: '$150-$300',
+      min: 150,
+      max: 300,
     },
     {
       prop: '$50-$150',
+      min: 50,
+      max: 150,
     },
     {
       prop: '$7-$50',
+      min: 7,
+      max: 50,
     },
   ],
 };
 
-export const FilterMenu = () => {
+export const FilterMenu = ({ giveUniqueColors, giveUniqueSizes, giveUniqueBrands, onColorChange }) => {
   const filter = {};
   return (
     <div className={styles.wrapper}>
@@ -91,33 +45,34 @@ export const FilterMenu = () => {
         <div className={styles.filterList}>
           <h4 className={styles.title}>Color</h4>
           <div className={styles.itemWrapper}>
-            {filterData.colors.map((item) => (
-              <div className={styles.item} key={item.prop}>
-                <div className={styles.colorDisc} style={{ backgroundColor: `${item.prop}` }} />
-                <span className={styles.itemName}>{item.prop}</span>
-              </div>
+            {giveUniqueColors()?.map((item) => (
+              <label htmlFor={item} key={item} className={styles.item}>
+                <div className={styles.colorDisc} style={{ backgroundColor: `${item}` }} />
+                <input type='checkbox' id={item} className={styles.checkbox} onChange={() => onColorChange(item)} />
+                <span className={styles.itemName}>{item}</span>
+              </label>
             ))}
           </div>
         </div>
         <div className={styles.filterList}>
           <h4 className={styles.title}>Size</h4>
           <div className={styles.itemWrapper}>
-            {filterData.sizes.map((item) => (
-              <div className={styles.item} key={item.prop}>
-                <input type='checkbox' className={styles.checkbox} />
-                <span className={styles.itemName}>{item.prop}</span>
-              </div>
+            {giveUniqueSizes()?.map((item) => (
+              <label htmlFor={item} key={item} className={styles.item}>
+                <input type='checkbox' id={item} className={styles.checkbox} />
+                <span className={styles.itemName}>{item}</span>
+              </label>
             ))}
           </div>
         </div>
         <div className={styles.filterList}>
           <h4 className={styles.title}>Brand</h4>
           <div className={styles.itemWrapper}>
-            {filterData.brands.map((item) => (
-              <div className={styles.item} key={item.prop}>
-                <input type='checkbox' className={styles.checkbox} />
-                <span className={styles.itemName}>{item.prop}</span>
-              </div>
+            {giveUniqueBrands()?.map((item) => (
+              <label htmlFor={item} key={item} className={styles.item}>
+                <input type='checkbox' id={item} className={styles.checkbox} />
+                <span className={styles.itemName}>{item}</span>
+              </label>
             ))}
           </div>
         </div>
@@ -125,14 +80,21 @@ export const FilterMenu = () => {
           <h4 className={styles.title}>Price</h4>
           <div className={styles.itemWrapper}>
             {filterData.prices.map((item) => (
-              <div className={styles.item} key={item.prop}>
-                <input type='checkbox' className={styles.checkbox} />
+              <label htmlFor={item.prop} className={styles.item} key={item.prop}>
+                <input type='checkbox' id={item.prop} className={styles.checkbox} />
                 <span className={styles.itemName}>{item.prop}</span>
-              </div>
+              </label>
             ))}
           </div>
         </div>
       </div>
     </div>
   );
+};
+
+FilterMenu.propTypes = {
+  giveUniqueColors: PropTypes.func.isRequired,
+  giveUniqueSizes: PropTypes.func.isRequired,
+  giveUniqueBrands: PropTypes.func.isRequired,
+  onColorChange: PropTypes.func.isRequired,
 };
