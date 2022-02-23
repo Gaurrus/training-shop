@@ -140,34 +140,36 @@ export const GenderPage = ({ productType, dresses }) => {
 };
 
 GenderPage.propTypes = {
-  dresses: PropTypes.arrayOf({
-    particulars: PropTypes.objectOf({
-      isNewArrivals: PropTypes.bool,
-      isSpecial: PropTypes.bool,
-      isBestseller: PropTypes.bool,
-      isMostViewed: PropTypes.bool,
-      isFeatured: PropTypes.bool,
-    }),
-    name: PropTypes.string,
-    category: PropTypes.string,
-    brand: PropTypes.string,
-    material: PropTypes.string,
-    rating: PropTypes.number,
-    price: PropTypes.number,
-    sizes: PropTypes.arrayOf([]),
-    discount: PropTypes.number,
-    reviews: PropTypes.arrayOf({
+  dresses: PropTypes.arrayOf(
+    PropTypes.shape({
+      particulars: PropTypes.objectOf({
+        isNewArrivals: PropTypes.bool,
+        isSpecial: PropTypes.bool,
+        isBestseller: PropTypes.bool,
+        isMostViewed: PropTypes.bool,
+        isFeatured: PropTypes.bool,
+      }),
       name: PropTypes.string,
-      text: PropTypes.string,
+      category: PropTypes.string,
+      brand: PropTypes.string,
+      material: PropTypes.string,
       rating: PropTypes.number,
+      price: PropTypes.number,
+      sizes: PropTypes.arrayOf([]),
+      discount: PropTypes.number,
+      reviews: PropTypes.arrayOf({
+        name: PropTypes.string,
+        text: PropTypes.string,
+        rating: PropTypes.number,
+        id: PropTypes.string,
+      }),
+      images: PropTypes.arrayOf({
+        color: PropTypes.string,
+        url: PropTypes.string,
+        id: PropTypes.string,
+      }),
       id: PropTypes.string,
-    }),
-    images: PropTypes.arrayOf({
-      color: PropTypes.string,
-      url: PropTypes.string,
-      id: PropTypes.string,
-    }),
-    id: PropTypes.string,
-  }).isRequired,
+    })
+  ).isRequired,
   productType: PropTypes.string.isRequired,
 };

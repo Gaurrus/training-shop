@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import propTypes, { arrayOf, objectOf, string } from 'prop-types';
+import PropTypes from 'prop-types';
 
 import { GridItem } from '../grid-item';
 
@@ -54,33 +54,36 @@ export const GridBlock = ({ dresses, productType, particular }) => {
 };
 
 GridBlock.propTypes = {
-  dresses: propTypes.arrayOf({
-    particulars: objectOf({
-      isNewArrivals: propTypes.bool,
-      isSpecial: propTypes.bool,
-      isBestseller: propTypes.bool,
-      isMostViewed: propTypes.bool,
-      isFeatured: propTypes.bool,
-    }),
-    name: propTypes.string,
-    category: propTypes.string,
-    brand: propTypes.string,
-    material: propTypes.string,
-    rating: propTypes.number,
-    price: propTypes.number,
-    sizes: arrayOf(string),
-    discount: propTypes.number,
-    reviews: arrayOf({
-      name: propTypes.string,
-      text: propTypes.string,
-      rating: propTypes.number,
-      id: propTypes.string,
-    }),
-    images: arrayOf({
-      color: propTypes.string,
-      url: propTypes.string,
-      id: propTypes.string,
-    }),
-  }).isRequired,
-  productType: propTypes.string.isRequired,
+  dresses: PropTypes.arrayOf(
+    PropTypes.shape({
+      particulars: PropTypes.objectOf({
+        isNewArrivals: PropTypes.bool,
+        isSpecial: PropTypes.bool,
+        isBestseller: PropTypes.bool,
+        isMostViewed: PropTypes.bool,
+        isFeatured: PropTypes.bool,
+      }),
+      name: PropTypes.string,
+      category: PropTypes.string,
+      brand: PropTypes.string,
+      material: PropTypes.string,
+      rating: PropTypes.number,
+      price: PropTypes.number,
+      sizes: PropTypes.arrayOf([]),
+      discount: PropTypes.number,
+      reviews: PropTypes.arrayOf({
+        name: PropTypes.string,
+        text: PropTypes.string,
+        rating: PropTypes.number,
+        id: PropTypes.string,
+      }),
+      images: PropTypes.arrayOf({
+        color: PropTypes.string,
+        url: PropTypes.string,
+        id: PropTypes.string,
+      }),
+      id: PropTypes.string,
+    })
+  ).isRequired,
+  productType: PropTypes.string.isRequired,
 };
