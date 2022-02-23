@@ -13,6 +13,8 @@ import styles from './gender-page.module.scss';
 export const GenderPage = ({ productType, dresses }) => {
   const [isFilterActive, setIsFIlterActive] = useState(false);
   const [checkedColors, setCheckedColors] = useState([]);
+  const [checkedSizes, setCheckedSizes] = useState([]);
+  const [checkedBrands, setCheckedBrands] = useState([]);
 
   const filterOnCick = () => setIsFIlterActive(!isFilterActive);
 
@@ -22,14 +24,39 @@ export const GenderPage = ({ productType, dresses }) => {
   const giveUniqueSizes = () => dresses?.reduce((acc, dress) => Array.from(new Set([...acc, ...dress.sizes])), []);
 
   const onColorChange = (item) => {
-    if (checkedColors.includes(item)) {
-      setCheckedColors(checkedColors.filter((color) => color !== item));
+    console.log(item, `onColorChange`);
+    console.log(checkedColors, `initial`);
+
+    if (checkedColors?.includes(item)) {
+      setCheckedColors(checkedColors?.filter((color) => color !== item));
+      console.log('убрать');
     } else {
       setCheckedColors(...checkedColors, item);
+      console.log('дабавить');
+    }
+  };
+  const onSizeChange = (item) => {
+    if (checkedSizes?.includes(item)) {
+      setCheckedSizes(checkedSizes?.filter((size) => size !== item));
+      console.log('убрать');
+    } else {
+      setCheckedSizes(...checkedColors, item);
+      console.log('дабавить');
+    }
+  };
+  const onBrandChange = (item) => {
+    if (checkedBrands?.includes(item)) {
+      setCheckedBrands(checkedBrands?.filter((brand) => brand !== item));
+      console.log('убрать');
+    } else {
+      setCheckedBrands(...checkedBrands, item);
+      console.log('дабавить');
     }
   };
 
   console.log(checkedColors);
+  console.log(checkedBrands);
+  console.log(checkedSizes);
   return (
     <div className={styles.wrapper} data-test-id={`products-page-${productType}`}>
       <div className={styles.women}>
@@ -57,6 +84,8 @@ export const GenderPage = ({ productType, dresses }) => {
             giveUniqueSizes={giveUniqueSizes}
             giveUniqueBrands={giveUniqueBrands}
             onColorChange={onColorChange}
+            onSizeChange={onSizeChange}
+            onBrandChange={onBrandChange}
           />
         </div>
         <GridBlock dresses={dresses} productType={productType} />

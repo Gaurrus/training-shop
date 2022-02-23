@@ -37,7 +37,14 @@ const filterData = {
   ],
 };
 
-export const FilterMenu = ({ giveUniqueColors, giveUniqueSizes, giveUniqueBrands, onColorChange }) => {
+export const FilterMenu = ({
+  giveUniqueColors,
+  giveUniqueSizes,
+  giveUniqueBrands,
+  onColorChange,
+  onSizeChange,
+  onBrandChange,
+}) => {
   const filter = {};
   return (
     <div className={styles.wrapper}>
@@ -59,7 +66,7 @@ export const FilterMenu = ({ giveUniqueColors, giveUniqueSizes, giveUniqueBrands
           <div className={styles.itemWrapper}>
             {giveUniqueSizes()?.map((item) => (
               <label htmlFor={item} key={item} className={styles.item}>
-                <input type='checkbox' id={item} className={styles.checkbox} />
+                <input type='checkbox' id={item} className={styles.checkbox} onChange={() => onSizeChange(item)} />
                 <span className={styles.itemName}>{item}</span>
               </label>
             ))}
@@ -70,7 +77,7 @@ export const FilterMenu = ({ giveUniqueColors, giveUniqueSizes, giveUniqueBrands
           <div className={styles.itemWrapper}>
             {giveUniqueBrands()?.map((item) => (
               <label htmlFor={item} key={item} className={styles.item}>
-                <input type='checkbox' id={item} className={styles.checkbox} />
+                <input type='checkbox' id={item} className={styles.checkbox} onChange={() => onBrandChange(item)} />
                 <span className={styles.itemName}>{item}</span>
               </label>
             ))}
@@ -97,4 +104,6 @@ FilterMenu.propTypes = {
   giveUniqueSizes: PropTypes.func.isRequired,
   giveUniqueBrands: PropTypes.func.isRequired,
   onColorChange: PropTypes.func.isRequired,
+  onSizeChange: PropTypes.func.isRequired,
+  onBrandChange: PropTypes.func.isRequired,
 };

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Route, Routes, useLocation } from 'react-router-dom';

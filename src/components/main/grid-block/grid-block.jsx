@@ -7,7 +7,6 @@ import styles from './grid-block.module.scss';
 
 // eslint-disable-next-line react/prop-types
 export const GridBlock = ({ dresses, productType, particular }) => {
-  console.log(dresses);
   return (
     <div className={styles.wrapper}>
       <div className={styles.gridBlock}>
