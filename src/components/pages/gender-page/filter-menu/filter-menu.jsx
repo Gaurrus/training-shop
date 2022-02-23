@@ -44,6 +44,7 @@ export const FilterMenu = ({
   onColorChange,
   onSizeChange,
   onBrandChange,
+  onPriceChange,
 }) => {
   const filter = {};
   return (
@@ -88,7 +89,12 @@ export const FilterMenu = ({
           <div className={styles.itemWrapper}>
             {filterData.prices.map((item) => (
               <label htmlFor={item.prop} className={styles.item} key={item.prop}>
-                <input type='checkbox' id={item.prop} className={styles.checkbox} />
+                <input
+                  type='checkbox'
+                  id={item.prop}
+                  className={styles.checkbox}
+                  onChange={() => onPriceChange(item.prop)}
+                />
                 <span className={styles.itemName}>{item.prop}</span>
               </label>
             ))}
@@ -106,4 +112,5 @@ FilterMenu.propTypes = {
   onColorChange: PropTypes.func.isRequired,
   onSizeChange: PropTypes.func.isRequired,
   onBrandChange: PropTypes.func.isRequired,
+  onPriceChange: PropTypes.func.isRequired,
 };

@@ -53,8 +53,8 @@ export const Related = ({ dresses, productType }) => {
             onSwiper={setControlledSwiper}
           >
             {dresses
-              .filter((item) => item.rating > 4)
-              .map((item) => (
+              ?.filter((item) => item.rating > 4)
+              ?.map((item) => (
                 <SwiperSlide className={styles.slideItem}>
                   <NavLink key={item.id} to={`/${productType}/${item.id}`}>
                     <GridItem

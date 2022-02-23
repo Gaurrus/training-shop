@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 
 import { FilterMenu } from './filter-menu';
@@ -15,6 +15,8 @@ export const GenderPage = ({ productType, dresses }) => {
   const [checkedColors, setCheckedColors] = useState([]);
   const [checkedSizes, setCheckedSizes] = useState([]);
   const [checkedBrands, setCheckedBrands] = useState([]);
+  const [checkedPrices, setCheckedPrices] = useState([]);
+  const [filteredArrDresses, setFilteredArrDresses] = useState([]);
 
   const filterOnCick = () => setIsFIlterActive(!isFilterActive);
 
@@ -24,39 +26,55 @@ export const GenderPage = ({ productType, dresses }) => {
   const giveUniqueSizes = () => dresses?.reduce((acc, dress) => Array.from(new Set([...acc, ...dress.sizes])), []);
 
   const onColorChange = (item) => {
-    console.log(item, `onColorChange`);
-    console.log(checkedColors, `initial`);
-
     if (checkedColors?.includes(item)) {
       setCheckedColors(checkedColors?.filter((color) => color !== item));
-      console.log('убрать');
     } else {
-      setCheckedColors(...checkedColors, item);
-      console.log('дабавить');
+      setCheckedColors([...checkedColors, item]);
     }
   };
   const onSizeChange = (item) => {
     if (checkedSizes?.includes(item)) {
       setCheckedSizes(checkedSizes?.filter((size) => size !== item));
-      console.log('убрать');
     } else {
-      setCheckedSizes(...checkedColors, item);
-      console.log('дабавить');
+      setCheckedSizes([...checkedSizes, item]);
     }
   };
   const onBrandChange = (item) => {
     if (checkedBrands?.includes(item)) {
       setCheckedBrands(checkedBrands?.filter((brand) => brand !== item));
-      console.log('убрать');
     } else {
-      setCheckedBrands(...checkedBrands, item);
-      console.log('дабавить');
+      setCheckedBrands([...checkedBrands, item]);
+    }
+  };
+  const onPriceChange = (item) => {
+    if (checkedPrices?.includes(item)) {
+      setCheckedPrices(checkedPrices?.filter((price) => price !== item));
+    } else {
+      setCheckedPrices([...checkedPrices, item]);
     }
   };
 
-  console.log(checkedColors);
-  console.log(checkedBrands);
-  console.log(checkedSizes);
+  const includesSizes = (sizes) => {
+    const filteredSizes = sizes.filter((size) => checkedSizes.includes(size));
+    if (filteredSizes.length > 0) return true;
+    return false;
+  };
+  const includesColors = (images) => {
+    const filteredColors = images.filter((image) => checkedColors.includes(image.color));
+    if (filteredColors.length > 0) return true;
+    return false;
+  };
+
+  useEffect(() => {
+    const checkedDresses = dresses?.filter(
+      (dress) =>
+        (!checkedBrands.length || checkedBrands.includes(dress.brand)) &&
+        (!checkedSizes.length || includesSizes(dress.sizes)) &&
+        (!checkedColors.length || includesColors(dress.images))
+    );
+    setFilteredArrDresses(checkedDresses);
+  }, [checkedBrands, checkedSizes, checkedColors, dresses]);
+
   return (
     <div className={styles.wrapper} data-test-id={`products-page-${productType}`}>
       <div className={styles.women}>
@@ -86,9 +104,33 @@ export const GenderPage = ({ productType, dresses }) => {
             onColorChange={onColorChange}
             onSizeChange={onSizeChange}
             onBrandChange={onBrandChange}
+            onPriceChange={onPriceChange}
           />
+          <div className={styles.checkedString}>
+            <span className={styles.stringTitle}>{`${dresses?.length} items Found`}</span>
+            {checkedColors.length > 0 ? (
+              <span className={styles.stringText}>Color: {checkedColors.join('; ')}; </span>
+            ) : (
+              ''
+            )}
+            {checkedSizes.length > 0 ? (
+              <span className={styles.stringText}>Size: {checkedSizes.join('; ')}; </span>
+            ) : (
+              ''
+            )}
+            {checkedBrands.length > 0 ? (
+              <span className={styles.stringText}>Brand: {checkedBrands.join('; ')}; </span>
+            ) : (
+              ''
+            )}
+            {checkedPrices.length > 0 ? (
+              <span className={styles.stringText}>Price: {checkedPrices.join('; ')}; </span>
+            ) : (
+              ''
+            )}
+          </div>
         </div>
-        <GridBlock dresses={dresses} productType={productType} />
+        <GridBlock dresses={filteredArrDresses} productType={productType} />
         <div className={styles.loading}>
           <div className={styles.loadinIco} />
         </div>

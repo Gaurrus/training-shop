@@ -64,10 +64,10 @@ export const ProductPage = ({ dresses, productType }) => {
   const [dress, setDress] = useState(INITIAL_DRESS);
 
   useEffect(() => {
-    setDress(dresses.find((item) => item.id === id));
+    setDress(dresses?.find((item) => item.id === id));
   }, [dresses, setDress, id]);
 
-  const colors = Array.from(new Set(dress.images.map(({ color }) => color)));
+  const colors = Array.from(new Set(dress?.images.map(({ color }) => color)));
 
   return (
     <div className='wrapper' data-test-id={`product-page-${productType}`}>
@@ -80,18 +80,18 @@ export const ProductPage = ({ dresses, productType }) => {
               </li>
               <li className='nav-item'>►</li>
               <li className='nav-item'>
-                <NavLink to={`/${productType}`}>{dress.category}</NavLink>
+                <NavLink to={`/${productType}`}>{dress?.category}</NavLink>
               </li>
               <li className='nav-item'>►</li>
-              <li className='nav-item'>{dress.name}</li>
+              <li className='nav-item'>{dress?.name}</li>
             </ul>
             <Share />
           </div>
-          <h2 className='title'>{dress.name}</h2>
+          <h2 className='title'>{dress?.name}</h2>
           <div className='rating'>
             <div className='stars'>
               <div className='starsBlock'>
-                <Rating rating={dress.rating} />
+                <Rating rating={dress?.rating} />
               </div>
               <span className='num-of-reviews'>2 Reviews</span>
             </div>
@@ -106,7 +106,7 @@ export const ProductPage = ({ dresses, productType }) => {
       </div>
       <div className='product'>
         <div className='left-block'>
-          <ProductSwiper images={dress.images} data-test-id='main-slider' />
+          <ProductSwiper images={dress?.images} data-test-id='main-slider' />
         </div>
         <div className='right-block'>
           <div className='specifications'>
@@ -126,7 +126,7 @@ export const ProductPage = ({ dresses, productType }) => {
             <span className='specifications-title'>Size: </span>
             <span className='colorised-text'>S</span>
             <ul className='size-choice-list'>
-              {dress.sizes.map((item) => (
+              {dress?.sizes.map((item) => (
                 <li className='size-choice-item'>{item}</li>
               ))}
             </ul>
@@ -136,7 +136,7 @@ export const ProductPage = ({ dresses, productType }) => {
             </div>
             <div className='horisontal-line' />
             <div className='purchase-block'>
-              <span className='price'>$ {dress.price}</span>
+              <span className='price'>$ {dress?.price}</span>
               <button type='button' className='add-to-cart-button'>
                 Add to cart
               </button>
@@ -178,14 +178,14 @@ export const ProductPage = ({ dresses, productType }) => {
                 <span className='additional-parameter'>
                   Size:
                   <span className='parameters'>
-                    {dress.sizes.map((item) => (
+                    {dress?.sizes.map((item) => (
                       <span className='size-choice-item'> {item}</span>
                     ))}
                   </span>
                 </span>
                 <span className='additional-parameter'>
                   Material:
-                  <span className='parameters'> {dress.material}</span>
+                  <span className='parameters'> {dress?.material}</span>
                 </span>
               </div>
             </div>
@@ -195,16 +195,16 @@ export const ProductPage = ({ dresses, productType }) => {
               <div className='add-review'>
                 <div className='stars'>
                   <div className='starsBlock'>
-                    <RatingBig rating={dress.rating} />
+                    <RatingBig rating={dress?.rating} />
                   </div>
-                  <span className='num-of-reviews'>{dress.reviews.length} Reviews</span>
+                  <span className='num-of-reviews'>{dress?.reviews.length} Reviews</span>
                 </div>
                 <div className='write-review'>
                   <img src={review} alt='' className='review-ico' />
                   <span className='write-review-text'>Write a review</span>
                 </div>
                 <div className='posts'>
-                  {dress.reviews.map((post) => (
+                  {dress?.reviews.map((post) => (
                     <div className='post'>
                       <div className='post-title'>
                         <span className='user-name'>{post.name}</span>

@@ -34,7 +34,7 @@ export const ProductSwiper = ({ images }) => {
             },
           }}
         >
-          {images.map((image) => (
+          {images?.map((image) => (
             <SwiperSlide>
               <img src={`https://training.cleverland.by/shop${image.url}`} alt='img' />
             </SwiperSlide>
@@ -50,7 +50,7 @@ export const ProductSwiper = ({ images }) => {
         modules={[FreeMode, Navigation, Thumbs, Controller]}
         className='product-image-swiper'
       >
-        {images.map((image) => (
+        {images?.map((image) => (
           <SwiperSlide className={styles.big}>
             <img src={`https://training.cleverland.by/shop${image.url}`} alt='img' />
           </SwiperSlide>
