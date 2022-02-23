@@ -1,0 +1,12 @@
+.modal {
+  position: absolute;
+  background-color: #ffffff;
+  z-index: 564;
+  right: 0;
+  top: 0;
+  display: none;
+}
+
+.modalActive {
+  display: block;
+}
