@@ -64,13 +64,19 @@ export const GenderPage = ({ productType, dresses }) => {
     if (filteredColors.length > 0) return true;
     return false;
   };
+  const includesPrices = (min, max) => {
+    const filteredPrices = dresses.filter((dress) => checkedPrices.includes(min < dress.price < max));
+    if (filteredPrices.length > 0) return true;
+    return false;
+  };
 
   useEffect(() => {
     const checkedDresses = dresses?.filter(
       (dress) =>
         (!checkedBrands.length || checkedBrands.includes(dress.brand)) &&
         (!checkedSizes.length || includesSizes(dress.sizes)) &&
-        (!checkedColors.length || includesColors(dress.images))
+        (!checkedColors.length || includesColors(dress.images)) &&
+        (!checkedPrices.length || includesPrices(dress.images))
     );
     setFilteredArrDresses(checkedDresses);
   }, [checkedBrands, checkedSizes, checkedColors, dresses]);
@@ -107,7 +113,7 @@ export const GenderPage = ({ productType, dresses }) => {
             onPriceChange={onPriceChange}
           />
           <div className={styles.checkedString}>
-            <span className={styles.stringTitle}>{`${dresses?.length} items Found`}</span>
+            <span className={styles.stringTitle}>{`${filteredArrDresses?.length} items Found`}</span>
             {checkedColors.length > 0 ? (
               <span className={styles.stringText}>Color: {checkedColors.join('; ')}; </span>
             ) : (
