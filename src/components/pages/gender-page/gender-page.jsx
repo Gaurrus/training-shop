@@ -46,13 +46,14 @@ export const GenderPage = ({ productType, dresses }) => {
       setCheckedBrands([...checkedBrands, item]);
     }
   };
-  const onPriceChange = (item) => {
-    if (checkedPrices?.includes(item)) {
-      setCheckedPrices(checkedPrices?.filter((price) => price !== item));
+  const onPriceChange = (min, max) => {
+    if (checkedPrices?.find((price) => price?.min === min)) {
+      setCheckedPrices(checkedPrices?.filter((price) => price.min !== min));
     } else {
-      setCheckedPrices([...checkedPrices, item]);
+      setCheckedPrices([...checkedPrices, { min, max }]);
     }
   };
+  console.log(checkedPrices);
 
   const includesSizes = (sizes) => {
     const filteredSizes = sizes.filter((size) => checkedSizes.includes(size));
@@ -64,8 +65,10 @@ export const GenderPage = ({ productType, dresses }) => {
     if (filteredColors.length > 0) return true;
     return false;
   };
-  const includesPrices = (min, max) => {
-    const filteredPrices = dresses.filter((dress) => checkedPrices.includes(min < dress.price < max));
+  const includesPrices = (price) => {
+    const filteredPrices = checkedPrices.filter(
+      (checkedPrice) => checkedPrice.min <= price && price <= checkedPrice.max
+    );
     if (filteredPrices.length > 0) return true;
     return false;
   };
@@ -76,10 +79,10 @@ export const GenderPage = ({ productType, dresses }) => {
         (!checkedBrands.length || checkedBrands.includes(dress.brand)) &&
         (!checkedSizes.length || includesSizes(dress.sizes)) &&
         (!checkedColors.length || includesColors(dress.images)) &&
-        (!checkedPrices.length || includesPrices(dress.images))
+        (!checkedPrices.length || includesPrices(dress.price))
     );
     setFilteredArrDresses(checkedDresses);
-  }, [checkedBrands, checkedSizes, checkedColors, dresses]);
+  }, [checkedBrands, checkedSizes, checkedColors, checkedPrices, dresses]);
 
   return (
     <div className={styles.wrapper} data-test-id={`products-page-${productType}`}>
@@ -130,7 +133,14 @@ export const GenderPage = ({ productType, dresses }) => {
               ''
             )}
             {checkedPrices.length > 0 ? (
-              <span className={styles.stringText}>Price: {checkedPrices.join('; ')}; </span>
+              <span className={styles.stringText}>
+                Price:{' '}
+                {checkedPrices?.map((item) => (
+                  <span>
+                    {item?.min}-{item?.max};{' '}
+                  </span>
+                ))}
+              </span>
             ) : (
               ''
             )}

@@ -93,7 +93,7 @@ export const FilterMenu = ({
                   type='checkbox'
                   id={item.prop}
                   className={styles.checkbox}
-                  onChange={() => onPriceChange(item.prop)}
+                  onChange={() => onPriceChange(item.min, item.max)}
                 />
                 <span className={styles.itemName}>{item.prop}</span>
               </label>
