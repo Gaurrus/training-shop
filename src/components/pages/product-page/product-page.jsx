@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
+import classNames from 'classnames';
 
 import { Brend } from '../../brend/brend';
 import { Rating } from '../../rating/rating';
@@ -62,12 +63,23 @@ const deliveryInfo = [
 export const ProductPage = ({ dresses, productType }) => {
   const { id } = useParams();
   const [dress, setDress] = useState(INITIAL_DRESS);
+  const [isColorChecked, setIsColorChecked] = useState(false);
+  const [isSizeChecked, setIsSizeChecked] = useState(false);
 
   useEffect(() => {
     setDress(dresses?.find((item) => item.id === id));
   }, [dresses, setDress, id]);
 
-  const colors = Array.from(new Set(dress?.images.map(({ color }) => color)));
+  const colors = Array.from(new Set(dress?.images.map((image) => image.color)));
+
+  const colorPhotos = dress?.images?.reduce((acc, image) => {
+    if (!acc.find((item) => item.color === image.color)) acc.push(image);
+    return acc;
+  }, []);
+
+  const colorImageOnClick = (e) => {
+    setIsColorChecked(e);
+  };
 
   return (
     <div className='wrapper' data-test-id={`product-page-${productType}`}>
@@ -115,9 +127,13 @@ export const ProductPage = ({ dresses, productType }) => {
               <span className='colorised-text'>Blue</span>{' '}
               <div className='color-choice'>
                 <ul className='color-choice-list'>
-                  {colorChoice.map((item) => (
-                    <li className='color-choice-item'>
-                      <img src={item.src} alt='variant-of-color' className='color-choice-img' />
+                  {colorPhotos?.map((item, e) => (
+                    <li className='color-choice-item' aria-hidden onClick={() => colorImageOnClick(e)}>
+                      <img
+                        src={`https://training.cleverland.by/shop${item.url}`}
+                        alt='variant-of-color'
+                        className={classNames('color-choice-img', { 'color-active': isColorChecked === e })}
+                      />
                     </li>
                   ))}
                 </ul>
