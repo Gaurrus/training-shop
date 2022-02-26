@@ -53,7 +53,6 @@ export const GenderPage = ({ productType, dresses }) => {
       setCheckedPrices([...checkedPrices, { min, max }]);
     }
   };
-  console.log(checkedPrices);
 
   const includesSizes = (sizes) => {
     const filteredSizes = sizes.filter((size) => checkedSizes.includes(size));

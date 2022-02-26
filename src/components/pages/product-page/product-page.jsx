@@ -64,7 +64,9 @@ export const ProductPage = ({ dresses, productType }) => {
   const { id } = useParams();
   const [dress, setDress] = useState(INITIAL_DRESS);
   const [isColorChecked, setIsColorChecked] = useState(false);
+  const [choosedColor, setChoosedColor] = useState('Choose yur color');
   const [isSizeChecked, setIsSizeChecked] = useState(false);
+  const [choosedSize, setChoosedSize] = useState('Choose yur size');
 
   useEffect(() => {
     setDress(dresses?.find((item) => item.id === id));
@@ -77,8 +79,24 @@ export const ProductPage = ({ dresses, productType }) => {
     return acc;
   }, []);
 
-  const colorImageOnClick = (e) => {
-    setIsColorChecked(e);
+  const colorImageOnClick = (e, item) => {
+    if (isColorChecked !== e) {
+      setIsColorChecked(e);
+      setChoosedColor(item.color);
+    } else {
+      setIsColorChecked(false);
+      setChoosedColor('Choose yur color');
+    }
+  };
+
+  const sizeOnClick = (e, item) => {
+    if (isSizeChecked !== e) {
+      setIsSizeChecked(e);
+      setChoosedSize(item);
+    } else {
+      setIsSizeChecked(false);
+      setChoosedSize('Choose yur size');
+    }
   };
 
   return (
@@ -124,15 +142,15 @@ export const ProductPage = ({ dresses, productType }) => {
           <div className='specifications'>
             <div className='color'>
               <span className='specifications-title'>Color: </span>
-              <span className='colorised-text'>Blue</span>{' '}
+              <span className='colorised-text'>{choosedColor}</span>{' '}
               <div className='color-choice'>
                 <ul className='color-choice-list'>
                   {colorPhotos?.map((item, e) => (
-                    <li className='color-choice-item' aria-hidden onClick={() => colorImageOnClick(e)}>
+                    <li className='color-choice-item' aria-hidden onClick={() => colorImageOnClick(e, item)}>
                       <img
                         src={`https://training.cleverland.by/shop${item.url}`}
                         alt='variant-of-color'
-                        className={classNames('color-choice-img', { 'color-active': isColorChecked === e })}
+                        className={classNames('color-choice-img', { 'choose-active': isColorChecked === e })}
                       />
                     </li>
                   ))}
@@ -140,10 +158,16 @@ export const ProductPage = ({ dresses, productType }) => {
               </div>
             </div>
             <span className='specifications-title'>Size: </span>
-            <span className='colorised-text'>S</span>
+            <span className='colorised-text'>{choosedSize}</span>
             <ul className='size-choice-list'>
-              {dress?.sizes.map((item) => (
-                <li className='size-choice-item'>{item}</li>
+              {dress?.sizes.map((item, e) => (
+                <li
+                  className={classNames('size-choice-item', { 'choose-active': isSizeChecked === e })}
+                  aria-hidden
+                  onClick={() => sizeOnClick(e, item)}
+                >
+                  {item}
+                </li>
               ))}
             </ul>
             <div className='size-guide'>
