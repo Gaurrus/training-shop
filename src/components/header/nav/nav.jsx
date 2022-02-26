@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
 import classNames from 'classnames';
 
 import { disableBodyScroll, enableBodyScroll } from '../../utils/scroll-lock';
@@ -51,8 +52,9 @@ const navList = [
   },
 ];
 
-export const Nav = () => {
+export const Nav = ({ cartIcoOnClick }) => {
   const [isBurgerActive, setIsBurgerActive] = useState(false);
+
   return (
     <nav className={styles.wrapper}>
       <div className={styles.nav}>
@@ -62,9 +64,8 @@ export const Nav = () => {
         <div className={styles.itemBlock}>
           <ul className={classNames(styles.navList, { 'active-list': isBurgerActive })} data-test-id='burger-menu'>
             {navList.map((navItem) => (
-              <li>
+              <li key={navItem.path}>
                 <NavLink
-                  key={navItem.id}
                   data-test-id={`menu-link-${navItem.path}`}
                   to={`/${navItem.path}`}
                   className={({ isActive }) => (isActive ? styles.navLinkActive : styles.navLink)}
@@ -83,7 +84,7 @@ export const Nav = () => {
           <img src={search} alt='Search' />
           <img src={globe} alt='World' />
           <img src={login} alt='LogIn' />
-          <img src={cart} alt='Cart' />
+          <img aria-hidden onClick={cartIcoOnClick} src={cart} alt='Cart' />
           <div
             className={classNames(styles.burger, { activeBurger: isBurgerActive })}
             data-test-id='burger-menu-btn'
@@ -110,4 +111,8 @@ export const Nav = () => {
       <div className={styles.line} />
     </nav>
   );
+};
+
+Nav.propTypes = {
+  cartIcoOnClick: PropTypes.func.isRequired,
 };
