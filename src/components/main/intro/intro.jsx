@@ -2,7 +2,7 @@
 import { NavLink } from 'react-router-dom';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper';
+import { Navigation, EffectFade } from 'swiper';
 
 import { sliderStore } from '../../constants/slider';
 
