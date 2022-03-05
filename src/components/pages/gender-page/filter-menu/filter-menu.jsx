@@ -46,7 +46,7 @@ export const FilterMenu = ({
   onBrandChange,
   onPriceChange,
 }) => {
-  const filter = {};
+  const filter = 1;
   return (
     <div className={styles.wrapper}>
       <div className={styles.filterMenu}>
