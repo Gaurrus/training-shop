@@ -54,34 +54,34 @@ export const GenderPage = ({ productType, dresses }) => {
     }
   };
 
-  const includesSizes = (sizes) => {
-    const filteredSizes = sizes.filter((size) => checkedSizes.includes(size));
-    if (filteredSizes.length > 0) return true;
-    return false;
-  };
-  const includesColors = (images) => {
-    const filteredColors = images.filter((image) => checkedColors.includes(image.color));
-    if (filteredColors.length > 0) return true;
-    return false;
-  };
-  const includesPrices = (price) => {
-    const filteredPrices = checkedPrices.filter(
-      (checkedPrice) => checkedPrice.min <= price && price <= checkedPrice.max
-    );
-    if (filteredPrices.length > 0) return true;
-    return false;
-  };
+  // const includesSizes = (sizes) => {
+  //   const filteredSizes = sizes.filter((size) => checkedSizes.includes(size));
+  //   if (filteredSizes.length > 0) return true;
+  //   return false;
+  // };
+  // const includesColors = (images) => {
+  //   const filteredColors = images.filter((image) => checkedColors.includes(image.color));
+  //   if (filteredColors.length > 0) return true;
+  //   return false;
+  // };
+  // const includesPrices = (price) => {
+  //   const filteredPrices = checkedPrices.filter(
+  //     (checkedPrice) => checkedPrice.min <= price && price <= checkedPrice.max
+  //   );
+  //   if (filteredPrices.length > 0) return true;
+  //   return false;
+  // };
 
-  useEffect(() => {
-    const checkedDresses = dresses?.filter(
-      (dress) =>
-        (!checkedBrands.length || checkedBrands.includes(dress.brand)) &&
-        (!checkedSizes.length || includesSizes(dress.sizes)) &&
-        (!checkedColors.length || includesColors(dress.images)) &&
-        (!checkedPrices.length || includesPrices(dress.price))
-    );
-    setFilteredArrDresses(checkedDresses);
-  }, [checkedBrands, checkedSizes, checkedColors, checkedPrices, dresses]);
+  // useEffect(() => {
+  //   const checkedDresses = dresses?.filter(
+  //     (dress) =>
+  //       (!checkedBrands.length || checkedBrands.includes(dress.brand)) &&
+  //       (!checkedSizes.length || includesSizes(dress.sizes)) &&
+  //       (!checkedColors.length || includesColors(dress.images)) &&
+  //       (!checkedPrices.length || includesPrices(dress.price))
+  //   );
+  //   setFilteredArrDresses(checkedDresses);
+  // }, [checkedBrands, checkedSizes, checkedColors, checkedPrices, dresses]);
 
   return (
     <div className={styles.wrapper} data-test-id={`products-page-${productType}`}>
