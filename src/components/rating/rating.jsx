@@ -10,7 +10,7 @@ export const Rating = ({ rating }) => {
   const arrOfRating = Array.from(Array(maxRating).keys());
   return (
     <div className={styles.wrapper}>
-      {arrOfRating.map((item) => (item < rating ? <StarActive /> : <StarUnactive />))}
+      {arrOfRating.map((item) => (item < rating ? <StarActive key={item} /> : <StarUnactive key={item} />))}
     </div>
   );
 };

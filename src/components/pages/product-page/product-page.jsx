@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
+import classNames from 'classnames';
 
 import { Brend } from '../../brend/brend';
 import { Rating } from '../../rating/rating';
@@ -9,10 +10,6 @@ import { Related } from './realated';
 import { Share } from '../share';
 import { ProductSwiper } from '../swiper/product-swiper';
 
-import color01 from './assets/product01-color-variant-blue.jpg';
-import color02 from './assets/product01-color-variant-white.jpg';
-import color03 from './assets/product01-color-variant-black.jpg';
-import color04 from './assets/product01-color-variant-dark-white.jpg';
 import hangler from './assets/clothes-hanger.svg';
 import favorites from './assets/favorites-unactive.svg';
 import compare from './assets/compare-unactive.svg';
@@ -22,39 +19,9 @@ import mail from './assets/mail.svg';
 import review from './assets/review.svg';
 
 import { brendsColor } from '../../constants/brends-color';
-import { store } from '../../constants/store';
+import { INITIAL_DRESS } from '../../constants/initial-dress';
 
 import './product.scss';
-
-const colorChoice = [
-  {
-    src: color01,
-  },
-  {
-    src: color02,
-  },
-  {
-    src: color03,
-  },
-  {
-    src: color04,
-  },
-];
-
-const sizeArr = [
-  {
-    size: 'XS',
-  },
-  {
-    size: 'S',
-  },
-  {
-    size: 'M',
-  },
-  {
-    size: 'L',
-  },
-];
 
 const deliveryInfo = [
   {
@@ -76,11 +43,42 @@ const deliveryInfo = [
 
 export const ProductPage = ({ dresses, productType }) => {
   const { id } = useParams();
-  const [dress, setDress] = useState({});
+  const [dress, setDress] = useState(INITIAL_DRESS);
+  const [isColorChecked, setIsColorChecked] = useState(false);
+  const [choosedColor, setChoosedColor] = useState('Choose yur color');
+  const [isSizeChecked, setIsSizeChecked] = useState(false);
+  const [choosedSize, setChoosedSize] = useState('Choose yur size');
 
   useEffect(() => {
-    setDress(dresses.find((item) => item.id === id));
+    setDress(dresses?.find((item) => item.id === id));
   }, [dresses, setDress, id]);
+
+  const colors = Array.from(new Set(dress?.images.map((image) => image.color)));
+
+  const colorPhotos = dress?.images?.reduce((acc, image) => {
+    if (!acc.find((item) => item.color === image.color)) acc.push(image);
+    return acc;
+  }, []);
+
+  const colorImageOnClick = (e, item) => {
+    if (isColorChecked !== e) {
+      setIsColorChecked(e);
+      setChoosedColor(item.color);
+    } else {
+      setIsColorChecked(false);
+      setChoosedColor('Choose yur color');
+    }
+  };
+
+  const sizeOnClick = (e, item) => {
+    if (isSizeChecked !== e) {
+      setIsSizeChecked(e);
+      setChoosedSize(item);
+    } else {
+      setIsSizeChecked(false);
+      setChoosedSize('Choose yur size');
+    }
+  };
 
   return (
     <div className='wrapper' data-test-id={`product-page-${productType}`}>
@@ -93,18 +91,18 @@ export const ProductPage = ({ dresses, productType }) => {
               </li>
               <li className='nav-item'>►</li>
               <li className='nav-item'>
-                <NavLink to={`/${productType}`}>{dress.sex}</NavLink>
+                <NavLink to={`/${productType}`}>{dress?.category}</NavLink>
               </li>
               <li className='nav-item'>►</li>
-              <li className='nav-item'>{dress.title}</li>
+              <li className='nav-item'>{dress?.name}</li>
             </ul>
             <Share />
           </div>
-          <h2 className='title'>{dress.title}</h2>
+          <h2 className='title'>{dress?.name}</h2>
           <div className='rating'>
             <div className='stars'>
               <div className='starsBlock'>
-                <Rating rating={dress.rating} />
+                <Rating rating={dress?.rating} />
               </div>
               <span className='num-of-reviews'>2 Reviews</span>
             </div>
@@ -118,29 +116,39 @@ export const ProductPage = ({ dresses, productType }) => {
         </div>
       </div>
       <div className='product'>
-        <div className='left-block' data-test-id='product-slider'>
-          <ProductSwiper />
+        <div className='left-block'>
+          <ProductSwiper images={dress?.images} data-test-id='main-slider' />
         </div>
         <div className='right-block'>
           <div className='specifications'>
             <div className='color'>
               <span className='specifications-title'>Color: </span>
-              <span className='colorised-text'>Blue</span>{' '}
+              <span className='colorised-text'>{choosedColor}</span>{' '}
               <div className='color-choice'>
                 <ul className='color-choice-list'>
-                  {colorChoice.map((item) => (
-                    <li className='color-choice-item'>
-                      <img src={item.src} alt='variant-of-color' className='color-choice-img' />
+                  {colorPhotos?.map((item, e) => (
+                    <li className='color-choice-item' aria-hidden onClick={() => colorImageOnClick(e, item)}>
+                      <img
+                        src={`https://training.cleverland.by/shop${item.url}`}
+                        alt='variant-of-color'
+                        className={classNames('color-choice-img', { 'choose-active': isColorChecked === e })}
+                      />
                     </li>
                   ))}
                 </ul>
               </div>
             </div>
             <span className='specifications-title'>Size: </span>
-            <span className='colorised-text'>S</span>
+            <span className='colorised-text'>{choosedSize}</span>
             <ul className='size-choice-list'>
-              {sizeArr.map((item) => (
-                <li className='size-choice-item'>{item.size}</li>
+              {dress?.sizes.map((item, e) => (
+                <li
+                  className={classNames('size-choice-item', { 'choose-active': isSizeChecked === e })}
+                  aria-hidden
+                  onClick={() => sizeOnClick(e, item)}
+                >
+                  {item}
+                </li>
               ))}
             </ul>
             <div className='size-guide'>
@@ -149,7 +157,7 @@ export const ProductPage = ({ dresses, productType }) => {
             </div>
             <div className='horisontal-line' />
             <div className='purchase-block'>
-              <span className='price'>$ {dress.price}</span>
+              <span className='price'>$ {dress?.price}</span>
               <button type='button' className='add-to-cart-button'>
                 Add to cart
               </button>
@@ -182,15 +190,23 @@ export const ProductPage = ({ dresses, productType }) => {
               <div className='parameters-wrapper'>
                 <span className='additional-parameter'>
                   Color:
-                  <span className='parameters'> Blue, White, Black, Grey</span>
+                  <span className='parameters'>
+                    {colors.map((item) => (
+                      <span> {item}</span>
+                    ))}
+                  </span>
                 </span>
                 <span className='additional-parameter'>
                   Size:
-                  <span className='parameters'> XS, S, M, L</span>
+                  <span className='parameters'>
+                    {dress?.sizes.map((item) => (
+                      <span className='size-choice-item'> {item}</span>
+                    ))}
+                  </span>
                 </span>
                 <span className='additional-parameter'>
                   Material:
-                  <span className='parameters'> 100% Polyester</span>
+                  <span className='parameters'> {dress?.material}</span>
                 </span>
               </div>
             </div>
@@ -200,37 +216,25 @@ export const ProductPage = ({ dresses, productType }) => {
               <div className='add-review'>
                 <div className='stars'>
                   <div className='starsBlock'>
-                    <RatingBig rating={dress.rating} />
+                    <RatingBig rating={dress?.rating} />
                   </div>
-                  <span className='num-of-reviews'>2 Reviews</span>
+                  <span className='num-of-reviews'>{dress?.reviews.length} Reviews</span>
                 </div>
                 <div className='write-review'>
                   <img src={review} alt='' className='review-ico' />
                   <span className='write-review-text'>Write a review</span>
                 </div>
                 <div className='posts'>
-                  <div className='post'>
-                    <div className='post-title'>
-                      <span className='user-name'>Oleh Chabanov</span>
-                      <span className='time-of-review'>3 months ago</span>
-                      <Rating rating={dress.rating} />
+                  {dress?.reviews.map((post) => (
+                    <div className='post'>
+                      <div className='post-title'>
+                        <span className='user-name'>{post.name}</span>
+                        <span className='time-of-review'>3 months ago</span>
+                        <Rating rating={post.rating} />
+                      </div>
+                      <p className='post-text'>{post.text}</p>
                     </div>
-                    <p className='post-text'>
-                      On the other hand, we denounce with righteous indignation and like men who are so beguiled and
-                      demoralized by the charms of pleasure of the moment
-                    </p>
-                  </div>
-                  <div className='post'>
-                    <div className='post-title'>
-                      <span className='user-name'>ShAmAn design</span>
-                      <span className='time-of-review'>3 months ago</span>
-                      <Rating rating={dress.rating} />
-                    </div>
-                    <p className='post-text'>
-                      At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-                      deleniti
-                    </p>
-                  </div>
+                  ))}
                 </div>
                 <div className='horisontal-line' />
               </div>
@@ -238,20 +242,40 @@ export const ProductPage = ({ dresses, productType }) => {
           </div>
         </div>
       </div>
-      <Related dresses={store.relatedProducts} productType={productType} />
+      <Related dresses={dresses} productType={productType} />
     </div>
   );
 };
 
 ProductPage.propTypes = {
   dresses: PropTypes.arrayOf({
-    sex: PropTypes.string,
-    title: PropTypes.string,
-    img: PropTypes.string,
-    price: PropTypes.string,
+    particulars: PropTypes.objectOf({
+      isNewArrivals: PropTypes.bool,
+      isSpecial: PropTypes.bool,
+      isBestseller: PropTypes.bool,
+      isMostViewed: PropTypes.bool,
+      isFeatured: PropTypes.bool,
+    }),
+    name: PropTypes.string,
+    category: PropTypes.string,
+    brand: PropTypes.string,
+    material: PropTypes.string,
+    rating: PropTypes.number,
+    price: PropTypes.number,
+    sizes: PropTypes.arrayOf([]),
+    discount: PropTypes.number,
+    reviews: PropTypes.arrayOf({
+      name: PropTypes.string,
+      text: PropTypes.string,
+      rating: PropTypes.number,
+      id: PropTypes.string,
+    }),
+    images: PropTypes.arrayOf({
+      color: PropTypes.string,
+      url: PropTypes.string,
+      id: PropTypes.string,
+    }),
     id: PropTypes.string,
-    rating: PropTypes.string,
-    sale: PropTypes.bool,
   }).isRequired,
   productType: PropTypes.string.isRequired,
 };

@@ -28,6 +28,7 @@
   line-height: 13px;
   letter-spacing: 0.06em;
   opacity: 0.6;
+  text-transform: uppercase;
 }
 
 .gridList li:hover,
@@ -54,6 +55,10 @@
   &:hover {
     box-shadow: #121212 0 0 2px;
   }
+}
+
+.active {
+  text-decoration: underline;
 }
 
 @media screen and (max-width: 810px) {
