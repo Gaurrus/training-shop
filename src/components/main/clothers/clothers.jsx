@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { PropTypes } from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
+import classNames from 'classnames';
 import { GridBlock } from '../grid-block/grid-block';
 
 import { MAIN_PARTICULAR_MENU } from '../../constants/main-particulars';
@@ -18,7 +19,13 @@ export const Clothers = ({ dresses, productType }) => {
         </NavLink>
         <ul className={styles.gridList}>
           {MAIN_PARTICULAR_MENU.map((item) => (
-            <li aria-hidden key={item.particularName} onClick={() => setParticular(item.particularName)}>
+            <li
+              aria-hidden
+              className={classNames(styles.notActive, { [styles.active]: particular === item.particularName })}
+              key={item.particularName}
+              onClick={() => setParticular(item.particularName)}
+              data-test-id={`clothes-${productType}-${item.particularName}`}
+            >
               {item.menuName}
             </li>
           ))}

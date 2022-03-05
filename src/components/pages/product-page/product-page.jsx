@@ -10,10 +10,6 @@ import { Related } from './realated';
 import { Share } from '../share';
 import { ProductSwiper } from '../swiper/product-swiper';
 
-import color01 from './assets/product01-color-variant-blue.jpg';
-import color02 from './assets/product01-color-variant-white.jpg';
-import color03 from './assets/product01-color-variant-black.jpg';
-import color04 from './assets/product01-color-variant-dark-white.jpg';
 import hangler from './assets/clothes-hanger.svg';
 import favorites from './assets/favorites-unactive.svg';
 import compare from './assets/compare-unactive.svg';
@@ -26,21 +22,6 @@ import { brendsColor } from '../../constants/brends-color';
 import { INITIAL_DRESS } from '../../constants/initial-dress';
 
 import './product.scss';
-
-const colorChoice = [
-  {
-    src: color01,
-  },
-  {
-    src: color02,
-  },
-  {
-    src: color03,
-  },
-  {
-    src: color04,
-  },
-];
 
 const deliveryInfo = [
   {
