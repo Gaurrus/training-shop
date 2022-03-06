@@ -18,6 +18,13 @@ export const GenderPage = ({ productType, dresses }) => {
   const [checkedPrices, setCheckedPrices] = useState([]);
   const [filteredArrDresses, setFilteredArrDresses] = useState([]);
 
+  useEffect(() => {
+    setCheckedColors([]);
+    setCheckedSizes([]);
+    setCheckedBrands([]);
+    setCheckedPrices([]);
+  }, [productType]);
+
   const filterOnCick = () => setIsFIlterActive(!isFilterActive);
 
   const giveUniqueColors = () =>
