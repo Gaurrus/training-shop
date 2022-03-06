@@ -84,12 +84,12 @@
 
 .menu {
   display: none;
-  animation: unSlideFilter 1s ease-in-out;
+  // animation: unSlideFilter 1s ease-in-out;
 }
 
 .menuActive {
   display: block;
-  animation: slideFilter 1s ease-in-out;
+  // animation: slideFilter 1s ease-in-out;
 }
 
 @keyframes slideFilter {
