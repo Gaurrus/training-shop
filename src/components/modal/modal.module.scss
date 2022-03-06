@@ -4,9 +4,13 @@
   z-index: 564;
   right: 0;
   top: 0;
-  display: none;
+  transform: translateY(100%);
+  transition: all 1s ease-in-out;
+  opacity: 0;
 }
 
 .modalActive {
-  display: block;
+  transform: translateY(0%);
+  transition: all 1s ease-in-out;
+  opacity: 1;
 }

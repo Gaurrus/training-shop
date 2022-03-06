@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
+import classNames from 'classnames';
 
 import { CartProducts } from './cart-products';
 import { CartDelivery } from './cart-delivery/cart-delivery';
@@ -56,6 +57,18 @@ export const Cart = ({ closeCart }) => {
         {isProductsActive && <CartProducts />}
         {isDelyveryActive && <CartDelivery />}
         {isPaymentActive && <CartPayment />}
+      </div>
+      <div className={styles.cardFooter}>
+        <div className={styles.totalPrice}>
+          <span className={styles.totalText}>Total</span>
+          <span className={styles.totalPrice}>$100.500</span>
+        </div>
+        <button type='button' className={classNames(styles.further, styles.button)}>
+          Further
+        </button>
+        <button type='button' className={classNames(styles.viewCart, styles.button)}>
+          View Cart
+        </button>
       </div>
     </div>
   );
