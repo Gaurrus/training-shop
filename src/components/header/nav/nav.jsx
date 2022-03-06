@@ -84,7 +84,14 @@ export const Nav = ({ cartIcoOnClick }) => {
           <img src={search} alt='Search' />
           <img src={globe} alt='World' />
           <img src={login} alt='LogIn' />
-          <img aria-hidden onClick={cartIcoOnClick} src={cart} alt='Cart' />
+          <img
+            aria-hidden
+            onClick={() => {
+              cartIcoOnClick();
+            }}
+            src={cart}
+            alt='Cart'
+          />
           <div
             className={classNames(styles.burger, { activeBurger: isBurgerActive })}
             data-test-id='burger-menu-btn'
