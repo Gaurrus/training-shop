@@ -43,22 +43,30 @@ export const CartDelivery = () => (
             <label htmlFor='email' className={styles.dataLabel}>
               e-mail
             </label>
-            <Field type='email' name='email' id='email' className={styles.input} />
+            <Field type='email' name='email' id='email' className={styles.input} placeholder='e-mail' />
           </div>
           <div className={styles.dataItem}>
             <label htmlFor='adress' className={styles.dataLabel}>
               ADRESS
             </label>
-            <Field type='text' name='country' id='adress' className={styles.input} placeholder='country' />
-            <Field type='text' name='city' id='adress' className={styles.input} placeholder='city' />
-            <Field type='text' name='street' id='adress' className={styles.input} placeholder='street' />
+            <Field type='text' name='country' id='adress' className={styles.input} placeholder='Country' />
+            <Field type='text' name='city' id='adress' className={styles.input} placeholder='City' />
+            <Field type='text' name='street' id='adress' className={styles.input} placeholder='Street' />
+            <div className={styles.dubleInput}>
+              <Field type='text' name='house' id='adress' className={styles.input} placeholder='House' />
+              <Field type='text' name='apartment' id='adress' className={styles.input} placeholder='Apartment' />
+            </div>
           </div>
           <div className={styles.dataItem}>
             <label htmlFor='postcode' className={styles.dataLabel}>
               POSTcode
             </label>
-            <Field type='text' name='postcode' id='postcode' className={styles.input} />
+            <Field type='text' name='postcode' id='postcode' className={styles.input} placeholder='BY ______' />
           </div>
+          <label htmlFor='agreenment' className={styles.checkboxLabel}>
+            <Field type='checkbox' id='agreenment' name='agreenment' className={styles.castomCheckbox} />I agree to the
+            processing of my personal information
+          </label>
         </div>
       </Form>
     </Formik>
