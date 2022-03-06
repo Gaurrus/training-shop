@@ -53,9 +53,15 @@ export const FilterMenu = ({
           <h4 className={styles.title}>Color</h4>
           <div className={styles.itemWrapper} data-test-id='filters-color'>
             {giveUniqueColors()?.map((item) => (
-              <label htmlFor={item} key={item} className={styles.item} data-test-id={`filter-color-${item}`}>
+              <label htmlFor={item} key={item} className={styles.item}>
                 <div className={styles.colorDisc} style={{ backgroundColor: `${item}` }} />
-                <input type='checkbox' id={item} className={styles.checkbox} onChange={() => onColorChange(item)} />
+                <input
+                  type='checkbox'
+                  id={item}
+                  className={styles.checkbox}
+                  onChange={() => onColorChange(item)}
+                  data-test-id={`filter-color-${item}`}
+                />
                 <span className={styles.itemName}>{item}</span>
               </label>
             ))}
@@ -65,8 +71,14 @@ export const FilterMenu = ({
           <h4 className={styles.title}>Size</h4>
           <div className={styles.itemWrapper} data-test-id='filters-size'>
             {giveUniqueSizes()?.map((item) => (
-              <label htmlFor={item} key={item} className={styles.item} data-test-id={`filter-size-${item}`}>
-                <input type='checkbox' id={item} className={styles.checkbox} onChange={() => onSizeChange(item)} />
+              <label htmlFor={item} key={item} className={styles.item}>
+                <input
+                  type='checkbox'
+                  id={item}
+                  className={styles.checkbox}
+                  onChange={() => onSizeChange(item)}
+                  data-test-id={`filter-size-${item}`}
+                />
                 <span className={styles.itemName}>{item}</span>
               </label>
             ))}
@@ -76,8 +88,14 @@ export const FilterMenu = ({
           <h4 className={styles.title}>Brand</h4>
           <div className={styles.itemWrapper} data-test-id='filters-brand'>
             {giveUniqueBrands()?.map((item) => (
-              <label htmlFor={item} key={item} className={styles.item} data-test-id={`filter-brand-${item}`}>
-                <input type='checkbox' id={item} className={styles.checkbox} onChange={() => onBrandChange(item)} />
+              <label htmlFor={item} key={item} className={styles.item}>
+                <input
+                  type='checkbox'
+                  id={item}
+                  className={styles.checkbox}
+                  onChange={() => onBrandChange(item)}
+                  data-test-id={`filter-brand-${item}`}
+                />
                 <span className={styles.itemName}>{item}</span>
               </label>
             ))}
