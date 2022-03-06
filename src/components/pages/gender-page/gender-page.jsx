@@ -104,10 +104,7 @@ export const GenderPage = ({ productType, dresses }) => {
           </div>
         </div>
         <Filter filterOnCick={filterOnCick} />
-        <div
-          data-test-id={`filters-${productType}`}
-          className={classNames(styles.menu, { [styles.menuActive]: isFilterActive })}
-        >
+        <div className={classNames(styles.menu, { [styles.menuActive]: isFilterActive })}>
           <FilterMenu
             giveUniqueColors={giveUniqueColors}
             giveUniqueSizes={giveUniqueSizes}
