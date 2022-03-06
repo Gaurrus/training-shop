@@ -83,28 +83,29 @@
 }
 
 .menu {
-  display: none;
+  display: block;
+  height: 0;
+  opacity: 0;
   animation: unSlideFilter 1s ease-in-out;
 }
 
 .menuActive {
   display: block;
+  height: 366px;
+  opacity: 1;
   animation: slideFilter 1s ease-in-out;
 }
 
 @keyframes slideFilter {
   0% {
-    
     height: 0;
     opacity: 0;
   }
   50% {
-    
     height: 366px;
     opacity: 0;
   }
   100% {
-    
     height: 366px;
     opacity: 1;
   }
@@ -112,12 +113,16 @@
 
 @keyframes unSlideFilter {
   0% {
-    transform: translateY(0);
-    height: 368px;
+    height: 366px;
+    opacity: 1;
+  }
+  50% {
+    height: 0px;
+    opacity: 0;
   }
   100% {
-    transform: translateY(-368px);
     height: 0;
+    opacity: 0;
   }
 }
 
