@@ -92,9 +92,6 @@ export const GenderPage = ({ productType, dresses }) => {
     console.log(checkedBrands, 'brands');
     setCheckedPrices([]);
     console.log(checkedPrices, 'prices');
-    setFilteredArrDresses([]);
-    console.log(filteredArrDresses, 'All');
-    document.getElementById('form').reset();
   }, [productType]);
 
   return (
@@ -127,6 +124,7 @@ export const GenderPage = ({ productType, dresses }) => {
             onSizeChange={onSizeChange}
             onBrandChange={onBrandChange}
             onPriceChange={onPriceChange}
+            productType={productType}
           />
           <div className={styles.checkedString}>
             <span className={styles.stringTitle}>{`${filteredArrDresses?.length} items Found`}</span>
