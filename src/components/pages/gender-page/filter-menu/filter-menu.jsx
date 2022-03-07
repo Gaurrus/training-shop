@@ -1,5 +1,4 @@
 import { PropTypes } from 'prop-types';
-import { useEffect } from 'react';
 
 import styles from './filter-menu.module.scss';
 
@@ -47,9 +46,6 @@ export const FilterMenu = ({
   onBrandChange,
   onPriceChange,
 }) => {
-  useEffect(() => {
-    document.getElementById('form').reset();
-  }, []);
   return (
     <form className={styles.wrapper} id='form'>
       <div className={styles.filterMenu}>

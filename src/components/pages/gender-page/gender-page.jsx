@@ -17,9 +17,6 @@ export const GenderPage = ({ productType, dresses }) => {
   const [checkedBrands, setCheckedBrands] = useState([]);
   const [checkedPrices, setCheckedPrices] = useState([]);
   const [filteredArrDresses, setFilteredArrDresses] = useState([]);
-  const { id } = useParams();
-
-  console.log(id);
 
   const filterOnCick = () => setIsFIlterActive(!isFilterActive);
 
