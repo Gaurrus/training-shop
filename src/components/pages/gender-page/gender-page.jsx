@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import { useEffect, useState } from 'react';
 import classNames from 'classnames';
@@ -17,13 +17,9 @@ export const GenderPage = ({ productType, dresses }) => {
   const [checkedBrands, setCheckedBrands] = useState([]);
   const [checkedPrices, setCheckedPrices] = useState([]);
   const [filteredArrDresses, setFilteredArrDresses] = useState([]);
+  const { id } = useParams();
 
-  useEffect(() => {
-    setCheckedColors([]);
-    setCheckedSizes([]);
-    setCheckedBrands([]);
-    setCheckedPrices([]);
-  }, [productType]);
+  console.log(id);
 
   const filterOnCick = () => setIsFIlterActive(!isFilterActive);
 
@@ -90,6 +86,20 @@ export const GenderPage = ({ productType, dresses }) => {
     setFilteredArrDresses(checkedDresses);
   }, [checkedBrands, checkedSizes, checkedColors, checkedPrices, dresses]);
 
+  useEffect(() => {
+    setCheckedColors([]);
+    console.log(checkedColors, 'colors');
+    setCheckedSizes([]);
+    console.log(checkedSizes, 'sizes');
+    setCheckedBrands([]);
+    console.log(checkedBrands, 'brands');
+    setCheckedPrices([]);
+    console.log(checkedPrices, 'prices');
+    setFilteredArrDresses([]);
+    console.log(filteredArrDresses, 'All');
+    document.getElementById('form').reset();
+  }, [productType]);
+
   return (
     <div className={styles.wrapper} data-test-id={`products-page-${productType}`}>
       <div className={styles.women}>
@@ -110,7 +120,7 @@ export const GenderPage = ({ productType, dresses }) => {
             <h2 className={styles.title}>{productType}</h2>
           </div>
         </div>
-        <Filter filterOnCick={filterOnCick} />
+        <Filter filterOnCick={filterOnCick} isFilterActive={isFilterActive} />
         <div className={classNames(styles.menu, { [styles.menuActive]: isFilterActive })}>
           <FilterMenu
             giveUniqueColors={giveUniqueColors}
