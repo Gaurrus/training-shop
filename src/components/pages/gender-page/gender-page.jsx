@@ -86,13 +86,9 @@ export const GenderPage = ({ productType, dresses }) => {
 
   useEffect(() => {
     setCheckedColors([]);
-    console.log(checkedColors, 'colors');
     setCheckedSizes([]);
-    console.log(checkedSizes, 'sizes');
     setCheckedBrands([]);
-    console.log(checkedBrands, 'brands');
     setCheckedPrices([]);
-    console.log(checkedPrices, 'prices');
   }, [productType, isFilterActive]);
 
   useEffect(() => {
@@ -155,7 +151,8 @@ export const GenderPage = ({ productType, dresses }) => {
                 Price:{' '}
                 {checkedPrices?.map((item) => (
                   <span>
-                    {item?.min}-{item?.max};{' '}
+                    ${item?.min}
+                    {item?.max === Infinity ? '+' : `-$${item?.max}`};{' '}
                   </span>
                 ))}
               </span>

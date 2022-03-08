@@ -1,4 +1,4 @@
-import { Form, Formik, useFormik } from 'formik';
+import { Form as div, Formik, useFormik } from 'formik';
 import { PropTypes } from 'prop-types';
 import { useEffect } from 'react';
 
@@ -50,95 +50,88 @@ export const FilterMenu = ({
   productType,
 }) => {
   return (
-    <Formik initialValues={{ toggle: false }}>
-      <div className={styles.wrapper}>
-        <div className={styles.filterMenu}>
-          <Form
-            className={styles.filterList}
-            onChange={(e) => {
-              onColorChange(e.target.id);
-            }}
-          >
-            <h4 className={styles.title}>Color</h4>
-            <div className={styles.itemWrapper} data-test-id='filters-color'>
-              {giveUniqueColors()?.map((item) => (
-                <label htmlFor={item} key={item} className={styles.item}>
-                  <div className={styles.colorDisc} style={{ backgroundColor: `${item}` }} />
-                  <input
-                    type='checkbox'
-                    id={item}
-                    className={styles.checkbox}
-                    data-test-id={`filter-color-${item}`}
-                    name='toggle'
-                  />
-                  <span className={styles.itemName}>{item}</span>
-                </label>
-              ))}
-            </div>
-          </Form>
-          <Form
-            className={styles.filterList}
-            onChange={(e) => {
-              onSizeChange(e.target.id);
-            }}
-          >
-            <h4 className={styles.title}>Size</h4>
-            <div className={styles.itemWrapper} data-test-id='filters-size'>
-              {giveUniqueSizes()?.map((item) => (
-                <label htmlFor={item} key={item} className={styles.item}>
-                  <input
-                    type='checkbox'
-                    id={item}
-                    className={styles.checkbox}
-                    data-test-id={`filter-size-${item}`}
-                    name='toggle'
-                  />
-                  <span className={styles.itemName}>{item}</span>
-                </label>
-              ))}
-            </div>
-          </Form>
-          <Form
-            className={styles.filterList}
-            onChange={(e) => {
-              onBrandChange(e.target.id);
-            }}
-          >
-            <h4 className={styles.title}>Brand</h4>
-            <div className={styles.itemWrapper} data-test-id='filters-brand'>
-              {giveUniqueBrands()?.map((item) => (
-                <label htmlFor={item} key={item} className={styles.item}>
-                  <input
-                    type='checkbox'
-                    id={item}
-                    className={styles.checkbox}
-                    data-test-id={`filter-brand-${item}`}
-                    name='toggle'
-                  />
-                  <span className={styles.itemName}>{item}</span>
-                </label>
-              ))}
-            </div>
-          </Form>
-          <Form
-            className={styles.filterList}
-            onChange={(e) => {
-              onPriceChange(e.target.id);
-            }}
-          >
-            <h4 className={styles.title}>Price</h4>
-            <div className={styles.itemWrapper}>
-              {filterData.prices.map((item) => (
-                <label htmlFor={item.prop} className={styles.item} key={item.prop}>
-                  <input type='checkbox' id={item.prop} className={styles.checkbox} name='toggle' />
-                  <span className={styles.itemName}>{item.prop}</span>
-                </label>
-              ))}
-            </div>
-          </Form>
+    <div className={styles.wrapper}>
+      <div className={styles.filterMenu}>
+        <div className={styles.filterList}>
+          <h4 className={styles.title}>Color</h4>
+          <div className={styles.itemWrapper} data-test-id='filters-color'>
+            {giveUniqueColors()?.map((item) => (
+              <label htmlFor={item} key={item} className={styles.item}>
+                <div className={styles.colorDisc} style={{ backgroundColor: `${item}` }} />
+                <input
+                  type='checkbox'
+                  id={item}
+                  className={styles.checkbox}
+                  data-test-id={`filter-color-${item}`}
+                  name='toggle'
+                  onChange={(e) => {
+                    onColorChange(e.target.id);
+                  }}
+                />
+                <span className={styles.itemName}>{item}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+        <div className={styles.filterList}>
+          <h4 className={styles.title}>Size</h4>
+          <div className={styles.itemWrapper} data-test-id='filters-size'>
+            {giveUniqueSizes()?.map((item) => (
+              <label htmlFor={item} key={item} className={styles.item}>
+                <input
+                  type='checkbox'
+                  id={item}
+                  className={styles.checkbox}
+                  data-test-id={`filter-size-${item}`}
+                  name='toggle'
+                  onChange={(e) => {
+                    onSizeChange(e.target.id);
+                  }}
+                />
+                <span className={styles.itemName}>{item}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+        <div className={styles.filterList}>
+          <h4 className={styles.title}>Brand</h4>
+          <div className={styles.itemWrapper} data-test-id='filters-brand'>
+            {giveUniqueBrands()?.map((item) => (
+              <label htmlFor={item} key={item} className={styles.item}>
+                <input
+                  type='checkbox'
+                  id={item}
+                  className={styles.checkbox}
+                  data-test-id={`filter-brand-${item}`}
+                  name='toggle'
+                  onChange={(e) => {
+                    onBrandChange(e.target.id);
+                  }}
+                />
+                <span className={styles.itemName}>{item}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+        <div className={styles.filterList}>
+          <h4 className={styles.title}>Price</h4>
+          <div className={styles.itemWrapper}>
+            {filterData.prices.map((item) => (
+              <label htmlFor={item.prop} className={styles.item} key={item.prop}>
+                <input
+                  type='checkbox'
+                  id={item.prop}
+                  className={styles.checkbox}
+                  name='toggle'
+                  onChange={() => onPriceChange(item.min, item.max)}
+                />
+                <span className={styles.itemName}>{item.prop}</span>
+              </label>
+            ))}
+          </div>
         </div>
       </div>
-    </Formik>
+    </div>
   );
 };
 
