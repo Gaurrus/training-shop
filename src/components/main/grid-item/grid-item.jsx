@@ -14,7 +14,9 @@ export const GridItem = ({ img, title, price, sale, notRelated, rating }) => (
     <div className={styles.priceBlock}>
       <span className={styles.price}>
         $ {price}
-        <span className={classNames(saleStyles.oldPrice, { [saleStyles.oldPriceActive]: sale })}>$ {+price}</span>{' '}
+        <span className={classNames(saleStyles.oldPrice, { [saleStyles.oldPriceActive]: sale })}>
+          $ {(+price * (1 - Math.abs(parseInt(sale, 10)) / 100)).toFixed(2)}
+        </span>{' '}
       </span>
       <Rating rating={rating} />
     </div>
