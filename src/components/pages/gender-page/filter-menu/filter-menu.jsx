@@ -49,16 +49,12 @@ export const FilterMenu = ({
   onPriceChange,
   productType,
 }) => {
-  const formik = useFormik({ initialValues: { toggle: false } });
-  const handleResetForm = () => formik.resetForm();
-  useEffect(() => handleResetForm, [productType]);
   return (
-    <Formik initialValues={formik.initialValues}>
+    <Formik initialValues={{ toggle: false }}>
       <div className={styles.wrapper}>
         <div className={styles.filterMenu}>
           <Form
             className={styles.filterList}
-            onReset={handleResetForm}
             onChange={(e) => {
               onColorChange(e.target.id);
             }}

@@ -12,6 +12,7 @@ import styles from './gender-page.module.scss';
 
 export const GenderPage = ({ productType, dresses }) => {
   const [isFilterActive, setIsFIlterActive] = useState(false);
+  const [isFilterRender, setIsFIlterRender] = useState(false);
   const [checkedColors, setCheckedColors] = useState([]);
   const [checkedSizes, setCheckedSizes] = useState([]);
   const [checkedBrands, setCheckedBrands] = useState([]);
@@ -92,6 +93,10 @@ export const GenderPage = ({ productType, dresses }) => {
     console.log(checkedBrands, 'brands');
     setCheckedPrices([]);
     console.log(checkedPrices, 'prices');
+  }, [productType, isFilterActive]);
+
+  useEffect(() => {
+    if (isFilterActive) setIsFIlterActive(!isFilterActive);
   }, [productType]);
 
   return (
@@ -116,16 +121,18 @@ export const GenderPage = ({ productType, dresses }) => {
         </div>
         <Filter filterOnCick={filterOnCick} isFilterActive={isFilterActive} />
         <div className={classNames(styles.menu, { [styles.menuActive]: isFilterActive })}>
-          <FilterMenu
-            giveUniqueColors={giveUniqueColors}
-            giveUniqueSizes={giveUniqueSizes}
-            giveUniqueBrands={giveUniqueBrands}
-            onColorChange={onColorChange}
-            onSizeChange={onSizeChange}
-            onBrandChange={onBrandChange}
-            onPriceChange={onPriceChange}
-            productType={productType}
-          />
+          {isFilterActive ? (
+            <FilterMenu
+              giveUniqueColors={giveUniqueColors}
+              giveUniqueSizes={giveUniqueSizes}
+              giveUniqueBrands={giveUniqueBrands}
+              onColorChange={onColorChange}
+              onSizeChange={onSizeChange}
+              onBrandChange={onBrandChange}
+              onPriceChange={onPriceChange}
+              productType={productType}
+            />
+          ) : null}
           <div className={styles.checkedString}>
             <span className={styles.stringTitle}>{`${filteredArrDresses?.length} items Found`}</span>
             {checkedColors.length > 0 ? (
