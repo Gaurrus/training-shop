@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import classNames from 'classnames';
 
@@ -7,11 +8,13 @@ import { CartDelivery } from './cart-delivery/cart-delivery';
 import { CartPayment } from './cart-payment';
 
 import styles from './cart.module.scss';
+import { removeProduct } from '../store/cart-state';
 
 export const Cart = ({ closeCart }) => {
   const [isProductsActive, setIsProductsActive] = useState(false);
   const [isDelyveryActive, setIsDelyveryActive] = useState(false);
   const [isPaymentActive, setIsPaymentActive] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => setIsProductsActive(true), []);
 
@@ -29,6 +32,10 @@ export const Cart = ({ closeCart }) => {
     setIsProductsActive(false);
     setIsDelyveryActive(false);
     setIsPaymentActive(true);
+  };
+
+  const cleaner = () => {
+    dispatch(removeProduct());
   };
 
   return (
@@ -66,7 +73,7 @@ export const Cart = ({ closeCart }) => {
         <button type='button' className={classNames(styles.further, styles.button)}>
           Further
         </button>
-        <button type='button' className={classNames(styles.viewCart, styles.button)}>
+        <button type='button' className={classNames(styles.viewCart, styles.button)} onClick={cleaner}>
           View Cart
         </button>
       </div>

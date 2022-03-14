@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import classNames from 'classnames';
 import { Field, Form, Formik } from 'formik';
 import styles from './cart-delivery.module.scss';
 
@@ -8,7 +7,6 @@ export const CartDelivery = () => (
     <Formik
       initialValues={{ delyveryType: '', phone: '' }}
       onSubmit={(values, { setSubmitting }) => {
-        console.log(values);
         setSubmitting(false);
       }}
     >
