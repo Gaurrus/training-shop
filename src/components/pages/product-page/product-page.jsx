@@ -84,8 +84,8 @@ export const ProductPage = ({ dresses, productType }) => {
     }
   };
 
-  const addProduct = (productId, color, size) => {
-    dispatch(addProductInCart({ productId, color, size }));
+  const addProduct = (dressCart, color, size) => {
+    dispatch(addProductInCart({ dressCart, color, size }));
   };
 
   return (
@@ -169,7 +169,7 @@ export const ProductPage = ({ dresses, productType }) => {
               <button
                 type='button'
                 className='add-to-cart-button'
-                onClick={() => addProduct(id, choosedColor, choosedSize)}
+                onClick={() => addProduct(dress, choosedColor, choosedSize)}
               >
                 Add to cart
               </button>
