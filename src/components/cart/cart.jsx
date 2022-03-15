@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import classNames from 'classnames';
 
@@ -9,6 +9,7 @@ import { CartPayment } from './cart-payment';
 
 import styles from './cart.module.scss';
 import { removeProduct } from '../store/cart-state';
+import { cartSelector } from '../../selectors';
 
 export const Cart = ({ closeCart }) => {
   const [isProductsActive, setIsProductsActive] = useState(false);
@@ -38,6 +39,8 @@ export const Cart = ({ closeCart }) => {
     dispatch(removeProduct());
   };
 
+  const cartArrProducts = useSelector(cartSelector);
+
   return (
     <div className={styles.cart}>
       <div className={styles.cartHeader}>
@@ -61,14 +64,14 @@ export const Cart = ({ closeCart }) => {
         </span>
       </div>
       <div className={styles.cartMain}>
-        {isProductsActive && <CartProducts />}
+        {isProductsActive && <CartProducts cart={cartArrProducts?.cart} />}
         {isDelyveryActive && <CartDelivery />}
         {isPaymentActive && <CartPayment />}
       </div>
       <div className={styles.cardFooter}>
         <div className={styles.totalPrice}>
           <span className={styles.totalText}>Total</span>
-          <span className={styles.totalPrice}>$100.500</span>
+          <span className={styles.totalPrice}>$ {cartArrProducts.summ.toFixed(2)}</span>
         </div>
         <button type='button' className={classNames(styles.further, styles.button)}>
           Further

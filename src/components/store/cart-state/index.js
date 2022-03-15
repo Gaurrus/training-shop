@@ -8,10 +8,18 @@ const cartSlice = createSlice({
   reducers: {
     addProductInCart: (state, action) => {
       const { cart } = state;
-      const { dressCart, color, size } = action.payload;
-      cart.push({ dressCart, size, color });
+      const { dressCart, color, size, price, cartId } = action.payload;
+      if (!cart?.includes(cart.find((item) => cartId === item.cartId))) {
+        cart.push({ dressCart, size, color, cartId });
+        state.summ += price;
+      }
     },
-    removeProduct: () => initialCartState,
+    removeProduct: (state, action) => {
+      const { cart } = state;
+      const { dressCart, color, size, price, cartId } = action.payload;
+      cart?.filter((item) => cartId === item.cartId);
+      state.summ -= price;
+    },
   },
 });
 

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import classNames from 'classnames';
@@ -8,8 +9,10 @@ import { disableBodyScroll, enableBodyScroll } from '../../utils/scroll-lock';
 import search from './assets/search-nav.svg';
 import globe from './assets/globe-nav.svg';
 import login from './assets/login-nav.svg';
-import cart from './assets/shopping-bag-nav.svg';
+import cartImage from './assets/shopping-bag-nav.svg';
 import logo from './assets/CleverShop.svg';
+
+import { cartSelector } from '../../../selectors';
 
 import styles from './nav.module.scss';
 import './burger.scss';
@@ -54,6 +57,7 @@ const navList = [
 
 export const Nav = ({ cartIcoOnClick }) => {
   const [isBurgerActive, setIsBurgerActive] = useState(false);
+  const cartState = useSelector(cartSelector);
 
   return (
     <nav className={styles.wrapper}>
@@ -84,14 +88,16 @@ export const Nav = ({ cartIcoOnClick }) => {
           <img src={search} alt='Search' />
           <img src={globe} alt='World' />
           <img src={login} alt='LogIn' />
-          <img
+          <div
+            className={classNames(styles.cart)}
             aria-hidden
             onClick={() => {
               cartIcoOnClick();
             }}
-            src={cart}
-            alt='Cart'
-          />
+          >
+            <div className={classNames(styles.cartIco)}>{cartState.cart.length}</div>
+            <img src={cartImage} alt='Cart' />
+          </div>
           <div
             className={classNames(styles.burger, { activeBurger: isBurgerActive })}
             data-test-id='burger-menu-btn'
