@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import { useEffect, useState } from 'react';
 import classNames from 'classnames';
@@ -12,6 +12,7 @@ import styles from './gender-page.module.scss';
 
 export const GenderPage = ({ productType, dresses }) => {
   const [isFilterActive, setIsFIlterActive] = useState(false);
+  const [isFilterRender, setIsFIlterRender] = useState(false);
   const [checkedColors, setCheckedColors] = useState([]);
   const [checkedSizes, setCheckedSizes] = useState([]);
   const [checkedBrands, setCheckedBrands] = useState([]);
@@ -83,6 +84,17 @@ export const GenderPage = ({ productType, dresses }) => {
     setFilteredArrDresses(checkedDresses);
   }, [checkedBrands, checkedSizes, checkedColors, checkedPrices, dresses]);
 
+  useEffect(() => {
+    setCheckedColors([]);
+    setCheckedSizes([]);
+    setCheckedBrands([]);
+    setCheckedPrices([]);
+  }, [productType, isFilterActive]);
+
+  useEffect(() => {
+    if (isFilterActive) setIsFIlterActive(!isFilterActive);
+  }, [productType]);
+
   return (
     <div className={styles.wrapper} data-test-id={`products-page-${productType}`}>
       <div className={styles.women}>
@@ -103,17 +115,20 @@ export const GenderPage = ({ productType, dresses }) => {
             <h2 className={styles.title}>{productType}</h2>
           </div>
         </div>
-        <Filter filterOnCick={filterOnCick} />
+        <Filter filterOnCick={filterOnCick} isFilterActive={isFilterActive} />
         <div className={classNames(styles.menu, { [styles.menuActive]: isFilterActive })}>
-          <FilterMenu
-            giveUniqueColors={giveUniqueColors}
-            giveUniqueSizes={giveUniqueSizes}
-            giveUniqueBrands={giveUniqueBrands}
-            onColorChange={onColorChange}
-            onSizeChange={onSizeChange}
-            onBrandChange={onBrandChange}
-            onPriceChange={onPriceChange}
-          />
+          {isFilterActive ? (
+            <FilterMenu
+              giveUniqueColors={giveUniqueColors}
+              giveUniqueSizes={giveUniqueSizes}
+              giveUniqueBrands={giveUniqueBrands}
+              onColorChange={onColorChange}
+              onSizeChange={onSizeChange}
+              onBrandChange={onBrandChange}
+              onPriceChange={onPriceChange}
+              productType={productType}
+            />
+          ) : null}
           <div className={styles.checkedString}>
             <span className={styles.stringTitle}>{`${filteredArrDresses?.length} items Found`}</span>
             {checkedColors.length > 0 ? (
@@ -136,7 +151,8 @@ export const GenderPage = ({ productType, dresses }) => {
                 Price:{' '}
                 {checkedPrices?.map((item) => (
                   <span>
-                    {item?.min}-{item?.max};{' '}
+                    ${item?.min}
+                    {item?.max === Infinity ? '+' : `-$${item?.max}`};{' '}
                   </span>
                 ))}
               </span>

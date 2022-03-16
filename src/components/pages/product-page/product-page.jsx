@@ -54,6 +54,13 @@ export const ProductPage = ({ dresses, productType }) => {
   const [choosedSize, setChoosedSize] = useState('Choose yur size');
 
   useEffect(() => {
+    setIsColorChecked(false);
+    setChoosedColor('Choose yur color');
+    setIsSizeChecked(false);
+    setChoosedSize('Choose yur size');
+  }, [id]);
+
+  useEffect(() => {
     setDress(dresses?.find((item) => item.id === id));
   }, [dresses, setDress, id]);
 

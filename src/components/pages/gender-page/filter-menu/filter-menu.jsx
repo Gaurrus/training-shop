@@ -1,4 +1,6 @@
+import { Form as div, Formik, useFormik } from 'formik';
 import { PropTypes } from 'prop-types';
+import { useEffect } from 'react';
 
 import styles from './filter-menu.module.scss';
 
@@ -45,6 +47,7 @@ export const FilterMenu = ({
   onSizeChange,
   onBrandChange,
   onPriceChange,
+  productType,
 }) => {
   return (
     <div className={styles.wrapper}>
@@ -59,8 +62,11 @@ export const FilterMenu = ({
                   type='checkbox'
                   id={item}
                   className={styles.checkbox}
-                  onChange={() => onColorChange(item)}
                   data-test-id={`filter-color-${item}`}
+                  name='toggle'
+                  onChange={(e) => {
+                    onColorChange(e.target.id);
+                  }}
                 />
                 <span className={styles.itemName}>{item}</span>
               </label>
@@ -76,8 +82,11 @@ export const FilterMenu = ({
                   type='checkbox'
                   id={item}
                   className={styles.checkbox}
-                  onChange={() => onSizeChange(item)}
                   data-test-id={`filter-size-${item}`}
+                  name='toggle'
+                  onChange={(e) => {
+                    onSizeChange(e.target.id);
+                  }}
                 />
                 <span className={styles.itemName}>{item}</span>
               </label>
@@ -93,8 +102,11 @@ export const FilterMenu = ({
                   type='checkbox'
                   id={item}
                   className={styles.checkbox}
-                  onChange={() => onBrandChange(item)}
                   data-test-id={`filter-brand-${item}`}
+                  name='toggle'
+                  onChange={(e) => {
+                    onBrandChange(e.target.id);
+                  }}
                 />
                 <span className={styles.itemName}>{item}</span>
               </label>
@@ -110,6 +122,7 @@ export const FilterMenu = ({
                   type='checkbox'
                   id={item.prop}
                   className={styles.checkbox}
+                  name='toggle'
                   onChange={() => onPriceChange(item.min, item.max)}
                 />
                 <span className={styles.itemName}>{item.prop}</span>
@@ -130,4 +143,5 @@ FilterMenu.propTypes = {
   onSizeChange: PropTypes.func.isRequired,
   onBrandChange: PropTypes.func.isRequired,
   onPriceChange: PropTypes.func.isRequired,
+  productType: PropTypes.string.isRequired,
 };

@@ -30,7 +30,7 @@ export const App = () => {
 
   useEffect(() => {
     dispatch(getProductsRequest());
-  }, []);
+  }, [dispatch]);
 
   const products = useSelector(productsSelector);
 
