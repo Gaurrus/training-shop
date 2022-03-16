@@ -95,7 +95,7 @@ export const Nav = ({ cartIcoOnClick }) => {
               cartIcoOnClick();
             }}
           >
-            <div className={classNames(styles.cartIco)}>{cartState.cart.length}</div>
+            {cartState.cart.length ? <div className={classNames(styles.cartIco)}>{cartState.cart.length}</div> : null}
             <img src={cartImage} alt='Cart' />
           </div>
           <div

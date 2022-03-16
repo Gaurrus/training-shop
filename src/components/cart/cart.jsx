@@ -8,14 +8,12 @@ import { CartDelivery } from './cart-delivery/cart-delivery';
 import { CartPayment } from './cart-payment';
 
 import styles from './cart.module.scss';
-import { removeProduct } from '../store/cart-state';
 import { cartSelector } from '../../selectors';
 
 export const Cart = ({ closeCart }) => {
   const [isProductsActive, setIsProductsActive] = useState(false);
   const [isDelyveryActive, setIsDelyveryActive] = useState(false);
   const [isPaymentActive, setIsPaymentActive] = useState(false);
-  const dispatch = useDispatch();
 
   useEffect(() => setIsProductsActive(true), []);
 
@@ -33,10 +31,6 @@ export const Cart = ({ closeCart }) => {
     setIsProductsActive(false);
     setIsDelyveryActive(false);
     setIsPaymentActive(true);
-  };
-
-  const cleaner = () => {
-    dispatch(removeProduct());
   };
 
   const cartArrProducts = useSelector(cartSelector);

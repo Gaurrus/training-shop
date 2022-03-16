@@ -16,8 +16,9 @@ const cartSlice = createSlice({
     },
     removeProduct: (state, action) => {
       const { cart } = state;
-      const { dressCart, color, size, price, cartId } = action.payload;
-      cart?.filter((item) => cartId === item.cartId);
+      const { productCartId, price } = action.payload;
+      const removableIndex = cart?.findIndex((item) => productCartId === item.cartId);
+      cart?.splice(removableIndex, 1);
       state.summ -= price;
     },
   },

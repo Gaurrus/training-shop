@@ -20,7 +20,7 @@ import mail from './assets/mail.svg';
 import review from './assets/review.svg';
 
 import { cartSelector } from '../../../selectors';
-import { addProductInCart } from '../../store/cart-state';
+import { addProductInCart, removeProduct } from '../../store/cart-state';
 
 import { brendsColor } from '../../constants/brends-color';
 import { INITIAL_DRESS } from '../../constants/initial-dress';
@@ -97,6 +97,10 @@ export const ProductPage = ({ dresses, productType }) => {
     dispatch(addProductInCart({ dressCart, color, size, price, cartId }));
   };
 
+  const handleRemove = (productCartId, price) => {
+    dispatch(removeProduct({ productCartId, price }));
+  };
+  const productCartId = id + choosedColor + choosedSize;
   return (
     <div className='wrapper' data-test-id={`product-page-${productType}`}>
       <div className='header-wrapper'>
@@ -175,21 +179,24 @@ export const ProductPage = ({ dresses, productType }) => {
             <div className='horisontal-line' />
             <div className='purchase-block'>
               <span className='price'>$ {dress?.price}</span>
-              {!cartArrProducts.cart?.includes(
-                cartArrProducts.cart.find((item) => dress.id + choosedColor + choosedSize === item.cartId)
-              ) ? (
+              {!cartArrProducts.cart?.includes(cartArrProducts.cart.find((item) => productCartId === item.cartId)) ? (
                 <button
                   type='button'
                   className='add-to-cart-button'
                   onClick={() => {
-                    const cartId = dress.id + choosedColor + choosedSize;
-                    addProduct(dress, choosedColor, choosedSize, dress?.price, cartId);
+                    addProduct(dress, choosedColor, choosedSize, dress?.price, productCartId);
                   }}
                 >
                   Add to cart
                 </button>
               ) : (
-                <button type='button' className='add-to-cart-button'>
+                <button
+                  type='button'
+                  className='add-to-cart-button'
+                  onClick={() => {
+                    handleRemove(productCartId);
+                  }}
+                >
                   Remove
                 </button>
               )}
