@@ -65,21 +65,29 @@ export const Cart = ({ closeCart }) => {
       </div>
       <div className={styles.cartMain}>
         {isProductsActive && <CartProducts cart={cartArrProducts?.cart} />}
-        {isDelyveryActive && <CartDelivery />}
-        {isPaymentActive && <CartPayment />}
+        {isDelyveryActive && <CartDelivery cart={cartArrProducts?.cart} />}
+        {isPaymentActive && <CartPayment cart={cartArrProducts?.cart} />}
       </div>
-      <div className={styles.cardFooter}>
-        <div className={styles.totalPrice}>
-          <span className={styles.totalText}>Total</span>
-          <span className={styles.totalPrice}>$ {cartArrProducts.summ.toFixed(2)}</span>
+      {cartArrProducts.cart.length ? (
+        <div className={styles.cardFooter}>
+          <div className={styles.totalPrice}>
+            <span className={styles.totalText}>Total</span>
+            <span className={styles.totalPrice}>$ {cartArrProducts.summ.toFixed(2)}</span>
+          </div>
+          <button type='button' className={classNames(styles.further, styles.button)}>
+            Further
+          </button>
+          <button type='button' className={classNames(styles.viewCart, styles.button)}>
+            View Cart
+          </button>
         </div>
-        <button type='button' className={classNames(styles.further, styles.button)}>
-          Further
-        </button>
-        <button type='button' className={classNames(styles.viewCart, styles.button)} onClick={cleaner}>
-          View Cart
-        </button>
-      </div>
+      ) : (
+        <div className={styles.cardFooter}>
+          <button type='button' className={classNames(styles.further, styles.button)} onClick={closeCart}>
+            Back to shopping
+          </button>
+        </div>
+      )}
     </div>
   );
 };

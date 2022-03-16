@@ -1,3 +1,9 @@
+.wrapper {
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .cardFooter {
   display: flex;
   flex-direction: column;
@@ -45,4 +51,13 @@
       color: #ffffff;
     }
   }
+}
+
+.emptyCart {
+  max-width: 191px;
+  max-height: 117px;
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 150%;
+  text-align: center;
 }

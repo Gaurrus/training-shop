@@ -1,7 +1,12 @@
 .wrapper {
+  padding: 24px;
   .cards {
-    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     .card {
+      width: 100%;
       .productInfo {
         display: flex;
         flex-direction: row;
@@ -59,4 +64,13 @@
       }
     }
   }
+}
+
+.emptyCart {
+  max-width: 191px;
+  max-height: 117px;
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 150%;
+  text-align: center;
 }
