@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import classNames from 'classnames';
@@ -19,6 +19,7 @@ import recycler from './assets/recycler.svg';
 import mail from './assets/mail.svg';
 import review from './assets/review.svg';
 
+import { cartSelector } from '../../../selectors';
 import { addProductInCart } from '../../store/cart-state';
 
 import { brendsColor } from '../../constants/brends-color';
@@ -52,6 +53,7 @@ export const ProductPage = ({ dresses, productType }) => {
   const [choosedColor, setChoosedColor] = useState('Choose yur color');
   const [isSizeChecked, setIsSizeChecked] = useState(false);
   const [choosedSize, setChoosedSize] = useState('Choose yur size');
+  const cartArrProducts = useSelector(cartSelector);
 
   useEffect(() => {
     setIsColorChecked(false);
@@ -173,16 +175,24 @@ export const ProductPage = ({ dresses, productType }) => {
             <div className='horisontal-line' />
             <div className='purchase-block'>
               <span className='price'>$ {dress?.price}</span>
-              <button
-                type='button'
-                className='add-to-cart-button'
-                onClick={() => {
-                  const cartId = dress.id + choosedColor + choosedSize;
-                  addProduct(dress, choosedColor, choosedSize, dress?.price, cartId);
-                }}
-              >
-                Add to cart
-              </button>
+              {!cartArrProducts.cart?.includes(
+                cartArrProducts.cart.find((item) => dress.id + choosedColor + choosedSize === item.cartId)
+              ) ? (
+                <button
+                  type='button'
+                  className='add-to-cart-button'
+                  onClick={() => {
+                    const cartId = dress.id + choosedColor + choosedSize;
+                    addProduct(dress, choosedColor, choosedSize, dress?.price, cartId);
+                  }}
+                >
+                  Add to cart
+                </button>
+              ) : (
+                <button type='button' className='add-to-cart-button'>
+                  Remove
+                </button>
+              )}
               <img src={favorites} alt='like-ico' className='add-to-favorites icon' />
               <img src={compare} alt='compare-ico' className='add-to-compare icon' />
             </div>
