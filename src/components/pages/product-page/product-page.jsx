@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import classNames from 'classnames';
@@ -17,6 +18,8 @@ import truck from './assets/truck.svg';
 import recycler from './assets/recycler.svg';
 import mail from './assets/mail.svg';
 import review from './assets/review.svg';
+
+import { addProductInCart } from '../../store/cart-state';
 
 import { brendsColor } from '../../constants/brends-color';
 import { INITIAL_DRESS } from '../../constants/initial-dress';
@@ -43,6 +46,7 @@ const deliveryInfo = [
 
 export const ProductPage = ({ dresses, productType }) => {
   const { id } = useParams();
+  const dispatch = useDispatch();
   const [dress, setDress] = useState(INITIAL_DRESS);
   const [isColorChecked, setIsColorChecked] = useState(false);
   const [choosedColor, setChoosedColor] = useState('Choose yur color');
@@ -85,6 +89,10 @@ export const ProductPage = ({ dresses, productType }) => {
       setIsSizeChecked(false);
       setChoosedSize('Choose yur size');
     }
+  };
+
+  const addProduct = (dressCart, color, size, price, cartId) => {
+    dispatch(addProductInCart({ dressCart, color, size, price, cartId }));
   };
 
   return (
@@ -165,7 +173,14 @@ export const ProductPage = ({ dresses, productType }) => {
             <div className='horisontal-line' />
             <div className='purchase-block'>
               <span className='price'>$ {dress?.price}</span>
-              <button type='button' className='add-to-cart-button'>
+              <button
+                type='button'
+                className='add-to-cart-button'
+                onClick={() => {
+                  const cartId = dress.id + choosedColor + choosedSize;
+                  addProduct(dress, choosedColor, choosedSize, dress?.price, cartId);
+                }}
+              >
                 Add to cart
               </button>
               <img src={favorites} alt='like-ico' className='add-to-favorites icon' />

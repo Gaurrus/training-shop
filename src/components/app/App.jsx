@@ -12,11 +12,12 @@ import { ProductPage } from '../pages/product-page';
 import { Modal } from '../modal';
 import { Cart } from '../cart';
 
+import { productsSelector } from '../../selectors';
+
 import { getProductsRequest } from '../store/products-state';
 
 import './reset.scss';
 import './App.scss';
-import { productsSelector } from '../../selectors';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -35,13 +36,19 @@ export const App = () => {
 
   const [isCartActive, setIsCartActive] = useState(false);
 
-  const cartIcoOnClick = () => setIsCartActive(!isCartActive);
-
-  const closeCart = () => setIsCartActive(false);
+  const cartIcoOnClick = () => {
+    if (isCartActive) {
+      setIsCartActive(!isCartActive);
+      document.body.style.overflow = null;
+    } else {
+      setIsCartActive(!isCartActive);
+      document.body.style.overflow = 'hidden';
+    }
+  };
 
   return (
     <div data-test-id='app'>
-      <div aria-hidden onClick={closeCart} className={classNames('shadow', { 'shadow-active': isCartActive })} />
+      <div aria-hidden onClick={cartIcoOnClick} className={classNames('shadow', { 'shadow-active': isCartActive })} />
       <Header cartIcoOnClick={cartIcoOnClick} />
       <Routes>
         <Route exact path='/' element={<Main products={products.data} />} />
@@ -51,7 +58,7 @@ export const App = () => {
         <Route exact path='men/:id' element={<ProductPage dresses={products?.data?.men} productType='men' />} />
       </Routes>
       <Modal isCartActive={isCartActive}>
-        <Cart closeCart={closeCart} />
+        <Cart closeCart={cartIcoOnClick} />
       </Modal>
       <Footer />
     </div>

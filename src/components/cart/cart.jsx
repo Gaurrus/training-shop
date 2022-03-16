@@ -1,16 +1,21 @@
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { PropTypes } from 'prop-types';
+import classNames from 'classnames';
 
 import { CartProducts } from './cart-products';
 import { CartDelivery } from './cart-delivery/cart-delivery';
 import { CartPayment } from './cart-payment';
 
 import styles from './cart.module.scss';
+import { removeProduct } from '../store/cart-state';
+import { cartSelector } from '../../selectors';
 
 export const Cart = ({ closeCart }) => {
   const [isProductsActive, setIsProductsActive] = useState(false);
   const [isDelyveryActive, setIsDelyveryActive] = useState(false);
   const [isPaymentActive, setIsPaymentActive] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => setIsProductsActive(true), []);
 
@@ -29,6 +34,12 @@ export const Cart = ({ closeCart }) => {
     setIsDelyveryActive(false);
     setIsPaymentActive(true);
   };
+
+  const cleaner = () => {
+    dispatch(removeProduct());
+  };
+
+  const cartArrProducts = useSelector(cartSelector);
 
   return (
     <div className={styles.cart}>
@@ -53,10 +64,30 @@ export const Cart = ({ closeCart }) => {
         </span>
       </div>
       <div className={styles.cartMain}>
-        {isProductsActive && <CartProducts />}
-        {isDelyveryActive && <CartDelivery />}
-        {isPaymentActive && <CartPayment />}
+        {isProductsActive && <CartProducts cart={cartArrProducts?.cart} />}
+        {isDelyveryActive && <CartDelivery cart={cartArrProducts?.cart} />}
+        {isPaymentActive && <CartPayment cart={cartArrProducts?.cart} />}
       </div>
+      {cartArrProducts.cart.length ? (
+        <div className={styles.cardFooter}>
+          <div className={styles.totalPrice}>
+            <span className={styles.totalText}>Total</span>
+            <span className={styles.totalPrice}>$ {cartArrProducts.summ.toFixed(2)}</span>
+          </div>
+          <button type='button' className={classNames(styles.further, styles.button)}>
+            Further
+          </button>
+          <button type='button' className={classNames(styles.viewCart, styles.button)}>
+            View Cart
+          </button>
+        </div>
+      ) : (
+        <div className={styles.cardFooter}>
+          <button type='button' className={classNames(styles.further, styles.button)} onClick={closeCart}>
+            Back to shopping
+          </button>
+        </div>
+      )}
     </div>
   );
 };
