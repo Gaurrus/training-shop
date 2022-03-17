@@ -16,3 +16,9 @@
   opacity: 1;
   z-index: 50;
 }
+
+@media screen and (max-width: 380px) {
+  .modalActive {
+    width: 100%;
+  }
+}

@@ -42,7 +42,7 @@ export const Cart = ({ closeCart }) => {
   }, 0);
 
   return (
-    <div className={styles.cart}>
+    <div className={styles.cart} data-test-id='cart'>
       <div className={styles.cartHeader}>
         <span className={styles.title}>Shopping Cart</span>
         <div aria-hidden onClick={closeCart} className={styles.crossButton}>

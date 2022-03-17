@@ -89,6 +89,7 @@ export const Nav = ({ cartIcoOnClick }) => {
           <img src={globe} alt='World' />
           <img src={login} alt='LogIn' />
           <div
+            data-test-id='cart-button'
             className={classNames(styles.cart)}
             aria-hidden
             onClick={() => {
