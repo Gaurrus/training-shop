@@ -181,6 +181,7 @@ export const ProductPage = ({ dresses, productType }) => {
               <span className='price'>$ {dress?.price}</span>
               {!cartArrProducts.cart?.includes(cartArrProducts.cart.find((item) => productCartId === item.cartId)) ? (
                 <button
+                  data-test-id='add-cart-button'
                   type='button'
                   className='add-to-cart-button'
                   onClick={() => {

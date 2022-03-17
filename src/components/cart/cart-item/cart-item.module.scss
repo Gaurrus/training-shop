@@ -1,0 +1,101 @@
+.card {
+  width: 100%;
+  .productInfo {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    width: 100%;
+    .productShortInfo {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 100%;
+      .textInfo {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        .title {
+          font-size: 14px;
+          line-height: 22px;
+          opacity: 0.6;
+        }
+        .properties {
+          font-weight: 600;
+          font-size: 12px;
+          line-height: 18px;
+        }
+      }
+      .priceAndAmount {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        .amountBlock {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: nowrap;
+          background-color: #f8f8f8;
+          .amount {
+            max-width: 27px;
+            height: 32px;
+            text-align: center;
+            background-color: #f8f8f8;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 22px;
+            border: unset;
+            &::-webkit-outer-spin-button,
+            &::-webkit-inner-spin-button {
+              display: none;
+            }
+            &:focus {
+              border: unset;
+            }
+          }
+          .buttonMinus {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 27px;
+            background-color: #f8f8f8;
+            cursor: pointer;
+            &:hover {
+              background-color: #aaaaaa;
+            }
+          }
+          .buttonPlus {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 27px;
+            background-color: #f8f8f8;
+            cursor: pointer;
+            &:hover {
+              background-color: #aaaaaa;
+            }
+          }
+        }
+
+        .price {
+          font-weight: bold;
+          font-size: 14px;
+          line-height: 22px;
+        }
+        .trash {
+          margin: 0 0 0 auto;
+        }
+      }
+    }
+    .cardImg {
+      max-width: 83px;
+    }
+  }
+  .horisontalLine {
+    width: 100%;
+    background: #ffffff;
+    border: 2px solid #f8f8f8;
+    box-sizing: border-box;
+    margin: 12px 0;
+  }
+}
