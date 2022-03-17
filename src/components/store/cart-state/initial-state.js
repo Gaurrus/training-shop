@@ -1,4 +1,4 @@
 export const initialCartState = {
   cart: [],
-  summ: [],
+  summ: 0,
 };

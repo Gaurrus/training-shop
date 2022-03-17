@@ -9,6 +9,7 @@ import { CartPayment } from './cart-payment';
 
 import styles from './cart.module.scss';
 import { cartSelector } from '../../selectors';
+import { setSumm } from '../store/cart-state';
 
 export const Cart = ({ closeCart }) => {
   const [isProductsActive, setIsProductsActive] = useState(false);
@@ -35,6 +36,10 @@ export const Cart = ({ closeCart }) => {
   };
 
   const cartArrProducts = useSelector(cartSelector);
+
+  const summFromArr = cartArrProducts?.cart?.reduce((summ, item) => {
+    return summ + item.price * item.count;
+  }, 0);
 
   return (
     <div className={styles.cart}>
@@ -67,7 +72,7 @@ export const Cart = ({ closeCart }) => {
         <div className={styles.cardFooter}>
           <div className={styles.totalPrice}>
             <span className={styles.totalText}>Total</span>
-            <span className={styles.totalPrice}>$ {cartArrProducts.summ}</span>
+            <span className={styles.totalPrice}>$ {summFromArr.toFixed(2)}</span>
           </div>
           <button type='button' className={classNames(styles.further, styles.button)}>
             Further

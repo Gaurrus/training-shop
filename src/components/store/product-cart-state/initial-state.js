@@ -1,3 +1,3 @@
 export const initialProductCartState = {
-  count: 1,
+  value: 0,
 };

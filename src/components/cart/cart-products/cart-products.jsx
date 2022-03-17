@@ -44,6 +44,7 @@ export const CartProducts = ({ cart, setTotalSumm, totalSumm }) => {
               cartId={item.cartId}
               price={item.dressCart.price}
               trashIco={trashIco}
+              count={item.count}
             />
           ))
         ) : (

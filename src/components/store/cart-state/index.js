@@ -10,25 +10,39 @@ const cartSlice = createSlice({
       const { cart } = state;
       const { dressCart, color, size, price, cartId } = action.payload;
       if (!cart?.includes(cart.find((item) => cartId === item.cartId))) {
-        cart.push({ dressCart, size, color, cartId });
-        // state.summ += price;
+        cart.push({ dressCart, size, color, cartId, count: 1, price });
+        console.log(cart);
       }
     },
     removeProduct: (state, action) => {
       const { cart } = state;
-      const { productCartId, price } = action.payload;
-      const removableIndex = cart?.findIndex((item) => productCartId === item.cartId);
-      cart?.splice(removableIndex, 1);
-      // state.summ -= price;
+      const { productCartId } = action.payload;
+      const index = cart?.findIndex((item) => productCartId === item.cartId);
+      cart?.splice(index, 1);
     },
-    setSumm: (state, action) => {
-      const { summ } = state;
-      const { totalSumm } = action.payload;
-      summ.push(totalSumm);
-      console.log(summ);
+    changeCountPlus: (state, action) => {
+      const { cart } = state;
+      const { productCartId } = action.payload;
+      const index = cart?.findIndex((item) => productCartId === item.cartId);
+      console.log(index);
+      cart[index].count += 1;
     },
+    changeCountMinus: (state, action) => {
+      const { cart } = state;
+      const { productCartId } = action.payload;
+      const index = cart?.findIndex((item) => productCartId === item.cartId);
+      console.log(index);
+      cart[index].count -= 1;
+    },
+    // setSumm: (state, action) => {
+    //   const { cart } = state;
+    //   const totalSumm = cart.reduce((summ, item) => {
+    //     return summ + item.count * item.price;
+    //   }, 0);
+    //   console.log(totalSumm);
+    // },
   },
 });
 
-export const { addProductInCart, removeProduct, setSumm } = cartSlice.actions;
+export const { addProductInCart, removeProduct, setSumm, changeCountPlus, changeCountMinus } = cartSlice.actions;
 export default cartSlice.reducer;

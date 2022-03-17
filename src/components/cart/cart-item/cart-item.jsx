@@ -4,22 +4,21 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { useEffect } from 'react';
 import { cartProductSelector } from '../../../selectors';
-import { setSumm } from '../../store/cart-state';
+import { changeCountMinus, changeCountPlus, setSumm } from '../../store/cart-state';
 
 import styles from './cart-item.module.scss';
+import { changeProduct } from '../../store/product-cart-state';
 
-export const CartItem = ({ url, name, color, size, handleRemove, cartId, price, trashIco }) => {
-  const [count, setCount] = useState(1);
+export const CartItem = ({ url, name, color, size, handleRemove, cartId, price, trashIco, count }) => {
   const [totalSumm, setTotalSumm] = useState(price);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    setTotalSumm(price * count);
-  }, [count]);
-
-  useEffect(() => {
-    dispatch(setSumm({ totalSumm, count }));
-  }, [count]);
+  const increment = (productCartId) => {
+    dispatch(changeCountPlus({ productCartId }));
+  };
+  const decrement = (productCartId) => {
+    dispatch(changeCountMinus({ productCartId }));
+  };
 
   return (
     <div className={styles.card}>
@@ -34,15 +33,15 @@ export const CartItem = ({ url, name, color, size, handleRemove, cartId, price, 
           </div>
           <div className={styles.priceAndAmount}>
             <div className={styles.amountBlock}>
-              <div className={styles.buttonMinus} aria-hidden onClick={() => setCount(count - 1)}>
+              <div className={styles.buttonMinus} aria-hidden onClick={() => decrement(cartId)}>
                 -
               </div>
               <input type='number' className={styles.amount} min='1' value={count} />
-              <div className={styles.buttonPlus} aria-hidden onClick={() => setCount(count + 1)}>
+              <div className={styles.buttonPlus} aria-hidden onClick={() => increment(cartId)}>
                 +
               </div>
             </div>
-            <span className={styles.price}>${totalSumm.toFixed(2)}</span>
+            <span className={styles.price}>${(price * count).toFixed(2)}</span>
             <img
               src={trashIco}
               alt='trashIco'
