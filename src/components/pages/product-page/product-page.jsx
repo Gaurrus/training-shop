@@ -54,6 +54,7 @@ export const ProductPage = ({ dresses, productType }) => {
   const [isSizeChecked, setIsSizeChecked] = useState(false);
   const [choosedSize, setChoosedSize] = useState('Choose yur size');
   const cartArrProducts = useSelector(cartSelector);
+  const [isDisabled, setIsDisablled] = useState(true);
 
   useEffect(() => {
     setIsColorChecked(false);
@@ -101,6 +102,14 @@ export const ProductPage = ({ dresses, productType }) => {
     dispatch(removeProduct({ productCartId, price }));
   };
   const productCartId = id + choosedColor + choosedSize;
+
+  useEffect(() => {
+    if (choosedColor === 'Choose yur color' && choosedSize === 'Choose yur size') {
+      setIsDisablled(true);
+      console.log(isDisabled);
+    } else setIsDisablled(false);
+  }, [choosedColor, choosedSize]);
+
   return (
     <div className='wrapper' data-test-id={`product-page-${productType}`}>
       <div className='header-wrapper'>
@@ -181,6 +190,7 @@ export const ProductPage = ({ dresses, productType }) => {
               <span className='price'>$ {dress?.price}</span>
               {!cartArrProducts.cart?.includes(cartArrProducts.cart.find((item) => productCartId === item.cartId)) ? (
                 <button
+                  disabled={isDisabled}
                   data-test-id='add-cart-button'
                   type='button'
                   className='add-to-cart-button'
