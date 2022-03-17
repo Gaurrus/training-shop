@@ -12,12 +12,15 @@ import { changeProduct } from '../../store/product-cart-state';
 export const CartItem = ({ url, name, color, size, handleRemove, cartId, price, trashIco, count }) => {
   const [totalSumm, setTotalSumm] = useState(price);
   const dispatch = useDispatch();
+  const [isDisable, setIsDisable] = useState(false);
 
   const increment = (productCartId) => {
     dispatch(changeCountPlus({ productCartId }));
   };
   const decrement = (productCartId) => {
-    dispatch(changeCountMinus({ productCartId }));
+    if (count > 0) {
+      dispatch(changeCountMinus({ productCartId }));
+    } else setIsDisable(true);
   };
 
   return (
@@ -38,6 +41,7 @@ export const CartItem = ({ url, name, color, size, handleRemove, cartId, price, 
                 aria-hidden
                 onClick={() => decrement(cartId)}
                 data-test-id='minus-product'
+                disable={isDisable}
               >
                 -
               </div>
