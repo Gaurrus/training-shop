@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import classNames from 'classnames';
@@ -17,6 +18,9 @@ import truck from './assets/truck.svg';
 import recycler from './assets/recycler.svg';
 import mail from './assets/mail.svg';
 import review from './assets/review.svg';
+
+import { cartSelector } from '../../../selectors';
+import { addProductInCart, removeProduct } from '../../store/cart-state';
 
 import { brendsColor } from '../../constants/brends-color';
 import { INITIAL_DRESS } from '../../constants/initial-dress';
@@ -43,11 +47,13 @@ const deliveryInfo = [
 
 export const ProductPage = ({ dresses, productType }) => {
   const { id } = useParams();
+  const dispatch = useDispatch();
   const [dress, setDress] = useState(INITIAL_DRESS);
   const [isColorChecked, setIsColorChecked] = useState(false);
   const [choosedColor, setChoosedColor] = useState('Choose yur color');
   const [isSizeChecked, setIsSizeChecked] = useState(false);
   const [choosedSize, setChoosedSize] = useState('Choose yur size');
+  const cartArrProducts = useSelector(cartSelector);
 
   useEffect(() => {
     setIsColorChecked(false);
@@ -87,6 +93,14 @@ export const ProductPage = ({ dresses, productType }) => {
     }
   };
 
+  const addProduct = (dressCart, color, size, price, cartId) => {
+    dispatch(addProductInCart({ dressCart, color, size, price, cartId }));
+  };
+
+  const handleRemove = (productCartId, price) => {
+    dispatch(removeProduct({ productCartId, price }));
+  };
+  const productCartId = id + choosedColor + choosedSize;
   return (
     <div className='wrapper' data-test-id={`product-page-${productType}`}>
       <div className='header-wrapper'>
@@ -165,9 +179,28 @@ export const ProductPage = ({ dresses, productType }) => {
             <div className='horisontal-line' />
             <div className='purchase-block'>
               <span className='price'>$ {dress?.price}</span>
-              <button type='button' className='add-to-cart-button'>
-                Add to cart
-              </button>
+              {!cartArrProducts.cart?.includes(cartArrProducts.cart.find((item) => productCartId === item.cartId)) ? (
+                <button
+                  data-test-id='add-cart-button'
+                  type='button'
+                  className='add-to-cart-button'
+                  onClick={() => {
+                    addProduct(dress, choosedColor, choosedSize, dress?.price, productCartId);
+                  }}
+                >
+                  Add to cart
+                </button>
+              ) : (
+                <button
+                  type='button'
+                  className='add-to-cart-button'
+                  onClick={() => {
+                    handleRemove(productCartId);
+                  }}
+                >
+                  Remove
+                </button>
+              )}
               <img src={favorites} alt='like-ico' className='add-to-favorites icon' />
               <img src={compare} alt='compare-ico' className='add-to-compare icon' />
             </div>

@@ -25,6 +25,28 @@
   flex-direction: row;
   align-items: center;
   column-gap: 30px;
+  .cart {
+    position: relative;
+    .cartIco {
+      position: absolute;
+      box-sizing: border-box;
+      top: -5px;
+      right: -4px;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      width: 18px;
+      height: 18px;
+      background-color: #121212;
+      font-weight: 700;
+      font-size: 9px;
+      line-height: 18px;
+      color: #ffffff;
+      display: flex;
+      padding-top: 1px;
+      align-items: center;
+      justify-content: center;
+    }
+  }
 }
 
 .logo {
@@ -107,7 +129,7 @@
   .nav {
     justify-content: center;
     gap: 8px;
-    .itemBlock{
+    .itemBlock {
       justify-content: space-between;
       width: 100%;
     }
