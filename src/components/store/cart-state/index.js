@@ -11,7 +11,7 @@ const cartSlice = createSlice({
       const { dressCart, color, size, price, cartId } = action.payload;
       if (!cart?.includes(cart.find((item) => cartId === item.cartId))) {
         cart.push({ dressCart, size, color, cartId });
-        state.summ += price;
+        // state.summ += price;
       }
     },
     removeProduct: (state, action) => {
@@ -19,10 +19,16 @@ const cartSlice = createSlice({
       const { productCartId, price } = action.payload;
       const removableIndex = cart?.findIndex((item) => productCartId === item.cartId);
       cart?.splice(removableIndex, 1);
-      state.summ -= price;
+      // state.summ -= price;
+    },
+    setSumm: (state, action) => {
+      const { summ } = state;
+      const { totalSumm } = action.payload;
+      summ.push(totalSumm);
+      console.log(summ);
     },
   },
 });
 
-export const { addProductInCart, removeProduct } = cartSlice.actions;
+export const { addProductInCart, removeProduct, setSumm } = cartSlice.actions;
 export default cartSlice.reducer;

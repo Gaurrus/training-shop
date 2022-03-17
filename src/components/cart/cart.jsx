@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import classNames from 'classnames';
 
@@ -14,6 +14,7 @@ export const Cart = ({ closeCart }) => {
   const [isProductsActive, setIsProductsActive] = useState(false);
   const [isDelyveryActive, setIsDelyveryActive] = useState(false);
   const [isPaymentActive, setIsPaymentActive] = useState(false);
+  const [totalSumm, setTotalSumm] = useState(0);
 
   useEffect(() => setIsProductsActive(true), []);
 
@@ -66,7 +67,7 @@ export const Cart = ({ closeCart }) => {
         <div className={styles.cardFooter}>
           <div className={styles.totalPrice}>
             <span className={styles.totalText}>Total</span>
-            <span className={styles.totalPrice}>$ {cartArrProducts.summ.toFixed(2)}</span>
+            <span className={styles.totalPrice}>$ {cartArrProducts.summ}</span>
           </div>
           <button type='button' className={classNames(styles.further, styles.button)}>
             Further

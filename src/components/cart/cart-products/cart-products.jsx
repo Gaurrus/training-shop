@@ -11,7 +11,7 @@ import { cartProductSelector, cartSelector } from '../../../selectors';
 
 import styles from './cart-products.module.scss';
 
-export const CartProducts = ({ cart }) => {
+export const CartProducts = ({ cart, setTotalSumm, totalSumm }) => {
   const dispatch = useDispatch();
 
   const handleRemove = (productCartId, price) => {
@@ -25,7 +25,7 @@ export const CartProducts = ({ cart }) => {
     dispatch(increment({ cartId }));
   };
 
-  const { count } = useSelector(cartProductSelector);
+  // const { count } = useSelector(cartProductSelector);
 
   return (
     <div className={styles.wrapper}>

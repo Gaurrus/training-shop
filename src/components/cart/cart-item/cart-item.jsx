@@ -1,12 +1,26 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { useEffect } from 'react';
 import { cartProductSelector } from '../../../selectors';
+import { setSumm } from '../../store/cart-state';
 
 import styles from './cart-item.module.scss';
 
 export const CartItem = ({ url, name, color, size, handleRemove, cartId, price, trashIco }) => {
   const [count, setCount] = useState(1);
+  const [totalSumm, setTotalSumm] = useState(price);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setTotalSumm(price * count);
+  }, [count]);
+
+  useEffect(() => {
+    dispatch(setSumm({ totalSumm, count }));
+  }, [count]);
+
   return (
     <div className={styles.card}>
       <div className={styles.productInfo}>
@@ -28,13 +42,15 @@ export const CartItem = ({ url, name, color, size, handleRemove, cartId, price, 
                 +
               </div>
             </div>
-            <span className={styles.price}>${(price * count).toFixed(2)}</span>
+            <span className={styles.price}>${totalSumm.toFixed(2)}</span>
             <img
               src={trashIco}
               alt='trashIco'
               className={styles.trash}
               aria-hidden
-              onClick={() => handleRemove(cartId, price)}
+              onClick={() => {
+                handleRemove(cartId, price);
+              }}
             />
           </div>
         </div>
