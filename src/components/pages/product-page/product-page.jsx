@@ -54,6 +54,7 @@ export const ProductPage = ({ dresses, productType }) => {
   const [isSizeChecked, setIsSizeChecked] = useState(0);
   const [choosedSize, setChoosedSize] = useState(dress?.sizes[0]);
   const cartArrProducts = useSelector(cartSelector);
+  const [cartUrl, setCartUrl] = useState(dress?.images[0].url);
   const [isDisabled, setIsDisablled] = useState(true);
 
   useEffect(() => {
@@ -61,6 +62,7 @@ export const ProductPage = ({ dresses, productType }) => {
     setChoosedColor(dress?.images[0].color);
     setIsSizeChecked(0);
     setChoosedSize(dress?.sizes[0]);
+    setCartUrl(dress?.images[0].url);
   }, [id, dress]);
 
   useEffect(() => {
@@ -74,10 +76,11 @@ export const ProductPage = ({ dresses, productType }) => {
     return acc;
   }, []);
 
-  const colorImageOnClick = (e, item) => {
+  const colorImageOnClick = (e, item, url) => {
     if (isColorChecked !== e) {
       setIsColorChecked(e);
       setChoosedColor(item.color);
+      setCartUrl(url);
     } else {
       setIsColorChecked(false);
       setChoosedColor('Choose yur color');
@@ -94,8 +97,8 @@ export const ProductPage = ({ dresses, productType }) => {
     }
   };
 
-  const addProduct = (dressCart, color, size, price, cartId) => {
-    dispatch(addProductInCart({ dressCart, color, size, price, cartId }));
+  const addProduct = (dressCart, color, size, price, cartId, url) => {
+    dispatch(addProductInCart({ dressCart, color, size, price, cartId, url }));
   };
 
   const handleRemove = (productCartId, price) => {
@@ -109,13 +112,11 @@ export const ProductPage = ({ dresses, productType }) => {
     } else setIsDisablled(false);
   }, [choosedColor, choosedSize]);
 
-  const handleClick = (e, dressCart, color, size, price, cartId) => {
+  const handleClick = (e, dressCart, color, size, price, cartId, url) => {
     if (e.target.innerText === 'REMOVE') {
-      console.log(e.target.innerText);
       handleRemove();
     } else {
-      addProduct(dressCart, color, size, price, cartId);
-      console.log(e.target.innerText);
+      addProduct(dressCart, color, size, price, cartId, url);
     }
   };
 
@@ -166,7 +167,7 @@ export const ProductPage = ({ dresses, productType }) => {
               <div className='color-choice'>
                 <ul className='color-choice-list'>
                   {colorPhotos?.map((item, e) => (
-                    <li className='color-choice-item' aria-hidden onClick={() => colorImageOnClick(e, item)}>
+                    <li className='color-choice-item' aria-hidden onClick={() => colorImageOnClick(e, item, item.url)}>
                       <img
                         src={`https://training.cleverland.by/shop${item.url}`}
                         alt='variant-of-color'
@@ -203,7 +204,7 @@ export const ProductPage = ({ dresses, productType }) => {
                 type='button'
                 className='add-to-cart-button'
                 onClick={(e) => {
-                  handleClick(e, dress, choosedColor, choosedSize, dress?.price, productCartId);
+                  handleClick(e, dress, choosedColor, choosedSize, dress?.price, productCartId, cartUrl);
                 }}
               >
                 {' '}
