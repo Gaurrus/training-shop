@@ -109,6 +109,16 @@ export const ProductPage = ({ dresses, productType }) => {
     } else setIsDisablled(false);
   }, [choosedColor, choosedSize]);
 
+  const handleClick = (e, dressCart, color, size, price, cartId) => {
+    if (e.target.innerText === 'REMOVE') {
+      console.log(e.target.innerText);
+      handleRemove();
+    } else {
+      addProduct(dressCart, color, size, price, cartId);
+      console.log(e.target.innerText);
+    }
+  };
+
   return (
     <div className='wrapper' data-test-id={`product-page-${productType}`}>
       <div className='header-wrapper'>
@@ -187,29 +197,20 @@ export const ProductPage = ({ dresses, productType }) => {
             <div className='horisontal-line' />
             <div className='purchase-block'>
               <span className='price'>$ {dress?.price}</span>
-              {!cartArrProducts.cart?.includes(cartArrProducts.cart.find((item) => productCartId === item.cartId)) ? (
-                <button
-                  disabled={isDisabled}
-                  data-test-id='add-cart-button'
-                  type='button'
-                  className='add-to-cart-button'
-                  onClick={() => {
-                    addProduct(dress, choosedColor, choosedSize, dress?.price, productCartId);
-                  }}
-                >
-                  Add to cart
-                </button>
-              ) : (
-                <button
-                  type='button'
-                  className='add-to-cart-button'
-                  onClick={() => {
-                    handleRemove(productCartId);
-                  }}
-                >
-                  Remove
-                </button>
-              )}
+              <button
+                disabled={isDisabled}
+                data-test-id='add-cart-button'
+                type='button'
+                className='add-to-cart-button'
+                onClick={(e) => {
+                  handleClick(e, dress, choosedColor, choosedSize, dress?.price, productCartId);
+                }}
+              >
+                {' '}
+                {!cartArrProducts.cart?.includes(cartArrProducts.cart.find((item) => productCartId === item.cartId))
+                  ? 'Add to cart'
+                  : 'Remove'}
+              </button>
               <img src={favorites} alt='like-ico' className='add-to-favorites icon' />
               <img src={compare} alt='compare-ico' className='add-to-compare icon' />
             </div>

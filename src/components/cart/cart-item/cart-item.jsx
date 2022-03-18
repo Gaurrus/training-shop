@@ -14,7 +14,7 @@ export const CartItem = ({ url, name, color, size, handleRemove, cartId, price, 
     dispatch(changeCountPlus({ productCartId }));
   };
   const decrement = (productCartId) => {
-    if (count > 0) {
+    if (count > 1) {
       dispatch(changeCountMinus({ productCartId }));
     } else setIsDisable(true);
   };
