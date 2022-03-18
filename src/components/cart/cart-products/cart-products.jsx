@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { CartItem } from '../cart-item';
 
@@ -7,11 +7,10 @@ import trashIco from './assets/trash-ico.svg';
 
 import { decrement, increment } from '../../store/product-cart-state';
 import { removeProduct } from '../../store/cart-state';
-import { cartProductSelector, cartSelector } from '../../../selectors';
 
 import styles from './cart-products.module.scss';
 
-export const CartProducts = ({ cart, setTotalSumm, totalSumm }) => {
+export const CartProducts = ({ cart }) => {
   const dispatch = useDispatch();
 
   const handleRemove = (productCartId, price) => {
