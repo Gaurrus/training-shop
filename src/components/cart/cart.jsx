@@ -9,13 +9,11 @@ import { CartPayment } from './cart-payment';
 
 import styles from './cart.module.scss';
 import { cartSelector } from '../../selectors';
-import { setSumm } from '../store/cart-state';
 
 export const Cart = ({ closeCart }) => {
   const [isProductsActive, setIsProductsActive] = useState(false);
   const [isDelyveryActive, setIsDelyveryActive] = useState(false);
   const [isPaymentActive, setIsPaymentActive] = useState(false);
-  const [totalSumm, setTotalSumm] = useState(0);
 
   useEffect(() => setIsProductsActive(true), []);
 

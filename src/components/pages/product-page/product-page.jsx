@@ -106,7 +106,6 @@ export const ProductPage = ({ dresses, productType }) => {
   useEffect(() => {
     if (choosedColor === 'Choose yur color' && choosedSize === 'Choose yur size') {
       setIsDisablled(true);
-      console.log(isDisabled);
     } else setIsDisablled(false);
   }, [choosedColor, choosedSize]);
 
