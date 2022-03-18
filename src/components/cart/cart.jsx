@@ -49,15 +49,27 @@ export const Cart = ({ closeCart }) => {
         </div>
       </div>
       <div className={styles.cartNav}>
-        <span aria-hidden className={styles.navItem} onClick={cartProductsOnClick}>
+        <span
+          aria-hidden
+          className={classNames(styles.navItem, { [styles.itemActive]: isProductsActive })}
+          onClick={cartProductsOnClick}
+        >
           Item in Cart
         </span>
         /
-        <span aria-hidden className={styles.navItem} onClick={cartDelyveryOnClick}>
+        <span
+          aria-hidden
+          className={classNames(styles.navItem, { [styles.itemActive]: isDelyveryActive })}
+          onClick={cartDelyveryOnClick}
+        >
           Delivery Info
         </span>
         /
-        <span aria-hidden className={styles.navItem} onClick={cartPaymentOnClick}>
+        <span
+          aria-hidden
+          className={classNames(styles.navItem, { [styles.itemActive]: isPaymentActive })}
+          onClick={cartPaymentOnClick}
+        >
           Payment
         </span>
       </div>
@@ -75,7 +87,7 @@ export const Cart = ({ closeCart }) => {
           <button type='button' className={classNames(styles.further, styles.button)}>
             Further
           </button>
-          <button type='button' className={classNames(styles.viewCart, styles.button)}>
+          <button type='button' className={classNames(styles.viewCart, styles.button)} onClick={closeCart}>
             View Cart
           </button>
         </div>

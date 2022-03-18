@@ -49,19 +49,21 @@ export const ProductPage = ({ dresses, productType }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [dress, setDress] = useState(INITIAL_DRESS);
-  const [isColorChecked, setIsColorChecked] = useState(false);
-  const [choosedColor, setChoosedColor] = useState('Choose yur color');
-  const [isSizeChecked, setIsSizeChecked] = useState(false);
-  const [choosedSize, setChoosedSize] = useState('Choose yur size');
+  const [isColorChecked, setIsColorChecked] = useState(0);
+  const [choosedColor, setChoosedColor] = useState(dress?.images[0].color);
+  const [isSizeChecked, setIsSizeChecked] = useState(0);
+  const [choosedSize, setChoosedSize] = useState(dress?.sizes[0]);
   const cartArrProducts = useSelector(cartSelector);
+  const [cartUrl, setCartUrl] = useState(dress?.images[0].url);
   const [isDisabled, setIsDisablled] = useState(true);
 
   useEffect(() => {
-    setIsColorChecked(false);
-    setChoosedColor('Choose yur color');
-    setIsSizeChecked(false);
-    setChoosedSize('Choose yur size');
-  }, [id]);
+    setIsColorChecked(0);
+    setChoosedColor(dress?.images[0].color);
+    setIsSizeChecked(0);
+    setChoosedSize(dress?.sizes[0]);
+    setCartUrl(dress?.images[0].url);
+  }, [id, dress]);
 
   useEffect(() => {
     setDress(dresses?.find((item) => item.id === id));
@@ -74,10 +76,11 @@ export const ProductPage = ({ dresses, productType }) => {
     return acc;
   }, []);
 
-  const colorImageOnClick = (e, item) => {
+  const colorImageOnClick = (e, item, url) => {
     if (isColorChecked !== e) {
       setIsColorChecked(e);
       setChoosedColor(item.color);
+      setCartUrl(url);
     } else {
       setIsColorChecked(false);
       setChoosedColor('Choose yur color');
@@ -94,8 +97,8 @@ export const ProductPage = ({ dresses, productType }) => {
     }
   };
 
-  const addProduct = (dressCart, color, size, price, cartId) => {
-    dispatch(addProductInCart({ dressCart, color, size, price, cartId }));
+  const addProduct = (dressCart, color, size, price, cartId, url) => {
+    dispatch(addProductInCart({ dressCart, color, size, price, cartId, url }));
   };
 
   const handleRemove = (productCartId, price) => {
@@ -108,6 +111,14 @@ export const ProductPage = ({ dresses, productType }) => {
       setIsDisablled(true);
     } else setIsDisablled(false);
   }, [choosedColor, choosedSize]);
+
+  const handleClick = (e, dressCart, color, size, price, cartId, url) => {
+    if (e.target.innerText === 'REMOVE') {
+      handleRemove();
+    } else {
+      addProduct(dressCart, color, size, price, cartId, url);
+    }
+  };
 
   return (
     <div className='wrapper' data-test-id={`product-page-${productType}`}>
@@ -156,7 +167,7 @@ export const ProductPage = ({ dresses, productType }) => {
               <div className='color-choice'>
                 <ul className='color-choice-list'>
                   {colorPhotos?.map((item, e) => (
-                    <li className='color-choice-item' aria-hidden onClick={() => colorImageOnClick(e, item)}>
+                    <li className='color-choice-item' aria-hidden onClick={() => colorImageOnClick(e, item, item.url)}>
                       <img
                         src={`https://training.cleverland.by/shop${item.url}`}
                         alt='variant-of-color'
@@ -187,29 +198,20 @@ export const ProductPage = ({ dresses, productType }) => {
             <div className='horisontal-line' />
             <div className='purchase-block'>
               <span className='price'>$ {dress?.price}</span>
-              {!cartArrProducts.cart?.includes(cartArrProducts.cart.find((item) => productCartId === item.cartId)) ? (
-                <button
-                  disabled={isDisabled}
-                  data-test-id='add-cart-button'
-                  type='button'
-                  className='add-to-cart-button'
-                  onClick={() => {
-                    addProduct(dress, choosedColor, choosedSize, dress?.price, productCartId);
-                  }}
-                >
-                  Add to cart
-                </button>
-              ) : (
-                <button
-                  type='button'
-                  className='add-to-cart-button'
-                  onClick={() => {
-                    handleRemove(productCartId);
-                  }}
-                >
-                  Remove
-                </button>
-              )}
+              <button
+                disabled={isDisabled}
+                data-test-id='add-cart-button'
+                type='button'
+                className='add-to-cart-button'
+                onClick={(e) => {
+                  handleClick(e, dress, choosedColor, choosedSize, dress?.price, productCartId, cartUrl);
+                }}
+              >
+                {' '}
+                {!cartArrProducts.cart?.includes(cartArrProducts.cart.find((item) => productCartId === item.cartId))
+                  ? 'Add to cart'
+                  : 'Remove'}
+              </button>
               <img src={favorites} alt='like-ico' className='add-to-favorites icon' />
               <img src={compare} alt='compare-ico' className='add-to-compare icon' />
             </div>

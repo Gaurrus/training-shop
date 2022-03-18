@@ -24,8 +24,6 @@ export const CartProducts = ({ cart }) => {
     dispatch(increment({ cartId }));
   };
 
-  // const { count } = useSelector(cartProductSelector);
-
   return (
     <div className={styles.wrapper}>
       <div className={styles.cards}>
@@ -36,7 +34,6 @@ export const CartProducts = ({ cart }) => {
               handleRemove={handleRemove}
               decrementAmount={decrementAmount}
               incrementAmount={incrementAmount}
-              url={item.dressCart.images[0].url}
               name={item.dressCart.name}
               color={item.color}
               size={item.size}
@@ -44,6 +41,7 @@ export const CartProducts = ({ cart }) => {
               price={item.dressCart.price}
               trashIco={trashIco}
               count={item.count}
+              url={item.url}
             />
           ))
         ) : (

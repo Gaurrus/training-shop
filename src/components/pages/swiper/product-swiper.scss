@@ -7,11 +7,9 @@
   flex-direction: row;
   .swiper-wrapper {
     width: 448px;
-    // height: 560px;
   }
   img {
     width: 448px;
-    // height: 560px;
   }
 }
 
@@ -19,23 +17,19 @@
   display: flex;
   flex-direction: column;
   width: 94px;
-  // overflow: visible;
   margin: 0;
   height: 560px;
   .swiper-slide {
     opacity: 0.6;
-    // max-height: 114px;
     cursor: pointer;
   }
 
   .swiper-wrapper {
     flex-direction: column;
-    // row-gap: 16px;
     width: 94px;
   }
   img {
     width: 94px;
-    // height: 114px;
   }
   .swiper-button-next,
   .swiper-button-prev {
@@ -55,7 +49,6 @@
   align-items: center;
   row-gap: 16px;
   overflow: hidden;
-  // max-height: 560px;
   .slider-buttons {
     display: flex;
     flex-wrap: wrap;

@@ -32,7 +32,6 @@ export const Related = ({ dresses, productType }) => {
           <Swiper
             data-test-id='related-slider'
             className={styles.relatedSwiper}
-            // onSwiper={setControlledSwiper}
             spaceBetween={10}
             breakpoints={{
               543: {
