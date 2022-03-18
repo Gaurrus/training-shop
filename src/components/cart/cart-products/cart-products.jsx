@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { CartItem } from '../cart-item';
 
@@ -7,11 +7,10 @@ import trashIco from './assets/trash-ico.svg';
 
 import { decrement, increment } from '../../store/product-cart-state';
 import { removeProduct } from '../../store/cart-state';
-import { cartProductSelector, cartSelector } from '../../../selectors';
 
 import styles from './cart-products.module.scss';
 
-export const CartProducts = ({ cart, setTotalSumm, totalSumm }) => {
+export const CartProducts = ({ cart }) => {
   const dispatch = useDispatch();
 
   const handleRemove = (productCartId, price) => {
@@ -25,8 +24,6 @@ export const CartProducts = ({ cart, setTotalSumm, totalSumm }) => {
     dispatch(increment({ cartId }));
   };
 
-  // const { count } = useSelector(cartProductSelector);
-
   return (
     <div className={styles.wrapper}>
       <div className={styles.cards}>
@@ -37,7 +34,6 @@ export const CartProducts = ({ cart, setTotalSumm, totalSumm }) => {
               handleRemove={handleRemove}
               decrementAmount={decrementAmount}
               incrementAmount={incrementAmount}
-              url={item.dressCart.images[0].url}
               name={item.dressCart.name}
               color={item.color}
               size={item.size}
@@ -45,6 +41,7 @@ export const CartProducts = ({ cart, setTotalSumm, totalSumm }) => {
               price={item.dressCart.price}
               trashIco={trashIco}
               count={item.count}
+              url={item.url}
             />
           ))
         ) : (

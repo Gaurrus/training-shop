@@ -1,9 +1,18 @@
 .wrapper {
-  padding: 24px;
+  padding: 0 24px;
+  overflow-y: scroll;
+  height: 58vh;
+  &::-webkit-scrollbar {
+    width: 3px;
+    background-color: #e6e6e6;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #8d8b8b;
+  }
   .cards {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
   }
 }

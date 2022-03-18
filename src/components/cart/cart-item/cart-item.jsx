@@ -1,16 +1,12 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import { useEffect } from 'react';
-import { cartProductSelector } from '../../../selectors';
-import { changeCountMinus, changeCountPlus, setSumm } from '../../store/cart-state';
+import { changeCountMinus, changeCountPlus } from '../../store/cart-state';
 
 import styles from './cart-item.module.scss';
-import { changeProduct } from '../../store/product-cart-state';
 
 export const CartItem = ({ url, name, color, size, handleRemove, cartId, price, trashIco, count }) => {
-  const [totalSumm, setTotalSumm] = useState(price);
   const dispatch = useDispatch();
   const [isDisable, setIsDisable] = useState(false);
 
@@ -18,7 +14,7 @@ export const CartItem = ({ url, name, color, size, handleRemove, cartId, price, 
     dispatch(changeCountPlus({ productCartId }));
   };
   const decrement = (productCartId) => {
-    if (count > 0) {
+    if (count > 1) {
       dispatch(changeCountMinus({ productCartId }));
     } else setIsDisable(true);
   };

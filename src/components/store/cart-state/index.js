@@ -8,10 +8,9 @@ const cartSlice = createSlice({
   reducers: {
     addProductInCart: (state, action) => {
       const { cart } = state;
-      const { dressCart, color, size, price, cartId } = action.payload;
+      const { dressCart, color, size, price, cartId, url } = action.payload;
       if (!cart?.includes(cart.find((item) => cartId === item.cartId))) {
-        cart.push({ dressCart, size, color, cartId, count: 1, price });
-        console.log(cart);
+        cart.push({ dressCart, size, color, cartId, count: 1, price, url });
       }
     },
     removeProduct: (state, action) => {
@@ -24,23 +23,14 @@ const cartSlice = createSlice({
       const { cart } = state;
       const { productCartId } = action.payload;
       const index = cart?.findIndex((item) => productCartId === item.cartId);
-      console.log(index);
       cart[index].count += 1;
     },
     changeCountMinus: (state, action) => {
       const { cart } = state;
       const { productCartId } = action.payload;
       const index = cart?.findIndex((item) => productCartId === item.cartId);
-      console.log(index);
       cart[index].count -= 1;
     },
-    // setSumm: (state, action) => {
-    //   const { cart } = state;
-    //   const totalSumm = cart.reduce((summ, item) => {
-    //     return summ + item.count * item.price;
-    //   }, 0);
-    //   console.log(totalSumm);
-    // },
   },
 });
 
