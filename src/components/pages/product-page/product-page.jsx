@@ -49,19 +49,19 @@ export const ProductPage = ({ dresses, productType }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [dress, setDress] = useState(INITIAL_DRESS);
-  const [isColorChecked, setIsColorChecked] = useState(false);
-  const [choosedColor, setChoosedColor] = useState('Choose yur color');
-  const [isSizeChecked, setIsSizeChecked] = useState(false);
-  const [choosedSize, setChoosedSize] = useState('Choose yur size');
+  const [isColorChecked, setIsColorChecked] = useState(0);
+  const [choosedColor, setChoosedColor] = useState(dress?.images[0].color);
+  const [isSizeChecked, setIsSizeChecked] = useState(0);
+  const [choosedSize, setChoosedSize] = useState(dress?.sizes[0]);
   const cartArrProducts = useSelector(cartSelector);
   const [isDisabled, setIsDisablled] = useState(true);
 
   useEffect(() => {
-    setIsColorChecked(false);
-    setChoosedColor('Choose yur color');
-    setIsSizeChecked(false);
-    setChoosedSize('Choose yur size');
-  }, [id]);
+    setIsColorChecked(0);
+    setChoosedColor(dress?.images[0].color);
+    setIsSizeChecked(0);
+    setChoosedSize(dress?.sizes[0]);
+  }, [id, dress]);
 
   useEffect(() => {
     setDress(dresses?.find((item) => item.id === id));

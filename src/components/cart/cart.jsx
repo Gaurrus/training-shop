@@ -87,7 +87,7 @@ export const Cart = ({ closeCart }) => {
           <button type='button' className={classNames(styles.further, styles.button)}>
             Further
           </button>
-          <button type='button' className={classNames(styles.viewCart, styles.button)} onClick={cartProductsOnClick}>
+          <button type='button' className={classNames(styles.viewCart, styles.button)} onClick={closeCart}>
             View Cart
           </button>
         </div>
