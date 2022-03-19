@@ -12,10 +12,6 @@ import styles from './cart-delivery.module.scss';
 export const CartDelivery = ({ cart }) => {
   const [radio, setRadio] = useState('post');
 
-  // const handleChange = (value) => {
-  //   setRadio(value);
-  // };
-
   return (
     <div className={styles.wrapper}>
       {cart.length ? (

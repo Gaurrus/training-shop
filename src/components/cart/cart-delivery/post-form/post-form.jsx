@@ -4,7 +4,17 @@ import styles from './post-form.module.scss';
 
 export const PostForm = () => (
   <Formik
-    initialValues={{ phone: '' }}
+    initialValues={{
+      phone: '',
+      email: '',
+      country: '',
+      city: '',
+      street: '',
+      house: '',
+      apartment: '',
+      postcode: '',
+      agreenment: false,
+    }}
     onSubmit={(values, { setSubmitting }) => {
       setSubmitting(false);
     }}
@@ -15,7 +25,7 @@ export const PostForm = () => (
           <label htmlFor='phone' className={styles.dataLabel}>
             PHONE
           </label>
-          <Field type='text' name='phone' id='phone' className={styles.input} />
+          <Field type='text' name='phone' id='phone' className={styles.input} placeholder='+375  (__) _______' />
         </div>
         <div className={styles.dataItem}>
           <label htmlFor='email' className={styles.dataLabel}>
