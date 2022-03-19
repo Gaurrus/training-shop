@@ -11,8 +11,10 @@ import { GenderPage } from '../pages/gender-page';
 import { ProductPage } from '../pages/product-page';
 import { Modal } from '../modal';
 import { Cart } from '../cart';
+import { Loader } from '../loader';
 
 import { productsSelector } from '../../selectors';
+import { LoadingIco } from '../loader/loading-ico';
 
 import { getProductsRequest } from '../store/products-state';
 
@@ -60,6 +62,9 @@ export const App = () => {
       <Modal isCartActive={isCartActive}>
         <Cart closeCart={cartIcoOnClick} />
       </Modal>
+      <Loader isLoading={products.isLoading}>
+        <LoadingIco />
+      </Loader>
       <Footer />
     </div>
   );
