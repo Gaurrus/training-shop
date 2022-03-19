@@ -20,6 +20,7 @@ import { getProductsRequest } from '../store/products-state';
 
 import './reset.scss';
 import './App.scss';
+import { FaultOfLoad } from '../loader/fault-of-load';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -62,9 +63,7 @@ export const App = () => {
       <Modal isCartActive={isCartActive}>
         <Cart closeCart={cartIcoOnClick} />
       </Modal>
-      <Loader isLoading={products.isLoading}>
-        <LoadingIco />
-      </Loader>
+      <Loader isLoading={products.isLoading}>{products.isError ? <FaultOfLoad /> : <LoadingIco />}</Loader>
       <Footer />
     </div>
   );
