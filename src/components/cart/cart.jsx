@@ -39,6 +39,18 @@ export const Cart = ({ closeCart }) => {
     return summ + item.price * item.count;
   }, 0);
 
+  const handleClick = () => {
+    if (isProductsActive) {
+      cartDelyveryOnClick();
+    }
+    if (isDelyveryActive) {
+      cartPaymentOnClick();
+    }
+    if (isPaymentActive) {
+      cartProductsOnClick();
+    }
+  };
+
   return (
     <div className={styles.cart} data-test-id='cart'>
       <div className={styles.cartHeader}>
@@ -84,7 +96,7 @@ export const Cart = ({ closeCart }) => {
             <span className={styles.totalText}>Total</span>
             <span className={styles.totalPrice}>$ {summFromArr.toFixed(2)}</span>
           </div>
-          <button type='button' className={classNames(styles.further, styles.button)}>
+          <button type='submit' className={classNames(styles.further, styles.button)} onClick={handleClick}>
             Further
           </button>
           <button type='button' className={classNames(styles.viewCart, styles.button)} onClick={closeCart}>

@@ -13,10 +13,8 @@ export const GridItem = ({ img, title, price, sale, notRelated, rating }) => (
     <span className={styles.title}>{title}</span>
     <div className={styles.priceBlock}>
       <span className={styles.price}>
-        $ {price}
-        <span className={classNames(saleStyles.oldPrice, { [saleStyles.oldPriceActive]: sale })}>
-          $ {(+price * (1 - Math.abs(parseInt(sale, 10)) / 100)).toFixed(2)}
-        </span>{' '}
+        $ {sale ? (+price * (1 - Math.abs(parseInt(sale, 10)) / 100)).toFixed(2) : price}
+        <span className={classNames(saleStyles.oldPrice, { [saleStyles.oldPriceActive]: sale })}>$ {price}</span>{' '}
       </span>
       <Rating rating={rating} />
     </div>
