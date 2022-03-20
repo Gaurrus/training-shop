@@ -1,7 +1,7 @@
 import styles from './loading-ico.module.scss';
 
 export const LoadingIco = () => (
-  <div className={styles.loader}>
+  <div className={styles.loader} data-test-id='loader'>
     <span>L</span>
     <span>O</span>
     <span>A</span>
