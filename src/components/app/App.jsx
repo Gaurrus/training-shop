@@ -13,6 +13,8 @@ import { Modal } from '../modal';
 import { Cart } from '../cart';
 import { Loader } from '../loader';
 
+import { disableBodyScroll, enableBodyScroll } from '../utils/scroll-lock';
+
 import { productsSelector } from '../../selectors';
 import { LoadingIco } from '../loader/loading-ico';
 
@@ -42,15 +44,15 @@ export const App = () => {
   const cartIcoOnClick = () => {
     if (isCartActive) {
       setIsCartActive(!isCartActive);
-      document.body.style.overflow = null;
+      enableBodyScroll();
     } else {
       setIsCartActive(!isCartActive);
-      document.body.style.overflow = 'hidden';
+      disableBodyScroll({ savePosition: true });
     }
   };
 
   return (
-    <div data-test-id='app'>
+    <div data-test-id='app' className='app-wrapper'>
       <div aria-hidden onClick={cartIcoOnClick} className={classNames('shadow', { 'shadow-active': isCartActive })} />
       <Header cartIcoOnClick={cartIcoOnClick} />
       <Routes>
