@@ -3,6 +3,10 @@
   margin: 0 auto;
 }
 
+.app-wrapper-blur {
+  filter: blur(4px);
+}
+
 .shadow {
   position: absolute;
   top: 0;

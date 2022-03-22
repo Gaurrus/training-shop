@@ -52,7 +52,10 @@ export const App = () => {
   };
 
   return (
-    <div data-test-id='app' className='app-wrapper'>
+    <div
+      data-test-id='app'
+      className={classNames('app-wrapper', { 'app-wrapper-blur': products.isLoading || products.isError })}
+    >
       <div aria-hidden onClick={cartIcoOnClick} className={classNames('shadow', { 'shadow-active': isCartActive })} />
       <Header cartIcoOnClick={cartIcoOnClick} />
       <Routes>
