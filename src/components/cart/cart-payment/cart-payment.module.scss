@@ -1,5 +1,5 @@
 .wrapper {
-  padding: 24px;
+  padding: 0 24px;
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -12,52 +12,89 @@
   &::-webkit-scrollbar-thumb {
     background-color: #8d8b8b;
   }
-}
-.cardFooter {
-  display: flex;
-  flex-direction: column;
-  padding: 24px;
-  gap: 12px;
-  .totalPrice {
+  .radioGroup {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    .totalText {
-      font-size: 14px;
-      line-height: 22px;
-    }
-    .totalPrice {
+    flex-direction: column;
+    justify-self: flex-start;
+
+    margin-bottom: 32px;
+  }
+  .horisontalLine {
+    width: 100%;
+    background: #ffffff;
+    border: 2px solid #f8f8f8;
+    box-sizing: border-box;
+    margin: 12px 0;
+  }
+
+  .delyveryTitle {
+    font-size: 14px;
+    line-height: 22px;
+  }
+  .label {
+    font-size: 14px;
+    line-height: 22px;
+    display: flex;
+    align-items: bottom;
+    min-width: 335px;
+  }
+  .castomRadio {
+    margin-right: 16px;
+    width: 18px;
+    height: 18px;
+  }
+  .dataItem {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    gap: 8px;
+    .dataLabel {
       font-weight: 600;
-      font-size: 16px;
-      line-height: 24px;
+      font-size: 12px;
+      line-height: 18px;
       letter-spacing: 0.06em;
       text-transform: uppercase;
+      margin: 12px 0 8px;
+    }
+    .input {
+      width: 100%;
+      height: 48px;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 18px;
+      color: #9c9c9c;
+      border: unset;
+      background-color: #f8f8f8;
+      text-indent: 16px;
+      &::placeholder {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 18px;
+        color: #9c9c9c;
+      }
+      &:focus {
+        border: unset;
+      }
+    }
+    .dubleInput {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
     }
   }
-  .button {
-    padding: 16px 0;
-    background-color: #121212;
-    font-weight: 500;
-    font-size: 13px;
-    line-height: 15px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.9);
-    border: unset;
-    min-width: 70px;
-  }
-  .further {
-    background-color: #121212;
-    &:hover {
-      opacity: 0.5;
-    }
-  }
-  .viewCart {
-    background-color: #f8f8f8;
-    color: rgba(18, 18, 18, 0.9);
-    &:hover {
-      background-color: #121212;
-      color: #ffffff;
+  .checkboxLabel {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 22px;
+    display: flex;
+    flex-direction: row;
+    .castomCheckbox {
+      margin-right: 16px;
+      width: 18px;
+      height: 18px;
+      background: #ffffff;
+      border: 1px solid #e6e6e6;
+      box-sizing: border-box;
     }
   }
 }
