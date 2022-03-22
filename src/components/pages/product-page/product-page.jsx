@@ -19,7 +19,7 @@ import recycler from './assets/recycler.svg';
 import mail from './assets/mail.svg';
 import review from './assets/review.svg';
 
-import { cartSelector } from '../../../selectors';
+import { cartSelector, productSelector } from '../../../selectors';
 import { addProductInCart, removeProduct } from '../../store/cart-state';
 
 import { brendsColor } from '../../constants/brends-color';
@@ -46,7 +46,7 @@ const deliveryInfo = [
   },
 ];
 
-export const ProductPage = ({ dresses, productType }) => {
+export const ProductPage = ({ dresses, productType, isError }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [dress, setDress] = useState(INITIAL_DRESS);
@@ -59,9 +59,11 @@ export const ProductPage = ({ dresses, productType }) => {
   const [isDisabled, setIsDisablled] = useState(true);
 
   useEffect(() => {
-    console.log(id);
-    dispatch(getProductRequest({ id }));
-  }, [dispatch]);
+    if (isError) {
+      dispatch(getProductRequest({ id }));
+    }
+  }, [dispatch, isError, id]);
+  const { data } = useSelector(productSelector);
 
   useEffect(() => {
     setIsColorChecked(0);
@@ -335,4 +337,5 @@ ProductPage.propTypes = {
     id: PropTypes.string,
   }).isRequired,
   productType: PropTypes.string.isRequired,
+  isError: PropTypes.bool.isRequired,
 };
