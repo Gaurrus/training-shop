@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import classNames from 'classnames';
 
 import { changeCountMinus, changeCountPlus } from '../../store/cart-state';
 
@@ -33,7 +34,7 @@ export const CartItem = ({ url, name, color, size, handleRemove, cartId, price, 
           <div className={styles.priceAndAmount}>
             <div className={styles.amountBlock}>
               <div
-                className={styles.buttonMinus}
+                className={classNames(styles.buttonMinus, { [styles.buttonDisabled]: count === 1 })}
                 aria-hidden
                 onClick={() => decrement(cartId)}
                 data-test-id='minus-product'

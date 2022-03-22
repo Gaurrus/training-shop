@@ -26,6 +26,7 @@ import { brendsColor } from '../../constants/brends-color';
 import { INITIAL_DRESS } from '../../constants/initial-dress';
 
 import './product.scss';
+import { getProductRequest } from '../../store/product-state';
 
 const deliveryInfo = [
   {
@@ -56,6 +57,11 @@ export const ProductPage = ({ dresses, productType }) => {
   const cartArrProducts = useSelector(cartSelector);
   const [cartUrl, setCartUrl] = useState(dress?.images[0].url);
   const [isDisabled, setIsDisablled] = useState(true);
+
+  useEffect(() => {
+    console.log(id);
+    dispatch(getProductRequest({ id }));
+  }, [dispatch]);
 
   useEffect(() => {
     setIsColorChecked(0);

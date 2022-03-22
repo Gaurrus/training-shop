@@ -1,7 +1,7 @@
 export const initialProductsState = {
   isLoading: false,
   isError: false,
-  products: {
+  data: {
     men: [],
     women: [],
   },

@@ -3,6 +3,7 @@ import createSagaMiddleware from 'redux-saga';
 import { configureStore } from '@reduxjs/toolkit';
 import { rootSaga } from './root-saga';
 import productsReducer from './products-state';
+import productReducer from './product-state';
 import cartReducer from './cart-state';
 import cartProductReducer from './product-cart-state';
 
@@ -13,6 +14,7 @@ export const store = configureStore({
     productsReducer,
     cartReducer,
     cartProductReducer,
+    productReducer,
   },
   middleware: (defaultMiddleware) => defaultMiddleware().concat(sagaMiddleware),
 });

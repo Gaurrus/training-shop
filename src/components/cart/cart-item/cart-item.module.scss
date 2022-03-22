@@ -64,6 +64,11 @@
               background-color: #aaaaaa;
             }
           }
+          .buttonDisabled {
+            &:hover {
+              background-color: #f8f8f8;
+            }
+          }
           .buttonPlus {
             display: flex;
             align-items: center;
