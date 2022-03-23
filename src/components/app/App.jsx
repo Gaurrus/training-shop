@@ -69,8 +69,8 @@ export const App = () => {
             <ProductPage
               dresses={products?.data?.women}
               productType='women'
-              isError={!products.isError}
-              isLoading={!products.isLoading}
+              isProductsError={!products.isError}
+              isProductsLoading={!products.isLoading}
             />
           }
         />
@@ -81,8 +81,8 @@ export const App = () => {
             <ProductPage
               dresses={products?.data?.men}
               productType='men'
-              isError={!products.isError}
-              isLoading={!products.isLoading}
+              isProductsError={!products.isError}
+              isProductsLoading={!products.isLoading}
             />
           }
         />
