@@ -62,8 +62,30 @@ export const App = () => {
         <Route exact path='/' element={<Main products={products.data} />} />
         <Route exact path='women' element={<GenderPage dresses={products?.data?.women} productType='women' />} />
         <Route exact path='men' element={<GenderPage dresses={products?.data?.men} productType='men' />} />
-        <Route exact path='women/:id' element={<ProductPage dresses={products?.data?.women} productType='women' />} />
-        <Route exact path='men/:id' element={<ProductPage dresses={products?.data?.men} productType='men' />} />
+        <Route
+          exact
+          path='women/:id'
+          element={
+            <ProductPage
+              dresses={products?.data?.women}
+              productType='women'
+              isProductsError={!products.isError}
+              isProductsLoading={!products.isLoading}
+            />
+          }
+        />
+        <Route
+          exact
+          path='men/:id'
+          element={
+            <ProductPage
+              dresses={products?.data?.men}
+              productType='men'
+              isProductsError={!products.isError}
+              isProductsLoading={!products.isLoading}
+            />
+          }
+        />
       </Routes>
       <Modal isCartActive={isCartActive}>
         <Cart closeCart={cartIcoOnClick} />
