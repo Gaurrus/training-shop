@@ -10,6 +10,7 @@ import { RatingBig } from '../../rating-big/rating-big';
 import { Related } from './realated';
 import { Share } from '../share';
 import { ProductSwiper } from '../swiper/product-swiper';
+import { LoadingIco } from '../../loader/loading-ico/loading-ico';
 
 import hangler from './assets/clothes-hanger.svg';
 import favorites from './assets/favorites-unactive.svg';
@@ -22,11 +23,11 @@ import review from './assets/review.svg';
 import { cartSelector, productSelector } from '../../../selectors';
 import { addProductInCart, removeProduct } from '../../store/cart-state';
 
+import { getProductRequest } from '../../store/product-state';
 import { brendsColor } from '../../constants/brends-color';
 import { INITIAL_DRESS } from '../../constants/initial-dress';
 
 import './product.scss';
-import { getProductRequest } from '../../store/product-state';
 
 const deliveryInfo = [
   {
@@ -46,7 +47,7 @@ const deliveryInfo = [
   },
 ];
 
-export const ProductPage = ({ dresses, productType, isError }) => {
+export const ProductPage = ({ dresses, productType, isProductsError, isProductsLoading }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [dress, setDress] = useState(INITIAL_DRESS);
@@ -59,11 +60,12 @@ export const ProductPage = ({ dresses, productType, isError }) => {
   const [isDisabled, setIsDisablled] = useState(true);
 
   useEffect(() => {
-    if (isError) {
+    if (isProductsError) {
       dispatch(getProductRequest({ id }));
     }
-  }, [dispatch, isError, id]);
-  const { data } = useSelector(productSelector);
+  }, [dispatch, isProductsError, id]);
+
+  const { data, isLoading, isError } = useSelector(productSelector);
 
   useEffect(() => {
     setIsColorChecked(0);
@@ -74,8 +76,12 @@ export const ProductPage = ({ dresses, productType, isError }) => {
   }, [id, dress]);
 
   useEffect(() => {
-    setDress(dresses?.find((item) => item.id === id));
-  }, [dresses, setDress, id]);
+    if (isProductsError) {
+      setDress(data);
+    } else {
+      setDress(dresses?.find((item) => item.id === id));
+    }
+  }, [dresses, setDress, id, data, isProductsError]);
 
   const colors = Array.from(new Set(dress?.images.map((image) => image.color)));
 
@@ -129,178 +135,193 @@ export const ProductPage = ({ dresses, productType, isError }) => {
   };
 
   return (
-    <div className='wrapper' data-test-id={`product-page-${productType}`}>
-      <div className='header-wrapper'>
-        <div className='header'>
-          <div className='nav'>
-            <ul className='nav-list'>
-              <li className='nav-item'>
-                <NavLink to='/'>Home</NavLink>
-              </li>
-              <li className='nav-item'>►</li>
-              <li className='nav-item'>
-                <NavLink to={`/${productType}`}>{dress?.category}</NavLink>
-              </li>
-              <li className='nav-item'>►</li>
-              <li className='nav-item'>{dress?.name}</li>
-            </ul>
-            <Share />
-          </div>
-          <h2 className='title'>{dress?.name}</h2>
-          <div className='rating'>
-            <div className='stars'>
-              <div className='starsBlock'>
-                <Rating rating={dress?.rating} />
-              </div>
-              <span className='num-of-reviews'>2 Reviews</span>
-            </div>
-            <div className='storage-info'>
-              <span className='purchases' />
-              SKU: <span className='value'>777</span>
-              <span className='stash'>Availability:</span>
-              <span className='value'>In Stock</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className='product'>
-        <div className='left-block'>
-          <ProductSwiper images={dress?.images} data-test-id='main-slider' />
-        </div>
-        <div className='right-block'>
-          <div className='specifications'>
-            <div className='color'>
-              <span className='specifications-title'>Color: </span>
-              <span className='colorised-text'>{choosedColor}</span>{' '}
-              <div className='color-choice'>
-                <ul className='color-choice-list'>
-                  {colorPhotos?.map((item, e) => (
-                    <li className='color-choice-item' aria-hidden onClick={() => colorImageOnClick(e, item, item.url)}>
-                      <img
-                        src={`https://training.cleverland.by/shop${item.url}`}
-                        alt='variant-of-color'
-                        className={classNames('color-choice-img', { 'choose-active': isColorChecked === e })}
-                      />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-            <span className='specifications-title'>Size: </span>
-            <span className='colorised-text'>{choosedSize}</span>
-            <ul className='size-choice-list'>
-              {dress?.sizes.map((item, e) => (
-                <li
-                  className={classNames('size-choice-item', { 'choose-active': isSizeChecked === e })}
-                  aria-hidden
-                  onClick={() => sizeOnClick(e, item)}
-                >
-                  {item}
+    <div
+      className={classNames('wrapper', { 'wraper-blur': isLoading || isError })}
+      data-test-id={`product-page-${productType}`}
+    >
+      {isError ? (
+        <div className='error-block'>Продукт не найден</div>
+      ) : (
+        <div className='header-wrapper'>
+          <div className='header'>
+            <div className='nav'>
+              <ul className='nav-list'>
+                <li className='nav-item'>
+                  <NavLink to='/'>Home</NavLink>
                 </li>
-              ))}
-            </ul>
-            <div className='size-guide'>
-              <img src={hangler} alt='' className='guide-img' />
-              <span className='guide-text'>Size guide</span>
+                <li className='nav-item'>►</li>
+                <li className='nav-item'>
+                  <NavLink to={`/${productType}`}>{dress?.category}</NavLink>
+                </li>
+                <li className='nav-item'>►</li>
+                <li className='nav-item'>{dress?.name}</li>
+              </ul>
+              <Share />
             </div>
-            <div className='horisontal-line' />
-            <div className='purchase-block'>
-              <span className='price'>$ {dress?.price}</span>
-              <button
-                disabled={isDisabled}
-                data-test-id='add-cart-button'
-                type='button'
-                className='add-to-cart-button'
-                onClick={(e) => {
-                  handleClick(e, dress, choosedColor, choosedSize, dress?.price, productCartId, cartUrl);
-                }}
-              >
-                {' '}
-                {!cartArrProducts.cart?.includes(cartArrProducts.cart.find((item) => productCartId === item.cartId))
-                  ? 'Add to cart'
-                  : 'Remove'}
-              </button>
-              <img src={favorites} alt='like-ico' className='add-to-favorites icon' />
-              <img src={compare} alt='compare-ico' className='add-to-compare icon' />
-            </div>
-            <div className='horisontal-line' />
-            <div className='delivery-block'>
-              {deliveryInfo.map((item) => (
-                <div className='delivery-item' key={item.id}>
-                  <img src={item.img} alt='deliv-ico' className='delyvery-img' />
-                  <h3 className='delivery-title'>{item.title}</h3>
+            <h2 className='title'>{dress?.name}</h2>
+            <div className='rating'>
+              <div className='stars'>
+                <div className='starsBlock'>
+                  <Rating rating={dress?.rating} />
                 </div>
-              ))}
-            </div>
-            <div className='garantie'>
-              <h3 className='garanties-title'>guaranteed safe checkout</h3>
-              <div className='short-line' />
-            </div>
-            <div className='brends'>
-              {brendsColor.map((brend) => (
-                <Brend key={brend.id} src={brend.src} />
-              ))}
-            </div>
-            <div className='horisontal-line' />
-            <span className='description'>DESCRIPTION</span>
-            <div className='horisontal-line' />
-            <div className='additional-info'>
-              <h3 className='additional-title'>ADDITIONAL INFORMATION</h3>
-              <div className='parameters-wrapper'>
-                <span className='additional-parameter'>
-                  Color:
-                  <span className='parameters'>
-                    {colors.map((item) => (
-                      <span> {item}</span>
-                    ))}
-                  </span>
-                </span>
-                <span className='additional-parameter'>
-                  Size:
-                  <span className='parameters'>
-                    {dress?.sizes.map((item) => (
-                      <span className='size-choice-item'> {item}</span>
-                    ))}
-                  </span>
-                </span>
-                <span className='additional-parameter'>
-                  Material:
-                  <span className='parameters'> {dress?.material}</span>
-                </span>
+                <span className='num-of-reviews'>2 Reviews</span>
               </div>
-            </div>
-            <div className='horisontal-line' />
-            <div className='reviews'>
-              <h3 className='reviews-title'>REVIEWS</h3>
-              <div className='add-review'>
-                <div className='stars'>
-                  <div className='starsBlock'>
-                    <RatingBig rating={dress?.rating} />
-                  </div>
-                  <span className='num-of-reviews'>{dress?.reviews.length} Reviews</span>
-                </div>
-                <div className='write-review'>
-                  <img src={review} alt='' className='review-ico' />
-                  <span className='write-review-text'>Write a review</span>
-                </div>
-                <div className='posts'>
-                  {dress?.reviews.map((post) => (
-                    <div className='post'>
-                      <div className='post-title'>
-                        <span className='user-name'>{post.name}</span>
-                        <span className='time-of-review'>3 months ago</span>
-                        <Rating rating={post.rating} />
-                      </div>
-                      <p className='post-text'>{post.text}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className='horisontal-line' />
+              <div className='storage-info'>
+                <span className='purchases' />
+                SKU: <span className='value'>777</span>
+                <span className='stash'>Availability:</span>
+                <span className='value'>In Stock</span>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
+      {isError ? (
+        <div className='error-block'>Продукт не найден</div>
+      ) : (
+        <div className='product'>
+          <div className='left-block'>
+            <ProductSwiper images={dress?.images} data-test-id='main-slider' />
+          </div>
+          <div className='right-block'>
+            <div className='specifications'>
+              <div className='color'>
+                <span className='specifications-title'>Color: </span>
+                <span className='colorised-text'>{choosedColor}</span>{' '}
+                <div className='color-choice'>
+                  <ul className='color-choice-list'>
+                    {colorPhotos?.map((item, e) => (
+                      <li
+                        className='color-choice-item'
+                        aria-hidden
+                        onClick={() => colorImageOnClick(e, item, item.url)}
+                      >
+                        <img
+                          src={`https://training.cleverland.by/shop${item.url}`}
+                          alt='variant-of-color'
+                          className={classNames('color-choice-img', { 'choose-active': isColorChecked === e })}
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <span className='specifications-title'>Size: </span>
+              <span className='colorised-text'>{choosedSize}</span>
+              <ul className='size-choice-list'>
+                {dress?.sizes.map((item, e) => (
+                  <li
+                    className={classNames('size-choice-item', { 'choose-active': isSizeChecked === e })}
+                    aria-hidden
+                    onClick={() => sizeOnClick(e, item)}
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <div className='size-guide'>
+                <img src={hangler} alt='' className='guide-img' />
+                <span className='guide-text'>Size guide</span>
+              </div>
+              <div className='horisontal-line' />
+              <div className='purchase-block'>
+                <span className='price'>$ {dress?.price}</span>
+                <button
+                  disabled={isDisabled}
+                  data-test-id='add-cart-button'
+                  type='button'
+                  className='add-to-cart-button'
+                  onClick={(e) => {
+                    handleClick(e, dress, choosedColor, choosedSize, dress?.price, productCartId, cartUrl);
+                  }}
+                >
+                  {' '}
+                  {!cartArrProducts.cart?.includes(cartArrProducts.cart.find((item) => productCartId === item.cartId))
+                    ? 'Add to cart'
+                    : 'Remove'}
+                </button>
+                <img src={favorites} alt='like-ico' className='add-to-favorites icon' />
+                <img src={compare} alt='compare-ico' className='add-to-compare icon' />
+              </div>
+              <div className='horisontal-line' />
+              <div className='delivery-block'>
+                {deliveryInfo.map((item) => (
+                  <div className='delivery-item' key={item.id}>
+                    <img src={item.img} alt='deliv-ico' className='delyvery-img' />
+                    <h3 className='delivery-title'>{item.title}</h3>
+                  </div>
+                ))}
+              </div>
+              <div className='garantie'>
+                <h3 className='garanties-title'>guaranteed safe checkout</h3>
+                <div className='short-line' />
+              </div>
+              <div className='brends'>
+                {brendsColor.map((brend) => (
+                  <Brend key={brend.id} src={brend.src} />
+                ))}
+              </div>
+              <div className='horisontal-line' />
+              <span className='description'>DESCRIPTION</span>
+              <div className='horisontal-line' />
+              <div className='additional-info'>
+                <h3 className='additional-title'>ADDITIONAL INFORMATION</h3>
+                <div className='parameters-wrapper'>
+                  <span className='additional-parameter'>
+                    Color:
+                    <span className='parameters'>
+                      {colors.map((item) => (
+                        <span> {item}</span>
+                      ))}
+                    </span>
+                  </span>
+                  <span className='additional-parameter'>
+                    Size:
+                    <span className='parameters'>
+                      {dress?.sizes.map((item) => (
+                        <span className='size-choice-item'> {item}</span>
+                      ))}
+                    </span>
+                  </span>
+                  <span className='additional-parameter'>
+                    Material:
+                    <span className='parameters'> {dress?.material}</span>
+                  </span>
+                </div>
+              </div>
+              <div className='horisontal-line' />
+              <div className='reviews'>
+                <h3 className='reviews-title'>REVIEWS</h3>
+                <div className='add-review'>
+                  <div className='stars'>
+                    <div className='starsBlock'>
+                      <RatingBig rating={dress?.rating} />
+                    </div>
+                    <span className='num-of-reviews'>{dress?.reviews.length} Reviews</span>
+                  </div>
+                  <div className='write-review'>
+                    <img src={review} alt='' className='review-ico' />
+                    <span className='write-review-text'>Write a review</span>
+                  </div>
+                  <div className='posts'>
+                    {dress?.reviews.map((post) => (
+                      <div className='post'>
+                        <div className='post-title'>
+                          <span className='user-name'>{post.name}</span>
+                          <span className='time-of-review'>3 months ago</span>
+                          <Rating rating={post.rating} />
+                        </div>
+                        <p className='post-text'>{post.text}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div className='horisontal-line' />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       <Related dresses={dresses} productType={productType} />
     </div>
   );
@@ -337,5 +358,6 @@ ProductPage.propTypes = {
     id: PropTypes.string,
   }).isRequired,
   productType: PropTypes.string.isRequired,
-  isError: PropTypes.bool.isRequired,
+  isProductsError: PropTypes.bool.isRequired,
+  isProductsLoading: PropTypes.bool.isRequired,
 };
