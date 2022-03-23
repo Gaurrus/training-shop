@@ -60,10 +60,10 @@ export const ProductPage = ({ dresses, productType, isProductsError, isProductsL
   const [isDisabled, setIsDisablled] = useState(true);
 
   useEffect(() => {
-    if (isProductsError) {
+    if (!dresses?.find((item) => item.id === id)) {
       dispatch(getProductRequest({ id }));
     }
-  }, [dispatch, isProductsError, id]);
+  }, [dispatch, dresses, id]);
 
   const { data, isLoading, isError } = useSelector(productSelector);
 
@@ -76,11 +76,9 @@ export const ProductPage = ({ dresses, productType, isProductsError, isProductsL
   }, [id, dress]);
 
   useEffect(() => {
-    if (isProductsError) {
-      setDress(data);
-    } else {
+    if (dresses?.find((item) => item.id === id)) {
       setDress(dresses?.find((item) => item.id === id));
-    }
+    } else setDress(data);
   }, [dresses, setDress, id, data, isProductsError]);
 
   const colors = Array.from(new Set(dress?.images.map((image) => image.color)));
