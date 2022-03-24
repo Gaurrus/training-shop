@@ -1,29 +1,24 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
+
+import { postSubscriptionRequest } from '../../store/subscription-post-state';
+import { validate } from '../../utils/validate-form';
+import { subscriptionSelector } from '../../../selectors/index';
 
 import womanImg from './assets/woman.svg';
 import manImg from './assets/man.svg';
 
 import styles from './subscription.module.scss';
-import { postSubscriptionRequest } from '../../store/subscription-post-state';
 
 export const Subscription = () => {
   const dispatch = useDispatch();
+
+  const { isError, isLoading, data } = useSelector(subscriptionSelector);
 
   const handleSubmit = (values, { setSubmitting }) => {
     dispatch(postSubscriptionRequest(values));
     console.log(values);
     setSubmitting(false);
-  };
-
-  const validate = (values) => {
-    const errors = {};
-    if (!values.mail) {
-      errors.mail = 'Поле обязательно';
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.mail)) {
-      errors.mail = 'Ошибка адреса';
-    }
-    return errors;
   };
 
   return (
@@ -36,7 +31,7 @@ export const Subscription = () => {
           validate={validate}
           onSubmit={handleSubmit}
         >
-          {({ isSubmitting }) => (
+          {({ isSubmitting, values }) => (
             <Form className={styles.form}>
               <span className={styles.subtitle}>Special Offer</span>
               <h2 className={styles.title}>
@@ -47,7 +42,9 @@ export const Subscription = () => {
               </h2>
               <ErrorMessage name='mail'>{(msg) => <div className={styles.inputError}>{msg}</div>}</ErrorMessage>
               <Field type='text' name='mail' placeholder='Enter your mail' className={styles.input} />
-              <button className={styles.button} type='submit' disabled={isSubmitting}>
+              {isError && values.mail && <div className={styles.inputError}>Ошибка отправки</div>}
+              {!isError && data.mail === values.mail && <div className={styles.inputSucces}>Успешно отправлено</div>}
+              <button className={styles.button} type='submit' disabled={isSubmitting || data.mail === values.mail}>
                 Subscribe
               </button>
             </Form>

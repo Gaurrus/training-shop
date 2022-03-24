@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { initialSubscriptionState } from './initial-state';
 
 const subscriptionSlice = createSlice({
-  name: 'productReducer',
+  name: 'subscriptionReducer',
   initialState: initialSubscriptionState,
   reducers: {
     postSubscriptionRequest: (state, action) => {
