@@ -49,6 +49,10 @@
   opacity: 0.9;
   padding: 7px 24px;
   border: #ffffff solid 1px;
+  transition: all 0.5s;
+  &:disabled {
+    transform: scale(0);
+  }
 }
 
 .joingButton:hover {

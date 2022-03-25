@@ -31,13 +31,17 @@ export const FooterJoin = () => {
           validate={validate}
           onSubmit={handleSubmit}
         >
-          {({ isSubmitting, values }) => (
+          {({ isSubmitting, values, errors }) => (
             <Form className={styles.joing}>
               <ErrorMessage name='mail'>{(msg) => <div className={styles.inputError}>{msg}</div>}</ErrorMessage>
               {isError && values.mail && <div className={styles.inputSucces}>Ошибка отправки</div>}
               {!isError && data.mail === values.mail && <div className={styles.inputSucces}>Успешно отправлено</div>}
               <Field className={styles.input} type='text' placeholder='Enter your email' name='mail' />
-              <button type='submit' disabled={isSubmitting} className={styles.joingButton}>
+              <button
+                type='submit'
+                disabled={isSubmitting || data.mail === values.mail || errors.mail || values.mail === ''}
+                className={styles.joingButton}
+              >
                 JOIN US
               </button>
             </Form>

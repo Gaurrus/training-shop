@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 
@@ -12,6 +13,7 @@ import styles from './subscription.module.scss';
 
 export const Subscription = () => {
   const dispatch = useDispatch();
+  const [isFormError, setIsFormError] = useState(false);
 
   const { isError, isLoading, data } = useSelector(subscriptionSelector);
 
@@ -31,7 +33,7 @@ export const Subscription = () => {
           validate={validate}
           onSubmit={handleSubmit}
         >
-          {({ isSubmitting, values }) => (
+          {({ isSubmitting, values, errors }) => (
             <Form className={styles.form}>
               <span className={styles.subtitle}>Special Offer</span>
               <h2 className={styles.title}>
@@ -40,11 +42,19 @@ export const Subscription = () => {
                   And <span className={styles.sale}> Get 10% Off</span>
                 </p>
               </h2>
-              <ErrorMessage name='mail'>{(msg) => <div className={styles.inputError}>{msg}</div>}</ErrorMessage>
+              <ErrorMessage name='mail'>
+                {(msg) => {
+                  return <div className={styles.inputError}>{msg}</div>;
+                }}
+              </ErrorMessage>
               <Field type='text' name='mail' placeholder='Enter your mail' className={styles.input} />
               {isError && values.mail && <div className={styles.inputError}>Ошибка отправки</div>}
               {!isError && data.mail === values.mail && <div className={styles.inputSucces}>Успешно отправлено</div>}
-              <button className={styles.button} type='submit' disabled={isSubmitting || data.mail === values.mail}>
+              <button
+                className={styles.button}
+                type='submit'
+                disabled={isSubmitting || data.mail === values.mail || errors.mail || values.mail === ''}
+              >
                 Subscribe
               </button>
             </Form>

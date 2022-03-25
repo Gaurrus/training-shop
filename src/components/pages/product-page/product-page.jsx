@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Children, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
@@ -11,6 +11,8 @@ import { Related } from './realated';
 import { Share } from '../share';
 import { ProductSwiper } from '../swiper/product-swiper';
 import { LoadingIco } from '../../loader/loading-ico/loading-ico';
+import { ReviewForm } from '../review-form/review-form';
+import { ReviewModal } from '../review-modal';
 
 import hangler from './assets/clothes-hanger.svg';
 import favorites from './assets/favorites-unactive.svg';
@@ -58,6 +60,7 @@ export const ProductPage = ({ dresses, productType, isProductsError, isProductsL
   const cartArrProducts = useSelector(cartSelector);
   const [cartUrl, setCartUrl] = useState(dress?.images[0].url);
   const [isDisabled, setIsDisablled] = useState(true);
+  const [isReviewActive, setReviewActive] = useState(false);
 
   useEffect(() => {
     if (!dresses?.find((item) => item.id === id)) {
@@ -299,7 +302,9 @@ export const ProductPage = ({ dresses, productType, isProductsError, isProductsL
                   </div>
                   <div className='write-review'>
                     <img src={review} alt='' className='review-ico' />
-                    <span className='write-review-text'>Write a review</span>
+                    <span aria-hidden onClick={() => setReviewActive(!isReviewActive)} className='write-review-text'>
+                      Write a review
+                    </span>
                   </div>
                   <div className='posts'>
                     {dress?.reviews.map((post) => (
@@ -321,6 +326,9 @@ export const ProductPage = ({ dresses, productType, isProductsError, isProductsL
         </div>
       )}
       <Related dresses={dresses} productType={productType} />
+      <ReviewModal isReviewActive={isReviewActive} setReviewActive={setReviewActive}>
+        <ReviewForm />
+      </ReviewModal>
     </div>
   );
 };
