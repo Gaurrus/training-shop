@@ -4,6 +4,7 @@ import { Formik, Field, Form } from 'formik';
 import classNames from 'classnames';
 
 import styles from './review-form.module.scss';
+import { FormRating } from './form-rating';
 
 export const ReviewForm = () => {
   const [state, setState] = useState(false);
@@ -19,6 +20,7 @@ export const ReviewForm = () => {
       {({ isSubmitting, values }) => (
         <Form className={classNames(styles.item)}>
           <h2 className={styles.title}>Review</h2>
+          <FormRating />
           <label htmlFor='username' className={styles.itemLabel}>
             Ваше имя?
           </label>
