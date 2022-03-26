@@ -4,7 +4,7 @@ import { postSubscriptionError, postSubscriptionRequest, postSubscriptionSeccess
 
 function* postSubscriptionWorker({ payload }) {
   try {
-    yield call(axios.post, `https://httpbin.org/post`, payload);
+    yield call(axios.post, `https://training.cleverland.by/shop/email`, payload);
     yield put(postSubscriptionSeccess());
   } catch {
     yield put(postSubscriptionError());
@@ -14,4 +14,3 @@ function* postSubscriptionWorker({ payload }) {
 export function* postSubscriptionSaga() {
   yield takeLatest(postSubscriptionRequest.type, postSubscriptionWorker);
 }
-// https://training.cleverland.by/shop/email
