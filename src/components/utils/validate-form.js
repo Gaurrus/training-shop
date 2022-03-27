@@ -7,3 +7,14 @@ export const validate = (values) => {
   }
   return errors;
 };
+
+export const validateReview = (values) => {
+  const errors = {};
+  if (!values.review) {
+    errors.review = 'Поле обязательно';
+  }
+  if (!values.username) {
+    errors.username = 'Поле обязательно';
+  }
+  return errors;
+};
