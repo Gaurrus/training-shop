@@ -62,6 +62,7 @@ export const ProductPage = ({ dresses, productType, isProductsError }) => {
   const [isDisabled, setIsDisablled] = useState(true);
   const [isReviewActive, setReviewActive] = useState(false);
   const [postData, setPostData] = useState({});
+  const [send, setSend] = useState(false);
 
   useEffect(() => {
     if (!dresses?.find((item) => item.id === id)) {
@@ -303,32 +304,46 @@ export const ProductPage = ({ dresses, productType, isProductsError }) => {
                   </div>
                   <div className='write-review'>
                     <img src={review} alt='' className='review-ico' />
-                    <span aria-hidden onClick={() => setReviewActive(!isReviewActive)} className='write-review-text'>
+                    <span
+                      aria-hidden
+                      onClick={() => {
+                        setReviewActive(!isReviewActive);
+                        setSend(false);
+                      }}
+                      className='write-review-text'
+                    >
                       Write a review
                     </span>
                   </div>
-                  <div className='posts'>
-                    {dress?.reviews.map((post) => (
-                      <div className='post'>
-                        <div className='post-title'>
-                          <span className='user-name'>{post.name}</span>
-                          <span className='time-of-review'>3 months ago</span>
-                          <Rating rating={post.rating} />
-                        </div>
-                        <p className='post-text'>{post.text}</p>
-                      </div>
-                    ))}
-                  </div>
-                  <div className='horisontal-line' />
                 </div>
+                <div className='posts'>
+                  {dress?.reviews.map((post) => (
+                    <div className='post'>
+                      <div className='post-title'>
+                        <span className='user-name'>{post.name}</span>
+                        {/* <span className='time-of-review'>3 months ago</span> */}
+                        <Rating rating={post.rating} />
+                      </div>
+                      <p className='post-text'>{post.text}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className='horisontal-line' />
               </div>
             </div>
           </div>
         </div>
       )}
       <Related dresses={dresses} productType={productType} />
-      <ReviewModal isReviewActive={isReviewActive} setReviewActive={setReviewActive}>
-        <ReviewForm id={id} postData={postData} setPostData={setPostData} />
+      <ReviewModal isReviewActive={isReviewActive} setReviewActive={setReviewActive} setSend={setSend}>
+        <ReviewForm
+          id={id}
+          postData={postData}
+          setPostData={setPostData}
+          send={send}
+          setSend={setSend}
+          setReviewActive={setReviewActive}
+        />
       </ReviewModal>
     </div>
   );

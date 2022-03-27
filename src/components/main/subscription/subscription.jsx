@@ -20,7 +20,6 @@ export const Subscription = () => {
 
   const handleSubmit = (values, { setSubmitting }) => {
     dispatch(postSubscriptionRequest(values));
-    console.log(values);
     setSubmitting(false);
   };
 

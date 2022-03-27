@@ -14,7 +14,6 @@ const subscriptionSlice = createSlice({
     postSubscriptionSeccess: (state) => {
       state.isLoading = false;
       state.isError = false;
-      console.log('успешно');
     },
     postSubscriptionError: (state) => {
       state.isError = true;

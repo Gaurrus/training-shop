@@ -3,13 +3,14 @@ import classNames from 'classnames';
 
 import styles from './review-modal.module.scss';
 
-export const ReviewModal = ({ isReviewActive, setReviewActive, children }) => {
+export const ReviewModal = ({ isReviewActive, setReviewActive, children, setSend }) => {
   return (
     <div
       aria-hidden
       onClick={(e) => {
         e.stopPropagation();
         setReviewActive(false);
+        setSend(false);
       }}
       className={classNames(styles.wrapper, { [styles.active]: isReviewActive })}
     >

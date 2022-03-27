@@ -17,7 +17,6 @@ export const FooterJoin = () => {
 
   const handleSubmit = (values, { setSubmitting }) => {
     dispatch(postSubscriptionRequest(values));
-    console.log(values);
     setSubmitting(false);
   };
 

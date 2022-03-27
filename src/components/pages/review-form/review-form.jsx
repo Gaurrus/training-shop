@@ -1,28 +1,35 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import classNames from 'classnames';
 
 import { FormRating } from './form-rating';
 
 import { validateReview } from '../../utils/validate-form';
+import { reviewPostRequest } from '../../store/review-post-state';
+import { reviewPostSelector } from '../../../selectors';
 
 import styles from './review-form.module.scss';
 
-export const ReviewForm = ({ id, postData, setPostData }) => {
+export const ReviewForm = ({ id, send, setSend, setReviewActive }) => {
   const [handleRating, setHandleRating] = useState(0);
+  const dispatch = useDispatch();
+
+  const { isError } = useSelector(reviewPostSelector);
 
   const handleSubmit = (values, resetForm, initialValues) => {
-    const data = {
+    const review = {
       id: id,
       name: values.username,
       text: values.review,
       rating: handleRating,
     };
-    console.log(data);
+    dispatch(reviewPostRequest(review));
     setHandleRating(0);
     resetForm(initialValues);
+    setSend(true);
   };
 
   return (
@@ -38,7 +45,13 @@ export const ReviewForm = ({ id, postData, setPostData }) => {
     >
       {({ isSubmitting, errors, values }) => (
         <Form className={classNames(styles.item)}>
-          <h2 className={styles.title}>Review form</h2>
+          <div className={styles.header}>
+            <h2 className={styles.title}>Review form</h2>
+            <div className={styles.closeButton} aria-hidden onClick={() => setReviewActive(false)}>
+              <div className={styles.line} />
+              <div className={styles.line} />
+            </div>
+          </div>
           <div className={styles.rating}>
             <FormRating handleRating={handleRating} setHandleRating={setHandleRating} />
           </div>
@@ -91,6 +104,8 @@ export const ReviewForm = ({ id, postData, setPostData }) => {
           >
             SEND
           </button>
+          {isError && <div className={styles.error}>Sending error</div>}
+          {!isError && send && <div className={styles.error}>Succesfully send</div>}
         </Form>
       )}
     </Formik>
