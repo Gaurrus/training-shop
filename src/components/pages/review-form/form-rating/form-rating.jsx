@@ -1,4 +1,4 @@
-import { useState } from 'react';
+/* eslint-disable react/prop-types */
 
 import { FormStar } from './form-star/form-star';
 import { FormStarUnactive } from './form-star-unactive/form-star-unactive';
@@ -7,8 +7,7 @@ import styles from './rating.module.scss';
 
 const maxRating = 5;
 
-export const FormRating = () => {
-  const [handleRating, setHandleRating] = useState(0);
+export const FormRating = ({ handleRating, setHandleRating }) => {
   const arrOfRating = Array.from(Array(maxRating).keys());
 
   const handleChange = (index) => {

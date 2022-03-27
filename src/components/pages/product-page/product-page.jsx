@@ -49,7 +49,7 @@ const deliveryInfo = [
   },
 ];
 
-export const ProductPage = ({ dresses, productType, isProductsError, isProductsLoading }) => {
+export const ProductPage = ({ dresses, productType, isProductsError }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [dress, setDress] = useState(INITIAL_DRESS);
@@ -61,6 +61,7 @@ export const ProductPage = ({ dresses, productType, isProductsError, isProductsL
   const [cartUrl, setCartUrl] = useState(dress?.images[0].url);
   const [isDisabled, setIsDisablled] = useState(true);
   const [isReviewActive, setReviewActive] = useState(false);
+  const [postData, setPostData] = useState({});
 
   useEffect(() => {
     if (!dresses?.find((item) => item.id === id)) {
@@ -327,7 +328,7 @@ export const ProductPage = ({ dresses, productType, isProductsError, isProductsL
       )}
       <Related dresses={dresses} productType={productType} />
       <ReviewModal isReviewActive={isReviewActive} setReviewActive={setReviewActive}>
-        <ReviewForm />
+        <ReviewForm id={id} postData={postData} setPostData={setPostData} />
       </ReviewModal>
     </div>
   );
@@ -365,5 +366,4 @@ ProductPage.propTypes = {
   }).isRequired,
   productType: PropTypes.string.isRequired,
   isProductsError: PropTypes.bool.isRequired,
-  isProductsLoading: PropTypes.bool.isRequired,
 };
