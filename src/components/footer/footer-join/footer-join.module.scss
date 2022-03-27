@@ -53,6 +53,11 @@
   &:disabled {
     transform: scale(0);
   }
+  // &.active {
+  //   background: linear-gradient(to right, #121212, #ffffff, #121212);
+  //   background-size: 400% 400%;
+  //   animation: loading 3s infinite alternate;
+  // }
 }
 
 .joingButton:hover {
@@ -94,6 +99,24 @@
   text-transform: uppercase;
 }
 
+.loading {
+  margin-right: 10px;
+  display: none;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  .loadinIco {
+    width: 22px;
+    height: 22px;
+    background-color: #FFFFFF;
+    animation: moving 3s infinite linear;
+    transform-origin: center;
+  }
+  &.active{
+    display: flex;
+  }
+}
+
 @media screen and (max-width: 800px) {
   .input {
     width: 200px;
@@ -110,3 +133,21 @@
     row-gap: 8px;
   }
 }
+
+@keyframes moving {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+// @keyframes loading {
+//   0% {
+//     background-position: 0% 50%;
+//   }
+//   50% {
+//     background-position: 100% 50%;
+//   }
+//   100% {
+//     background-position: 0% 50%;
+//   }
+// }

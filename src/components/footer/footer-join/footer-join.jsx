@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import classNames from 'classnames';
 
 import { MiniSocials } from '../../mini-socials/mini-socials';
 
@@ -37,6 +38,9 @@ export const FooterJoin = () => {
               {isError && values.mail && <div className={styles.inputSucces}>Ошибка отправки</div>}
               {!isError && data.mail === values.mail && <div className={styles.inputSucces}>Успешно отправлено</div>}
               <Field className={styles.input} type='text' placeholder='Enter your email' name='mail' />
+              <div className={classNames(styles.loading, { [styles.active]: isLoading })}>
+                <div className={styles.loadinIco} />
+              </div>
               <button
                 type='submit'
                 disabled={isSubmitting || data.mail === values.mail || errors.mail || values.mail === ''}

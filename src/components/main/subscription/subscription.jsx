@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
+import classNames from 'classnames';
 
 import { postSubscriptionRequest } from '../../store/subscription-post-state';
 import { validate } from '../../utils/validate-form';
@@ -57,6 +58,9 @@ export const Subscription = () => {
               >
                 Subscribe
               </button>
+              <div className={classNames(styles.loading, { [styles.active]: isLoading })}>
+                <div className={styles.loadinIco} />
+              </div>
             </Form>
           )}
         </Formik>
