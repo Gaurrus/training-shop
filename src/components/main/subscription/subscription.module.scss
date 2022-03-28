@@ -22,6 +22,7 @@
 }
 
 .form {
+  position: relative;
   max-width: 532px;
   height: 461px;
   display: flex;
@@ -74,6 +75,11 @@
       box-shadow: 0px 0px 2px;
     }
   }
+
+  .inputError {
+    padding: 8px;
+  }
+
   .button {
     width: 340px;
     height: 64px;
@@ -88,12 +94,40 @@
     opacity: 0.9;
     border: 2px solid #121212;
     box-sizing: border-box;
+    transition: all 0.5s;
     &:hover {
       opacity: 0.6;
     }
     &:active {
       opacity: 1;
     }
+    &:disabled {
+      transform: scale(0);
+    }
+  }
+}
+
+.loading {
+  margin-top: 20px;
+  display: none;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  .loadinIco {
+    width: 22px;
+    height: 22px;
+    background-color: #121212;
+    animation: moving 3s infinite linear;
+    transform-origin: center;
+  }
+  &.active {
+    display: flex;
+  }
+}
+
+@keyframes moving {
+  100% {
+    transform: rotate(360deg);
   }
 }
 

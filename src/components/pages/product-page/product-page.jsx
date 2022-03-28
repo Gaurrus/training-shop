@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Children, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
@@ -11,6 +11,8 @@ import { Related } from './realated';
 import { Share } from '../share';
 import { ProductSwiper } from '../swiper/product-swiper';
 import { LoadingIco } from '../../loader/loading-ico/loading-ico';
+import { ReviewForm } from '../review-form/review-form';
+import { ReviewModal } from '../review-modal';
 
 import hangler from './assets/clothes-hanger.svg';
 import favorites from './assets/favorites-unactive.svg';
@@ -47,7 +49,7 @@ const deliveryInfo = [
   },
 ];
 
-export const ProductPage = ({ dresses, productType, isProductsError, isProductsLoading }) => {
+export const ProductPage = ({ dresses, productType, isProductsError }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [dress, setDress] = useState(INITIAL_DRESS);
@@ -58,6 +60,9 @@ export const ProductPage = ({ dresses, productType, isProductsError, isProductsL
   const cartArrProducts = useSelector(cartSelector);
   const [cartUrl, setCartUrl] = useState(dress?.images[0].url);
   const [isDisabled, setIsDisablled] = useState(true);
+  const [isReviewActive, setReviewActive] = useState(false);
+  const [postData, setPostData] = useState({});
+  const [send, setSend] = useState(false);
 
   useEffect(() => {
     if (!dresses?.find((item) => item.id === id)) {
@@ -299,28 +304,48 @@ export const ProductPage = ({ dresses, productType, isProductsError, isProductsL
                   </div>
                   <div className='write-review'>
                     <img src={review} alt='' className='review-ico' />
-                    <span className='write-review-text'>Write a review</span>
+                    <span
+                      data-test-id='review-button'
+                      aria-hidden
+                      onClick={() => {
+                        setReviewActive(!isReviewActive);
+                        setSend(false);
+                      }}
+                      className='write-review-text'
+                    >
+                      Write a review
+                    </span>
                   </div>
-                  <div className='posts'>
-                    {dress?.reviews.map((post) => (
-                      <div className='post'>
-                        <div className='post-title'>
-                          <span className='user-name'>{post.name}</span>
-                          <span className='time-of-review'>3 months ago</span>
-                          <Rating rating={post.rating} />
-                        </div>
-                        <p className='post-text'>{post.text}</p>
-                      </div>
-                    ))}
-                  </div>
-                  <div className='horisontal-line' />
                 </div>
+                <div className='posts'>
+                  {dress?.reviews.map((post) => (
+                    <div className='post'>
+                      <div className='post-title'>
+                        <span className='user-name'>{post.name}</span>
+                        {/* <span className='time-of-review'>3 months ago</span> */}
+                        <Rating rating={post.rating} />
+                      </div>
+                      <p className='post-text'>{post.text}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className='horisontal-line' />
               </div>
             </div>
           </div>
         </div>
       )}
       <Related dresses={dresses} productType={productType} />
+      <ReviewModal isReviewActive={isReviewActive} setReviewActive={setReviewActive} setSend={setSend}>
+        <ReviewForm
+          id={id}
+          postData={postData}
+          setPostData={setPostData}
+          send={send}
+          setSend={setSend}
+          setReviewActive={setReviewActive}
+        />
+      </ReviewModal>
     </div>
   );
 };
@@ -357,5 +382,4 @@ ProductPage.propTypes = {
   }).isRequired,
   productType: PropTypes.string.isRequired,
   isProductsError: PropTypes.bool.isRequired,
-  isProductsLoading: PropTypes.bool.isRequired,
 };
