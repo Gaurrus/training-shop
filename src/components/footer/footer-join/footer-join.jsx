@@ -36,11 +36,18 @@ export const FooterJoin = () => {
               <ErrorMessage name='mail'>{(msg) => <div className={styles.inputError}>{msg}</div>}</ErrorMessage>
               {isError && values.mail && <div className={styles.inputSucces}>Ошибка отправки</div>}
               {!isError && data.mail === values.mail && <div className={styles.inputSucces}>Успешно отправлено</div>}
-              <Field className={styles.input} type='text' placeholder='Enter your email' name='mail' />
+              <Field
+                data-test-id='footer-mail-field'
+                className={styles.input}
+                type='text'
+                placeholder='Enter your email'
+                name='mail'
+              />
               <div className={classNames(styles.loading, { [styles.active]: isLoading })}>
                 <div className={styles.loadinIco} />
               </div>
               <button
+                data-test-id='footer-subscribe-mail-button'
                 type='submit'
                 disabled={isSubmitting || data.mail === values.mail || errors.mail || values.mail === ''}
                 className={styles.joingButton}

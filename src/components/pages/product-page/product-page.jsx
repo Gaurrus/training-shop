@@ -305,6 +305,7 @@ export const ProductPage = ({ dresses, productType, isProductsError }) => {
                   <div className='write-review'>
                     <img src={review} alt='' className='review-ico' />
                     <span
+                      data-test-id='review-button'
                       aria-hidden
                       onClick={() => {
                         setReviewActive(!isReviewActive);

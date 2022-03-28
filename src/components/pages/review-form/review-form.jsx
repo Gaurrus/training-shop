@@ -59,6 +59,7 @@ export const ReviewForm = ({ id, send, setSend, setReviewActive }) => {
             <label htmlFor='username' className={styles.itemLabel}>
               Name
               <Field
+                data-test-id='review-name-field'
                 className={classNames(styles.input)}
                 id='username'
                 name='username'
@@ -76,6 +77,7 @@ export const ReviewForm = ({ id, send, setSend, setReviewActive }) => {
             <label htmlFor='review' className={styles.itemLabel}>
               Review text
               <Field
+                data-test-id='review-text-field'
                 className={classNames(styles.input)}
                 name='review'
                 id='review'
@@ -91,6 +93,7 @@ export const ReviewForm = ({ id, send, setSend, setReviewActive }) => {
             </ErrorMessage>
           </div>
           <button
+            data-test-id='review-submit-button'
             className={classNames(styles.button, styles.blackButton)}
             disabled={
               isSubmitting ||

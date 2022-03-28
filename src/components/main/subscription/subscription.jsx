@@ -47,10 +47,17 @@ export const Subscription = () => {
                   return <div className={styles.inputError}>{msg}</div>;
                 }}
               </ErrorMessage>
-              <Field type='text' name='mail' placeholder='Enter your mail' className={styles.input} />
+              <Field
+                data-test-id='main-subscribe-mail-field'
+                type='text'
+                name='mail'
+                placeholder='Enter your mail'
+                className={styles.input}
+              />
               {isError && values.mail && <div className={styles.inputError}>Ошибка отправки</div>}
               {!isError && data.mail === values.mail && <div className={styles.inputSucces}>Успешно отправлено</div>}
               <button
+                data-test-id='main-subscribe-mail-button'
                 className={styles.button}
                 type='submit'
                 disabled={isSubmitting || data.mail === values.mail || errors.mail || values.mail === ''}

@@ -15,6 +15,7 @@ export const ReviewModal = ({ isReviewActive, setReviewActive, children, setSend
       className={classNames(styles.wrapper, { [styles.active]: isReviewActive })}
     >
       <div
+        data-test-id='review-modal'
         aria-hidden
         onClick={(e) => e.stopPropagation()}
         className={classNames(styles.content, { [styles.active]: isReviewActive })}
