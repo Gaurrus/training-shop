@@ -4,7 +4,7 @@ import { reviewPostRequest, reviewPostSeccess, reviewPostError } from '.';
 
 function* reviewPostWorker({ payload }) {
   try {
-    yield call(axios.post, `https://httpbin.org/post`, payload);
+    yield call(axios.post, `https://training.cleverland.by/shop/product/review`, payload);
     yield put(reviewPostSeccess());
   } catch {
     yield put(reviewPostError());
