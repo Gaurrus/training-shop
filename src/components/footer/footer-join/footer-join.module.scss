@@ -18,16 +18,18 @@
   .inputError {
     position: absolute;
     top: -18px;
-    left: 33%;
-    color: #121212;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ff0000;
     // mix-blend-mode: difference;
     // opacity: 0.4;
   }
   .inputSucces {
     position: absolute;
-    top: -18px;
-    left: 53%;
-    color: #121212;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ff0000;
     // mix-blend-mode: difference;
     // opacity: 0.4;
   }
@@ -108,11 +110,11 @@
   .loadinIco {
     width: 22px;
     height: 22px;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     animation: moving 3s infinite linear;
     transform-origin: center;
   }
-  &.active{
+  &.active {
     display: flex;
   }
 }

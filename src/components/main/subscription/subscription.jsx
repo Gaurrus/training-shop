@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import classNames from 'classnames';
@@ -14,21 +14,41 @@ import styles from './subscription.module.scss';
 
 export const Subscription = () => {
   const dispatch = useDispatch();
-  const [isMailSend, setIsMailSend] = useState(false);
+  const formikRef = useRef();
+  const [message, setMessage] = useState('');
 
   const { isError, isLoading, isIndicator, data } = useSelector(subscriptionSelector);
 
-  const handleSubmit = (values, setSubmitting, resetForm, initialValues) => {
+  const handleSubmit = (values, setSubmitting) => {
     const indicator = 's';
     dispatch(postSubscriptionRequest({ values, indicator }));
     setSubmitting(false);
-    if (isError && !isLoading) resetForm(initialValues);
   };
+
+  useEffect(() => {
+    switch (isError) {
+      case true:
+        setMessage('Sending error');
+        formikRef?.current?.setFieldValue('mail', data.mail);
+        break;
+      case false:
+        setMessage('Succesfully send');
+        formikRef?.current?.resetForm(formikRef?.current?.initialValues);
+        break;
+      default:
+        break;
+    }
+  }, [isLoading, isError]);
+
+  useEffect(() => {
+    setMessage('');
+  }, []);
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.subscription}>
         <Formik
+          innerRef={formikRef}
           initialValues={{
             mail: '',
           }}
@@ -51,6 +71,7 @@ export const Subscription = () => {
                   return <div className={styles.inputError}>{msg}</div>;
                 }}
               </ErrorMessage>
+              {/* {data?.mail === values?.mail && <div className={styles.inputError}>Subscribed</div>} */}
               <Field
                 data-test-id='main-subscribe-mail-field'
                 type='text'
@@ -58,15 +79,12 @@ export const Subscription = () => {
                 placeholder='Enter your mail'
                 className={styles.input}
               />
-              {isError && !isLoading && isIndicator === 's' && <div className={styles.inputError}>Ошибка отправки</div>}
-              {!isError && !isLoading && data.mail && isIndicator === 's' && (
-                <div className={styles.inputSucces}>Успешно отправлено</div>
-              )}
+              {isIndicator === 's' && <div className={styles.inputError}>{message}</div>}
               <button
                 data-test-id='main-subscribe-mail-button'
                 className={styles.button}
                 type='submit'
-                disabled={isSubmitting || data.mail === values.mail || errors.mail || values.mail === ''}
+                disabled={isSubmitting || errors.mail || values.mail === ''}
               >
                 <div className={classNames(styles.loading, { [styles.active]: isLoading && !isError })}>
                   <div className={styles.loadinIco} />
