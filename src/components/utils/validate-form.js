@@ -14,7 +14,7 @@ export const validateReview = (values) => {
     errors.review = 'Required field';
   }
   if (!values.username) {
-    errors.username = 'E-mail format error';
+    errors.username = 'Required field';
   }
   return errors;
 };

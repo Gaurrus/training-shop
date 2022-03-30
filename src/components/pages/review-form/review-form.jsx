@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import classNames from 'classnames';
 
@@ -14,12 +15,14 @@ import { getProductsRequest } from '../../store/products-state';
 
 import styles from './review-form.module.scss';
 
-export const ReviewForm = ({ id, send, setSend, setReviewActive }) => {
-  const [handleRating, setHandleRating] = useState(0);
+export const ReviewForm = ({ id, setReviewActive }) => {
+  const [handleRating, setHandleRating] = useState(1);
   const dispatch = useDispatch();
   const formikRef = useRef();
+  const [message, setMessage] = useState('');
+  const location = useLocation();
 
-  const { isError, isLoading } = useSelector(reviewPostSelector);
+  const { data, isError, isLoading } = useSelector(reviewPostSelector);
 
   const handleSubmit = (values) => {
     const review = {
@@ -34,17 +37,27 @@ export const ReviewForm = ({ id, send, setSend, setReviewActive }) => {
   useEffect(() => {
     switch (isError) {
       case true:
+        formikRef?.current?.setSubmitting(false);
+        setMessage('Sending error');
         break;
       case false:
+        setMessage('Succesfully send');
         setReviewActive(false);
         dispatch(getProductsRequest());
-        setHandleRating(0);
+        setHandleRating(1);
         formikRef?.current?.resetForm(formikRef?.current?.initialValues);
         break;
       default:
         break;
     }
   }, [isLoading, isError]);
+
+  useEffect(() => {
+    setMessage('');
+  }, []);
+  useEffect(() => {
+    setMessage('');
+  }, [location]);
 
   return (
     <Formik
@@ -68,7 +81,7 @@ export const ReviewForm = ({ id, send, setSend, setReviewActive }) => {
               onClick={() => {
                 setReviewActive(false);
                 resetForm(initialValues);
-                setHandleRating(0);
+                setHandleRating(1);
               }}
             >
               <div className={styles.line} />
@@ -118,21 +131,14 @@ export const ReviewForm = ({ id, send, setSend, setReviewActive }) => {
           <button
             data-test-id='review-submit-button'
             className={classNames(styles.button, styles.blackButton)}
-            disabled={
-              isSubmitting ||
-              errors.review ||
-              errors.username ||
-              values.review === '' ||
-              values.username === '' ||
-              handleRating === 0
-            }
+            disabled={isSubmitting || errors.review || errors.username}
             type='submit'
           >
             SEND
           </button>
           {/* {isError && isLoading && <div className={styles.error}>Loading...</div>} */}
-          {isError && !isLoading && <div className={styles.error}>Sending error</div>}
-          {!isError && !isLoading && <div className={styles.error}>Succesfully send</div>}
+          {/* {isError && !isLoading && <div className={styles.error}>Sending error</div>} */}
+          <div className={styles.error}>{message}</div>
         </Form>
       )}
     </Formik>

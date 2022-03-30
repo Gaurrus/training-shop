@@ -27,7 +27,7 @@ export const FooterJoin = () => {
   };
 
   useEffect(() => {
-    switch (isError && isIndicator === 'f') {
+    switch (isError) {
       case true:
         setMessage('Sending error');
         formikRef?.current?.setFieldValue('mail', data.mail);
