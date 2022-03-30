@@ -1,5 +1,5 @@
 export const initialReviewPostState = {
-  isLoading: false,
-  isError: false,
+  isLoading: true,
+  isError: true,
   data: {},
 };

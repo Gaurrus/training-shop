@@ -14,13 +14,15 @@ import styles from './subscription.module.scss';
 
 export const Subscription = () => {
   const dispatch = useDispatch();
-  const [isFormError, setIsFormError] = useState(false);
+  const [isMailSend, setIsMailSend] = useState(false);
 
-  const { isError, isLoading, data } = useSelector(subscriptionSelector);
+  const { isError, isLoading, isIndicator, data } = useSelector(subscriptionSelector);
 
-  const handleSubmit = (values, { setSubmitting }) => {
-    dispatch(postSubscriptionRequest(values));
+  const handleSubmit = (values, setSubmitting, resetForm, initialValues) => {
+    const indicator = 's';
+    dispatch(postSubscriptionRequest({ values, indicator }));
     setSubmitting(false);
+    if (isError && !isLoading) resetForm(initialValues);
   };
 
   return (
@@ -31,7 +33,9 @@ export const Subscription = () => {
             mail: '',
           }}
           validate={validate}
-          onSubmit={handleSubmit}
+          onSubmit={(values, { setSubmitting, resetForm }, initialValues) =>
+            handleSubmit(values, setSubmitting, resetForm, initialValues)
+          }
         >
           {({ isSubmitting, values, errors }) => (
             <Form className={styles.form}>
@@ -54,19 +58,21 @@ export const Subscription = () => {
                 placeholder='Enter your mail'
                 className={styles.input}
               />
-              {isError && values.mail && <div className={styles.inputError}>Ошибка отправки</div>}
-              {!isError && data.mail === values.mail && <div className={styles.inputSucces}>Успешно отправлено</div>}
+              {isError && !isLoading && isIndicator === 's' && <div className={styles.inputError}>Ошибка отправки</div>}
+              {!isError && !isLoading && data.mail && isIndicator === 's' && (
+                <div className={styles.inputSucces}>Успешно отправлено</div>
+              )}
               <button
                 data-test-id='main-subscribe-mail-button'
                 className={styles.button}
                 type='submit'
                 disabled={isSubmitting || data.mail === values.mail || errors.mail || values.mail === ''}
               >
+                <div className={classNames(styles.loading, { [styles.active]: isLoading && !isError })}>
+                  <div className={styles.loadinIco} />
+                </div>
                 Subscribe
               </button>
-              <div className={classNames(styles.loading, { [styles.active]: isLoading })}>
-                <div className={styles.loadinIco} />
-              </div>
             </Form>
           )}
         </Formik>

@@ -13,10 +13,11 @@ import styles from './footer-join.module.scss';
 export const FooterJoin = () => {
   const dispatch = useDispatch();
 
-  const { isError, isLoading, data } = useSelector(subscriptionSelector);
+  const { isError, isLoading, isIndicator, data } = useSelector(subscriptionSelector);
 
   const handleSubmit = (values, { setSubmitting }) => {
-    dispatch(postSubscriptionRequest(values));
+    const indicator = 'f';
+    dispatch(postSubscriptionRequest({ values, indicator }));
     setSubmitting(false);
   };
 
@@ -34,8 +35,12 @@ export const FooterJoin = () => {
           {({ isSubmitting, values, errors }) => (
             <Form className={styles.joing}>
               <ErrorMessage name='mail'>{(msg) => <div className={styles.inputError}>{msg}</div>}</ErrorMessage>
-              {isError && values.mail && <div className={styles.inputSucces}>Ошибка отправки</div>}
-              {!isError && data.mail === values.mail && <div className={styles.inputSucces}>Успешно отправлено</div>}
+              {isError && values?.mail && isIndicator === 'f' && (
+                <div className={styles.inputSucces}>Ошибка отправки</div>
+              )}
+              {!isError && data.mail === values?.mail && isIndicator === 'f' && (
+                <div className={styles.inputSucces}>Успешно отправлено</div>
+              )}
               <Field
                 data-test-id='footer-mail-field'
                 className={styles.input}
@@ -43,7 +48,7 @@ export const FooterJoin = () => {
                 placeholder='Enter your email'
                 name='mail'
               />
-              <div className={classNames(styles.loading, { [styles.active]: isLoading })}>
+              <div className={classNames(styles.loading, { [styles.active]: isLoading && !isError })}>
                 <div className={styles.loadinIco} />
               </div>
               <button
