@@ -78,9 +78,11 @@
 
   .inputError {
     padding: 8px;
+    color: #ff0000;
   }
 
   .button {
+    position: relative;
     width: 340px;
     height: 64px;
     text-align: center;
@@ -94,21 +96,27 @@
     opacity: 0.9;
     border: 2px solid #121212;
     box-sizing: border-box;
-    transition: all 0.5s;
+    transition: all 0.2s;
     &:hover {
-      opacity: 0.6;
+      transform: scale(1.02);
+      box-shadow: 0px 0px 8px black;
     }
     &:active {
       opacity: 1;
     }
     &:disabled {
-      transform: scale(0);
+      opacity: 0.6;
+      transform: scale(1);
+      box-shadow: unset;
     }
   }
 }
 
 .loading {
+  position: absolute;
   margin-top: 20px;
+  top: 0;
+  left: 5%;
   display: none;
   flex-wrap: wrap;
   justify-content: center;
@@ -116,7 +124,7 @@
   .loadinIco {
     width: 22px;
     height: 22px;
-    background-color: #121212;
+    background-color: #FFFFFF;
     animation: moving 3s infinite linear;
     transform-origin: center;
   }

@@ -12,7 +12,7 @@ import 'swiper/css/bundle';
 
 import styles from './related.module.scss';
 
-export const Related = ({ dresses, productType }) => {
+export const Related = ({ dresses, productType, idName }) => {
   const [controlledSwiper, setControlledSwiper] = useState(null);
 
   const setNext = () => controlledSwiper.slideNext();
@@ -53,7 +53,7 @@ export const Related = ({ dresses, productType }) => {
             onSwiper={setControlledSwiper}
           >
             {dresses
-              ?.filter((item) => item.rating > 4)
+              ?.filter((item) => item.particulars.isMostViewed)
               ?.map((item) => (
                 <SwiperSlide className={styles.slideItem}>
                   <NavLink key={item.id} to={`/${productType}/${item.id}`}>
@@ -86,4 +86,5 @@ Related.propTypes = {
     notRelated: PropTypes.bool,
   }).isRequired,
   productType: PropTypes.string.isRequired,
+  idName: PropTypes.string.isRequired,
 };

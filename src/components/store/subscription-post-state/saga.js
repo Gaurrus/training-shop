@@ -5,9 +5,9 @@ import { postSubscriptionError, postSubscriptionRequest, postSubscriptionSeccess
 function* postSubscriptionWorker({ payload }) {
   try {
     yield call(axios.post, `https://training.cleverland.by/shop/email`, payload);
-    yield put(postSubscriptionSeccess());
+    yield put(postSubscriptionSeccess(payload));
   } catch {
-    yield put(postSubscriptionError());
+    yield put(postSubscriptionError(payload));
   }
 }
 

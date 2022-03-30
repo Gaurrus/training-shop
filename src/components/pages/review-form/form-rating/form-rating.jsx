@@ -12,7 +12,7 @@ export const FormRating = ({ handleRating, setHandleRating }) => {
 
   const handleChange = (index) => {
     if (handleRating === index + 1) {
-      setHandleRating(0);
+      setHandleRating(1);
     } else {
       setHandleRating(index + 1);
     }

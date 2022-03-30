@@ -335,7 +335,7 @@ export const ProductPage = ({ dresses, productType, isProductsError }) => {
           </div>
         </div>
       )}
-      <Related dresses={dresses} productType={productType} />
+      <Related dresses={dresses} productType={productType} idName={dress.name} />
       <ReviewModal isReviewActive={isReviewActive} setReviewActive={setReviewActive} setSend={setSend}>
         <ReviewForm
           id={id}
