@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import classNames from 'classnames';
@@ -14,10 +14,10 @@ import { getProductsRequest } from '../../store/products-state';
 
 import styles from './review-form.module.scss';
 
-export const ReviewForm = ({ id, send, setSend, setReviewActive, handleResetReview }) => {
+export const ReviewForm = ({ id, send, setSend, setReviewActive }) => {
   const [handleRating, setHandleRating] = useState(0);
-  const [message, setMessage] = useState('');
   const dispatch = useDispatch();
+  const formikRef = useRef();
 
   const { isError, isLoading } = useSelector(reviewPostSelector);
 
@@ -31,10 +31,6 @@ export const ReviewForm = ({ id, send, setSend, setReviewActive, handleResetRevi
     dispatch(reviewPostRequest(review));
   };
 
-  const handleReset = (resetForm, initialValues) => {
-    resetForm(initialValues);
-  };
-
   useEffect(() => {
     switch (isError) {
       case true:
@@ -42,6 +38,8 @@ export const ReviewForm = ({ id, send, setSend, setReviewActive, handleResetRevi
       case false:
         setReviewActive(false);
         dispatch(getProductsRequest());
+        setHandleRating(0);
+        formikRef?.current?.resetForm(formikRef?.current?.initialValues);
         break;
       default:
         break;
@@ -50,6 +48,7 @@ export const ReviewForm = ({ id, send, setSend, setReviewActive, handleResetRevi
 
   return (
     <Formik
+      innerRef={formikRef}
       initialValues={{
         username: '',
         review: '',
@@ -57,10 +56,6 @@ export const ReviewForm = ({ id, send, setSend, setReviewActive, handleResetRevi
       validate={validateReview}
       onSubmit={(values, { resetForm }, initialValues) => {
         handleSubmit(values, resetForm, initialValues);
-        setTimeout(() => {
-          handleReset(resetForm, initialValues);
-          setHandleRating(0);
-        }, 2000);
       }}
     >
       {({ isSubmitting, errors, values, resetForm, initialValues }) => (
@@ -73,6 +68,7 @@ export const ReviewForm = ({ id, send, setSend, setReviewActive, handleResetRevi
               onClick={() => {
                 setReviewActive(false);
                 resetForm(initialValues);
+                setHandleRating(0);
               }}
             >
               <div className={styles.line} />
