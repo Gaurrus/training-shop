@@ -1,9 +1,9 @@
 export const validate = (values) => {
   const errors = {};
   if (!values.mail) {
-    errors.mail = 'Поле обязательно';
+    errors.mail = 'Required field';
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.mail)) {
-    errors.mail = 'Ошибка адреса';
+    errors.mail = 'E-mail format error';
   }
   return errors;
 };
@@ -11,10 +11,10 @@ export const validate = (values) => {
 export const validateReview = (values) => {
   const errors = {};
   if (!values.review) {
-    errors.review = 'Поле обязательно';
+    errors.review = 'Required field';
   }
   if (!values.username) {
-    errors.username = 'Поле обязательно';
+    errors.username = 'Required field';
   }
   return errors;
 };

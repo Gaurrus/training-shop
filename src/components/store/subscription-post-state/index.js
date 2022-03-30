@@ -7,16 +7,22 @@ const subscriptionSlice = createSlice({
   initialState: initialSubscriptionState,
   reducers: {
     postSubscriptionRequest: (state, action) => {
+      const { values } = action.payload;
       state.isLoading = true;
       state.isError = false;
-      state.data = action.payload;
+      state.data = values;
     },
-    postSubscriptionSeccess: (state) => {
+    postSubscriptionSeccess: (state, action) => {
+      const { indicator } = action.payload;
       state.isLoading = false;
       state.isError = false;
+      state.isIndicator = indicator;
     },
-    postSubscriptionError: (state) => {
+    postSubscriptionError: (state, action) => {
+      const { indicator } = action.payload;
+      state.isLoading = false;
       state.isError = true;
+      state.isIndicator = indicator;
     },
   },
 });
