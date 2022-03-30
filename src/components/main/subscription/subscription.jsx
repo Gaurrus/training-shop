@@ -17,7 +17,7 @@ export const Subscription = () => {
   const formikRef = useRef();
   const [message, setMessage] = useState('');
 
-  const { isError, isLoading, isIndicator, data } = useSelector(subscriptionSelector);
+  const { isSubscriptionError, isSubscriptionLoading, isIndicator, data } = useSelector(subscriptionSelector);
 
   const handleSubmit = (values, setSubmitting) => {
     const indicator = 's';
@@ -26,7 +26,7 @@ export const Subscription = () => {
   };
 
   useEffect(() => {
-    switch (isError) {
+    switch (isSubscriptionError) {
       case true:
         setMessage('Sending error');
         formikRef?.current?.setFieldValue('mail', data.mail);
@@ -38,7 +38,7 @@ export const Subscription = () => {
       default:
         break;
     }
-  }, [isLoading, isError]);
+  }, [isSubscriptionLoading, isSubscriptionError]);
 
   useEffect(() => {
     setMessage('');
@@ -71,7 +71,6 @@ export const Subscription = () => {
                   return <div className={styles.inputError}>{msg}</div>;
                 }}
               </ErrorMessage>
-              {/* {data?.mail === values?.mail && <div className={styles.inputError}>Subscribed</div>} */}
               <Field
                 data-test-id='main-subscribe-mail-field'
                 type='text'
@@ -86,7 +85,11 @@ export const Subscription = () => {
                 type='submit'
                 disabled={isSubmitting || errors.mail || values.mail === ''}
               >
-                <div className={classNames(styles.loading, { [styles.active]: isLoading && !isError })}>
+                <div
+                  className={classNames(styles.loading, {
+                    [styles.active]: isSubscriptionLoading && !isSubscriptionError,
+                  })}
+                >
                   <div className={styles.loadinIco} />
                 </div>
                 Subscribe

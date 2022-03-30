@@ -178,7 +178,7 @@ export const ProductPage = ({ dresses, productType, isProductsError }) => {
                 <div className='starsBlock'>
                   <Rating rating={dress?.rating} />
                 </div>
-                <span className='num-of-reviews'>2 Reviews</span>
+                <span className='num-of-reviews'>{dress?.reviews.length} Reviews</span>
               </div>
               <div className='storage-info'>
                 <span className='purchases' />
