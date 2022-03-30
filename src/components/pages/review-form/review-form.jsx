@@ -15,7 +15,7 @@ import { getProductsRequest } from '../../store/products-state';
 
 import styles from './review-form.module.scss';
 
-export const ReviewForm = ({ id, setReviewActive }) => {
+export const ReviewForm = ({ id, handleModalToggle }) => {
   const [handleRating, setHandleRating] = useState(1);
   const dispatch = useDispatch();
   const formikRef = useRef();
@@ -42,7 +42,7 @@ export const ReviewForm = ({ id, setReviewActive }) => {
         break;
       case false:
         setMessage('Succesfully send');
-        setReviewActive(false);
+        handleModalToggle();
         dispatch(getProductsRequest());
         setHandleRating(1);
         formikRef?.current?.resetForm(formikRef?.current?.initialValues);
@@ -79,7 +79,7 @@ export const ReviewForm = ({ id, setReviewActive }) => {
               className={styles.closeButton}
               aria-hidden
               onClick={() => {
-                setReviewActive(false);
+                handleModalToggle();
                 resetForm(initialValues);
                 setHandleRating(1);
               }}

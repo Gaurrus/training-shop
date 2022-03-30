@@ -30,6 +30,7 @@ import { brendsColor } from '../../constants/brends-color';
 import { INITIAL_DRESS } from '../../constants/initial-dress';
 
 import './product.scss';
+import { disableBodyScroll, enableBodyScroll } from '../../utils/scroll-lock';
 
 const deliveryInfo = [
   {
@@ -134,6 +135,16 @@ export const ProductPage = ({ dresses, productType, isProductsError }) => {
       handleRemove();
     } else {
       addProduct(dressCart, color, size, price, cartId, url);
+    }
+  };
+
+  const handleModalToggle = () => {
+    if (isReviewActive) {
+      setReviewActive(false);
+      enableBodyScroll();
+    } else {
+      setReviewActive(true);
+      disableBodyScroll({ savePosition: true });
     }
   };
 
@@ -308,7 +319,7 @@ export const ProductPage = ({ dresses, productType, isProductsError }) => {
                       data-test-id='review-button'
                       aria-hidden
                       onClick={() => {
-                        setReviewActive(!isReviewActive);
+                        handleModalToggle();
                         setSend(false);
                       }}
                       className='write-review-text'
@@ -336,14 +347,14 @@ export const ProductPage = ({ dresses, productType, isProductsError }) => {
         </div>
       )}
       <Related dresses={dresses} productType={productType} idName={dress.name} />
-      <ReviewModal isReviewActive={isReviewActive} setReviewActive={setReviewActive} setSend={setSend}>
+      <ReviewModal isReviewActive={isReviewActive} handleModalToggle={handleModalToggle}>
         <ReviewForm
           id={id}
           postData={postData}
           setPostData={setPostData}
           send={send}
           setSend={setSend}
-          setReviewActive={setReviewActive}
+          handleModalToggle={handleModalToggle}
         />
       </ReviewModal>
     </div>
