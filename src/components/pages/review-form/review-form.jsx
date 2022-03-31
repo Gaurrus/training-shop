@@ -39,16 +39,17 @@ export const ReviewForm = ({ id, handleModalToggle }) => {
       case true:
         formikRef?.current?.setSubmitting(false);
         setMessage('Sending error');
+        console.log('error');
         break;
       case false:
         setMessage('Succesfully send');
-        setHandleRating(1);
-        formikRef?.current?.resetForm(formikRef?.current?.initialValues);
+        // setHandleRating(1);
+        // formikRef?.current?.resetForm(formikRef?.current?.initialValues);
         break;
       default:
         break;
     }
-  }, [isLoading, isError]);
+  }, [isError]);
 
   useEffect(() => {
     setMessage('');
