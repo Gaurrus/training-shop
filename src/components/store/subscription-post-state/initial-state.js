@@ -1,6 +1,8 @@
 export const initialSubscriptionState = {
-  isLoading: true,
-  isError: true,
+  isFooterLoading: true,
+  isFooterError: true,
+  isSubscriptionLoading: true,
+  isSubscriptionError: true,
   isIndicator: '',
   data: {},
 };
