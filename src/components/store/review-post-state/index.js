@@ -8,7 +8,7 @@ const reviewPostSlice = createSlice({
   reducers: {
     reviewPostRequest: (state, action) => {
       state.isLoading = true;
-      state.isError = true;
+      state.isError = false;
       state.data = action.payload;
     },
     reviewPostSeccess: (state) => {
@@ -16,7 +16,7 @@ const reviewPostSlice = createSlice({
       state.isError = false;
     },
     reviewPostError: (state) => {
-      state.isLoading = false;
+      state.isLoading = true;
       state.isError = true;
     },
   },

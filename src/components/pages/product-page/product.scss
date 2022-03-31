@@ -344,8 +344,8 @@
         flex-wrap: nowrap;
         flex-direction: column;
         row-gap: 48px;
-        overflow-y: scroll;
-        overflow-x: hidden;
+        overflow-y: auto;
+        // overflow-x: hidden;
         &::-webkit-scrollbar {
           width: 3px;
           background-color: #e6e6e6;

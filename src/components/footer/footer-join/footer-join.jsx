@@ -18,7 +18,7 @@ export const FooterJoin = () => {
   const [message, setMessage] = useState('');
   const location = useLocation();
 
-  const { isError, isLoading, isIndicator, data } = useSelector(subscriptionSelector);
+  const { isFooterError, isFooterLoading, isIndicator, data } = useSelector(subscriptionSelector);
 
   const handleSubmit = (values, { setSubmitting }) => {
     const indicator = 'f';
@@ -27,7 +27,7 @@ export const FooterJoin = () => {
   };
 
   useEffect(() => {
-    switch (isError) {
+    switch (isFooterError) {
       case true:
         setMessage('Sending error');
         formikRef?.current?.setFieldValue('mail', data.mail);
@@ -39,7 +39,7 @@ export const FooterJoin = () => {
       default:
         break;
     }
-  }, [isLoading, isError]);
+  }, [isFooterLoading, isFooterError]);
 
   useEffect(() => {
     setMessage('');
@@ -63,7 +63,6 @@ export const FooterJoin = () => {
           {({ isSubmitting, values, errors }) => (
             <Form className={styles.joing}>
               <ErrorMessage name='mail'>{(msg) => <div className={styles.inputError}>{msg}</div>}</ErrorMessage>
-              {/* {data?.mail === values?.mail && <div className={styles.inputError}>Subscribed</div>} */}
               <Field
                 data-test-id='footer-mail-field'
                 className={styles.input}
@@ -72,7 +71,11 @@ export const FooterJoin = () => {
                 name='mail'
               />
               {isIndicator === 'f' && <div className={styles.inputSucces}>{message}</div>}
-              <div className={classNames(styles.loading, { [styles.active]: isLoading && !isError })}>
+              <div
+                className={classNames(styles.loading, {
+                  [styles.active]: isFooterLoading && !isFooterError,
+                })}
+              >
                 <div className={styles.loadinIco} />
               </div>
               <button
