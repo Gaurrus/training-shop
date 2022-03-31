@@ -150,7 +150,7 @@ export const ProductPage = ({ dresses, productType, isProductsError }) => {
   }, [dispatch, dresses, id]);
 
   useEffect(() => {
-    if (dress?.reviews?.length < data?.reviews?.length) {
+    if (dress?.reviews?.length < data?.reviews?.length && id === data?.id) {
       setResponseReviews(data?.reviews);
       setReviewActive(false);
     } else setResponseReviews(dress?.reviews);
