@@ -56,7 +56,6 @@ export const ProductPage = ({ dresses, productType, isProductsError }) => {
   }, [id, dress]);
 
   useEffect(() => {
-    console.log(data);
     if (dresses?.find((item) => item.id === id)) {
       setDress(dresses?.find((item) => item.id === id));
     } else setDress(data);
@@ -320,9 +319,7 @@ export const ProductPage = ({ dresses, productType, isProductsError }) => {
                     <div className='post'>
                       <div className='post-title'>
                         <span className='user-name'>{post.name}</span>
-                        <span className='time-of-review'>
-                          {new Date().getHours().getMinutes().getSeconds().getMilliseconds()} months ago
-                        </span>
+                        {/* <span className='time-of-review'>3 months ago</span> */}
                         <Rating rating={post.rating} />
                       </div>
                       <p className='post-text'>{post.text}</p>

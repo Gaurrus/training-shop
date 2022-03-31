@@ -38,7 +38,6 @@ export const ReviewForm = ({ id, handleModalToggle }) => {
       case true:
         formikRef?.current?.setSubmitting(false);
         setMessage('Sending error');
-        console.log('error');
         break;
       case false:
         setMessage('Succesfully send');
