@@ -10,7 +10,6 @@ import { RatingBig } from '../../rating-big/rating-big';
 import { Related } from './realated';
 import { Share } from '../share';
 import { ProductSwiper } from '../swiper/product-swiper';
-import { LoadingIco } from '../../loader/loading-ico/loading-ico';
 import { ReviewForm } from '../review-form/review-form';
 import { ReviewModal } from '../review-modal';
 
@@ -64,12 +63,7 @@ export const ProductPage = ({ dresses, productType, isProductsError }) => {
   const [isReviewActive, setReviewActive] = useState(false);
   const [postData, setPostData] = useState({});
   const [send, setSend] = useState(false);
-
-  useEffect(() => {
-    if (!dresses?.find((item) => item.id === id)) {
-      dispatch(getProductRequest({ id }));
-    }
-  }, [dispatch, dresses, id]);
+  const [responseReviews, setResponseReviews] = useState([]);
 
   const { data, isLoading, isError } = useSelector(productSelector);
 
@@ -82,6 +76,7 @@ export const ProductPage = ({ dresses, productType, isProductsError }) => {
   }, [id, dress]);
 
   useEffect(() => {
+    console.log(data);
     if (dresses?.find((item) => item.id === id)) {
       setDress(dresses?.find((item) => item.id === id));
     } else setDress(data);
@@ -140,13 +135,26 @@ export const ProductPage = ({ dresses, productType, isProductsError }) => {
 
   const handleModalToggle = () => {
     if (isReviewActive) {
-      setReviewActive(false);
+      setReviewActive(!isReviewActive);
       enableBodyScroll();
     } else {
-      setReviewActive(true);
+      setReviewActive(!isReviewActive);
       disableBodyScroll({ savePosition: true });
     }
   };
+
+  useEffect(() => {
+    if (!dresses?.find((item) => item.id === id)) {
+      dispatch(getProductRequest({ id }));
+    }
+  }, [dispatch, dresses, id]);
+
+  useEffect(() => {
+    if (dress?.reviews?.length < data?.reviews?.length) {
+      setResponseReviews(data?.reviews);
+      setReviewActive(false);
+    } else setResponseReviews(dress?.reviews);
+  }, [dress?.reviews, data?.reviews]);
 
   return (
     <div
@@ -178,7 +186,7 @@ export const ProductPage = ({ dresses, productType, isProductsError }) => {
                 <div className='starsBlock'>
                   <Rating rating={dress?.rating} />
                 </div>
-                <span className='num-of-reviews'>{dress?.reviews.length} Reviews</span>
+                <span className='num-of-reviews'>{responseReviews?.length} Reviews</span>
               </div>
               <div className='storage-info'>
                 <span className='purchases' />
@@ -311,7 +319,7 @@ export const ProductPage = ({ dresses, productType, isProductsError }) => {
                     <div className='starsBlock'>
                       <RatingBig rating={dress?.rating} />
                     </div>
-                    <span className='num-of-reviews'>{dress?.reviews.length} Reviews</span>
+                    <span className='num-of-reviews'>{responseReviews?.length} Reviews</span>
                   </div>
                   <div className='write-review'>
                     <img src={review} alt='' className='review-ico' />
@@ -319,8 +327,7 @@ export const ProductPage = ({ dresses, productType, isProductsError }) => {
                       data-test-id='review-button'
                       aria-hidden
                       onClick={() => {
-                        handleModalToggle();
-                        setSend(false);
+                        setReviewActive(true);
                       }}
                       className='write-review-text'
                     >
@@ -329,7 +336,7 @@ export const ProductPage = ({ dresses, productType, isProductsError }) => {
                   </div>
                 </div>
                 <div className='posts'>
-                  {dress?.reviews.map((post) => (
+                  {responseReviews?.map((post) => (
                     <div className='post'>
                       <div className='post-title'>
                         <span className='user-name'>{post.name}</span>
@@ -355,6 +362,7 @@ export const ProductPage = ({ dresses, productType, isProductsError }) => {
           send={send}
           setSend={setSend}
           handleModalToggle={handleModalToggle}
+          setReviewActive={setReviewActive}
         />
       </ReviewModal>
     </div>

@@ -42,8 +42,6 @@ export const ReviewForm = ({ id, handleModalToggle }) => {
         break;
       case false:
         setMessage('Succesfully send');
-        handleModalToggle();
-        dispatch(getProductsRequest());
         setHandleRating(1);
         formikRef?.current?.resetForm(formikRef?.current?.initialValues);
         break;
