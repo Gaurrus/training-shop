@@ -1,4 +1,4 @@
-import { Children, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
@@ -16,9 +16,6 @@ import { ReviewModal } from '../review-modal';
 import hangler from './assets/clothes-hanger.svg';
 import favorites from './assets/favorites-unactive.svg';
 import compare from './assets/compare-unactive.svg';
-import truck from './assets/truck.svg';
-import recycler from './assets/recycler.svg';
-import mail from './assets/mail.svg';
 import review from './assets/review.svg';
 
 import { cartSelector, productSelector } from '../../../selectors';
@@ -27,27 +24,10 @@ import { addProductInCart, removeProduct } from '../../store/cart-state';
 import { getProductRequest } from '../../store/product-state';
 import { brendsColor } from '../../constants/brends-color';
 import { INITIAL_DRESS } from '../../constants/initial-dress';
+import { deliveryInfo } from '../../constants/delivery-Info';
 
 import './product.scss';
 import { disableBodyScroll, enableBodyScroll } from '../../utils/scroll-lock';
-
-const deliveryInfo = [
-  {
-    id: '01',
-    img: truck,
-    title: 'Shipping & Delivery',
-  },
-  {
-    id: '02',
-    img: recycler,
-    title: 'Returns & Exchanges',
-  },
-  {
-    id: '03',
-    img: mail,
-    title: 'Ask a question',
-  },
-];
 
 export const ProductPage = ({ dresses, productType, isProductsError }) => {
   const { id } = useParams();
@@ -340,7 +320,9 @@ export const ProductPage = ({ dresses, productType, isProductsError }) => {
                     <div className='post'>
                       <div className='post-title'>
                         <span className='user-name'>{post.name}</span>
-                        {/* <span className='time-of-review'>3 months ago</span> */}
+                        <span className='time-of-review'>
+                          {new Date().getHours().getMinutes().getSeconds().getMilliseconds()} months ago
+                        </span>
                         <Rating rating={post.rating} />
                       </div>
                       <p className='post-text'>{post.text}</p>

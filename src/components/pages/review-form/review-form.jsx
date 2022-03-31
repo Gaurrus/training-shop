@@ -11,7 +11,6 @@ import { FormRating } from './form-rating';
 import { validateReview } from '../../utils/validate-form';
 import { reviewPostRequest } from '../../store/review-post-state';
 import { reviewPostSelector } from '../../../selectors';
-import { getProductsRequest } from '../../store/products-state';
 
 import styles from './review-form.module.scss';
 
@@ -22,7 +21,7 @@ export const ReviewForm = ({ id, handleModalToggle }) => {
   const [message, setMessage] = useState('');
   const location = useLocation();
 
-  const { data, isError, isLoading } = useSelector(reviewPostSelector);
+  const { isError } = useSelector(reviewPostSelector);
 
   const handleSubmit = (values) => {
     const review = {
@@ -43,8 +42,6 @@ export const ReviewForm = ({ id, handleModalToggle }) => {
         break;
       case false:
         setMessage('Succesfully send');
-        // setHandleRating(1);
-        // formikRef?.current?.resetForm(formikRef?.current?.initialValues);
         break;
       default:
         break;
@@ -70,7 +67,7 @@ export const ReviewForm = ({ id, handleModalToggle }) => {
         handleSubmit(values, resetForm, initialValues);
       }}
     >
-      {({ isSubmitting, errors, values, resetForm, initialValues }) => (
+      {({ isSubmitting, errors, resetForm, initialValues }) => (
         <Form className={classNames(styles.item)}>
           <div className={styles.header}>
             <h2 className={styles.title}>Review form</h2>
@@ -135,8 +132,6 @@ export const ReviewForm = ({ id, handleModalToggle }) => {
           >
             SEND
           </button>
-          {/* {isError && isLoading && <div className={styles.error}>Loading...</div>} */}
-          {/* {isError && !isLoading && <div className={styles.error}>Sending error</div>} */}
           <div className={styles.error}>{message}</div>
         </Form>
       )}
