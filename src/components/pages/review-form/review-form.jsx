@@ -109,7 +109,7 @@ export const ReviewForm = ({ id, handleModalToggle }) => {
               Review text
               <Field
                 data-test-id='review-text-field'
-                className={classNames(styles.input)}
+                className={classNames(styles.input, styles.texarea)}
                 name='review'
                 id='review'
                 as='textarea'

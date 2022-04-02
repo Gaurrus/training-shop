@@ -6,9 +6,9 @@ import classNames from 'classnames';
 
 import { MiniSocials } from '../../mini-socials/mini-socials';
 
-import { postSubscriptionRequest } from '../../store/subscription-post-state';
+import { postFooterRequest } from '../../store/footer-post-state';
 import { validate } from '../../utils/validate-form';
-import { subscriptionSelector } from '../../../selectors/index';
+import { footerSelector } from '../../../selectors/index';
 
 import styles from './footer-join.module.scss';
 
@@ -18,11 +18,10 @@ export const FooterJoin = () => {
   const [message, setMessage] = useState('');
   const location = useLocation();
 
-  const { isFooterError, isFooterLoading, isIndicator, data } = useSelector(subscriptionSelector);
+  const { isFooterError, isFooterLoading, data } = useSelector(footerSelector);
 
   const handleSubmit = (values, { setSubmitting }) => {
-    const indicator = 'f';
-    dispatch(postSubscriptionRequest({ values, indicator }));
+    dispatch(postFooterRequest({ values }));
     setSubmitting(false);
   };
 
@@ -44,6 +43,7 @@ export const FooterJoin = () => {
   useEffect(() => {
     setMessage('');
   }, []);
+
   useEffect(() => {
     setMessage('');
   }, [location]);
@@ -70,7 +70,7 @@ export const FooterJoin = () => {
                 placeholder='Enter your email'
                 name='mail'
               />
-              {isIndicator === 'f' && <div className={styles.inputSucces}>{message}</div>}
+              <div className={styles.inputSucces}>{message}</div>
               <div
                 className={classNames(styles.loading, {
                   [styles.active]: isFooterLoading && !isFooterError,

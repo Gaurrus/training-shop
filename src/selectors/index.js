@@ -8,4 +8,6 @@ export const productSelector = (state) => state.productReducer;
 
 export const subscriptionSelector = (state) => state.subscriptionReducer;
 
+export const footerSelector = (state) => state.footerReducer;
+
 export const reviewPostSelector = (state) => state.reviewPostReducer;

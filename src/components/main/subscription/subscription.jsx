@@ -17,11 +17,10 @@ export const Subscription = () => {
   const formikRef = useRef();
   const [message, setMessage] = useState('');
 
-  const { isSubscriptionError, isSubscriptionLoading, isIndicator, data } = useSelector(subscriptionSelector);
+  const { isSubscriptionError, isSubscriptionLoading, data } = useSelector(subscriptionSelector);
 
   const handleSubmit = (values, setSubmitting) => {
-    const indicator = 's';
-    dispatch(postSubscriptionRequest({ values, indicator }));
+    dispatch(postSubscriptionRequest({ values }));
     setSubmitting(false);
   };
 
@@ -78,7 +77,7 @@ export const Subscription = () => {
                 placeholder='Enter your mail'
                 className={styles.input}
               />
-              {isIndicator === 's' && <div className={styles.inputError}>{message}</div>}
+              <div className={styles.inputError}>{message}</div>
               <button
                 data-test-id='main-subscribe-mail-button'
                 className={styles.button}
