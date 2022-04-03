@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 /* eslint-disable import/no-unresolved */
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -40,13 +41,17 @@ export const App = () => {
   const products = useSelector(productsSelector);
 
   const [isCartActive, setIsCartActive] = useState(false);
+  const [isAnimationActive, setIsAnimationActive] = useState(false);
 
   const cartIcoOnClick = () => {
-    if (isCartActive) {
-      setIsCartActive(!isCartActive);
+    if (isCartActive && isAnimationActive) {
+      setIsAnimationActive(!isAnimationActive);
+      setTimeout(() => setIsCartActive(!isCartActive), 1000);
       enableBodyScroll();
-    } else {
+    }
+    if (!isCartActive && !isAnimationActive) {
       setIsCartActive(!isCartActive);
+      setTimeout(() => setIsAnimationActive(!isAnimationActive));
       disableBodyScroll({ savePosition: true });
     }
   };
@@ -87,7 +92,7 @@ export const App = () => {
           }
         />
       </Routes>
-      <Modal isCartActive={isCartActive}>
+      <Modal isCartActive={isCartActive} isAnimationActive={isAnimationActive}>
         <Cart closeCart={cartIcoOnClick} />
       </Modal>
       <Loader isLoading={products.isLoading}>{products.isError ? <FaultOfLoad /> : <LoadingIco />}</Loader>

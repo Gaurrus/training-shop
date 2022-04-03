@@ -60,7 +60,7 @@ export const Related = ({ dresses, productType, idName }) => {
                     <GridItem
                       key={item.id}
                       img={item.images[0].url}
-                      title={item.title}
+                      title={item.name}
                       price={item.price}
                       sale={item.discount}
                       rating={item.rating}
