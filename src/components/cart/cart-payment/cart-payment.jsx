@@ -16,7 +16,7 @@ import { Visa } from './visa/visa';
 
 import styles from './cart-payment.module.scss';
 
-export const CartPayment = ({ cart }) => {
+export const CartPayment = ({ cart, formik }) => {
   const [radioPay, setRadioPay] = useState('');
   return (
     <div className={styles.wrapper}>

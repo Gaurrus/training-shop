@@ -1,19 +1,23 @@
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import classNames from 'classnames';
+import { useFormik } from 'formik';
 
 import { CartProducts } from './cart-products';
 import { CartDelivery } from './cart-delivery/cart-delivery';
 import { CartPayment } from './cart-payment';
 
+import { cartSelector, paymentsSelector } from '../../selectors';
+import { paymentsAdd } from '../store/payments-state';
+
 import styles from './cart.module.scss';
-import { cartSelector } from '../../selectors';
 
 export const Cart = ({ closeCart }) => {
   const [isProductsActive, setIsProductsActive] = useState(false);
   const [isDelyveryActive, setIsDelyveryActive] = useState(false);
   const [isPaymentActive, setIsPaymentActive] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => setIsProductsActive(true), []);
 
@@ -51,6 +55,29 @@ export const Cart = ({ closeCart }) => {
     }
   };
 
+  const { data } = useSelector(paymentsSelector);
+
+  const handleSelect = (cartId, count, typeOfDelyvery) => {
+    dispatch(paymentsAdd({ cartId, count, summFromArr, typeOfDelyvery }));
+  };
+  console.log(data);
+
+  const formik = useFormik({
+    initialValues: {
+      phone: '',
+      email: '',
+      country: '',
+      city: '',
+      street: '',
+      house: '',
+      apartment: '',
+      postcode: '',
+      storeAdress: '',
+      agreenment: false,
+    },
+  });
+  console.log(formik.values);
+
   return (
     <div className={styles.cart} data-test-id='cart'>
       <div className={styles.cartHeader}>
@@ -86,9 +113,9 @@ export const Cart = ({ closeCart }) => {
         </span>
       </div>
       <div className={styles.cartMain}>
-        {isProductsActive && <CartProducts cart={cartArrProducts?.cart} />}
-        {isDelyveryActive && <CartDelivery cart={cartArrProducts?.cart} />}
-        {isPaymentActive && <CartPayment cart={cartArrProducts?.cart} />}
+        {isProductsActive && <CartProducts cart={cartArrProducts?.cart} handleSelect={handleSelect} formik={formik} />}
+        {isDelyveryActive && <CartDelivery cart={cartArrProducts?.cart} handleSelect={handleSelect} formik={formik} />}
+        {isPaymentActive && <CartPayment cart={cartArrProducts?.cart} handleSelect={handleSelect} formik={formik} />}
       </div>
       {cartArrProducts.cart.length ? (
         <div className={styles.cardFooter}>

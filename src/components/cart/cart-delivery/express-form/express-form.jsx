@@ -1,54 +1,94 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { Field, Form, Formik } from 'formik';
 import styles from './express-form.module.scss';
 
-export const ExpressForm = () => (
-  <Formik
-    initialValues={{
-      phone: '',
-      email: '',
-      country: '',
-      city: '',
-      street: '',
-      house: '',
-      apartment: '',
-      agreenment: false,
-    }}
-    onSubmit={(values, { setSubmitting }) => {
-      setSubmitting(false);
-    }}
-  >
-    <Form>
-      <div className={styles.postDeliveryData}>
-        <div className={styles.dataItem}>
-          <label htmlFor='phone' className={styles.dataLabel}>
-            PHONE
-          </label>
-          <Field type='text' name='phone' id='phone' className={styles.input} placeholder='+375  (__) _______' />
-        </div>
-        <div className={styles.dataItem}>
-          <label htmlFor='email' className={styles.dataLabel}>
-            e-mail
-          </label>
-          <Field type='email' name='email' id='email' className={styles.input} placeholder='e-mail' />
-        </div>
-        <div className={styles.dataItem}>
-          <label htmlFor='adress' className={styles.dataLabel}>
-            ADRESS
-          </label>
-          <Field type='text' name='country' id='adress' className={styles.input} placeholder='Country' />
-          <Field type='text' name='city' id='adress' className={styles.input} placeholder='City' />
-          <Field type='text' name='street' id='adress' className={styles.input} placeholder='Street' />
-          <div className={styles.dubleInput}>
-            <Field type='text' name='house' id='adress' className={styles.input} placeholder='House' />
-            <Field type='text' name='apartment' id='adress' className={styles.input} placeholder='Apartment' />
-          </div>
-        </div>
-        <label htmlFor='agreenment' className={styles.checkboxLabel}>
-          <Field type='checkbox' id='agreenment' name='agreenment' className={styles.castomCheckbox} />I agree to the
-          processing of my personal information
+export const ExpressForm = ({ formik }) => (
+  <form onChange={formik.handleChange}>
+    <div className={styles.postDeliveryData}>
+      <div className={styles.dataItem}>
+        <label htmlFor='phone' className={styles.dataLabel}>
+          PHONE
         </label>
+        <input
+          type='text'
+          name='phone'
+          id='phone'
+          className={styles.input}
+          placeholder='+375  (__) _______'
+          value={formik.values.phone}
+        />
       </div>
-    </Form>
-  </Formik>
+      <div className={styles.dataItem}>
+        <label htmlFor='email' className={styles.dataLabel}>
+          e-mail
+        </label>
+        <input
+          type='email'
+          name='email'
+          id='email'
+          className={styles.input}
+          placeholder='e-mail'
+          value={formik.values.email}
+        />
+      </div>
+      <div className={styles.dataItem}>
+        <label htmlFor='adress' className={styles.dataLabel}>
+          ADRESS
+        </label>
+        <input
+          type='text'
+          name='country'
+          id='adress'
+          className={styles.input}
+          placeholder='Country'
+          value={formik.values.country}
+        />
+        <input
+          type='text'
+          name='city'
+          id='adress'
+          className={styles.input}
+          placeholder='City'
+          value={formik.values.city}
+        />
+        <input
+          type='text'
+          name='street'
+          id='adress'
+          className={styles.input}
+          placeholder='Street'
+          value={formik.values.street}
+        />
+        <div className={styles.dubleInput}>
+          <input
+            type='text'
+            name='house'
+            id='adress'
+            className={styles.input}
+            placeholder='House'
+            value={formik.values.house}
+          />
+          <input
+            type='text'
+            name='apartment'
+            id='adress'
+            className={styles.input}
+            placeholder='Apartment'
+            value={formik.values.apartment}
+          />
+        </div>
+      </div>
+      <label htmlFor='agreenment' className={styles.checkboxLabel}>
+        <input
+          type='checkbox'
+          id='agreenment'
+          name='agreenment'
+          className={styles.castomCheckbox}
+          value={formik.values.agreenment}
+        />
+        I agree to the processing of my personal information
+      </label>
+    </div>
+  </form>
 );

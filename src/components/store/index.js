@@ -9,6 +9,7 @@ import cartProductReducer from './product-cart-state';
 import subscriptionReducer from './subscription-post-state';
 import footerReducer from './footer-post-state';
 import reviewPostReducer from './review-post-state';
+import paymentsReducer from './payments-state';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -21,6 +22,7 @@ export const store = configureStore({
     subscriptionReducer,
     footerReducer,
     reviewPostReducer,
+    paymentsReducer,
   },
   middleware: (defaultMiddleware) => defaultMiddleware().concat(sagaMiddleware),
 });

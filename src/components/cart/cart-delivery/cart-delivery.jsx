@@ -9,8 +9,13 @@ import { SelfForm } from './self-form/self-form';
 
 import styles from './cart-delivery.module.scss';
 
-export const CartDelivery = ({ cart }) => {
+export const CartDelivery = ({ cart, handleSelect, formik }) => {
   const [radio, setRadio] = useState('post');
+
+  const handleChange = (values) => {
+    const typeOfDelyvery = values;
+    handleSelect(typeOfDelyvery);
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -23,7 +28,11 @@ export const CartDelivery = ({ cart }) => {
             }}
           >
             {({ values }) => (
-              <Form>
+              <Form
+                onChange={() => {
+                  handleChange(values);
+                }}
+              >
                 <h2 className={styles.delyveryTitle}>Choose the method of delivery of the items</h2>
                 <div className={styles.radioGroup}>
                   <div className={styles.horisontalLine} />
@@ -54,9 +63,9 @@ export const CartDelivery = ({ cart }) => {
             )}
           </Formik>
           <form>
-            {radio === 'post' && <PostForm />}
-            {radio === 'express' && <ExpressForm />}
-            {radio === 'self' && <SelfForm />}
+            {radio === 'post' && <PostForm formik={formik} />}
+            {radio === 'express' && <ExpressForm formik={formik} />}
+            {radio === 'self' && <SelfForm formik={formik} />}
           </form>
         </form>
       ) : (
