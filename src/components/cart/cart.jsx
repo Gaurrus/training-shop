@@ -17,6 +17,7 @@ export const Cart = ({ closeCart }) => {
   const [isProductsActive, setIsProductsActive] = useState(false);
   const [isDelyveryActive, setIsDelyveryActive] = useState(false);
   const [isPaymentActive, setIsPaymentActive] = useState(false);
+  const [paymentType, setPaymentType] = useState('');
   const dispatch = useDispatch();
 
   useEffect(() => setIsProductsActive(true), []);
@@ -57,26 +58,51 @@ export const Cart = ({ closeCart }) => {
 
   const { data } = useSelector(paymentsSelector);
 
-  const handleSelect = (cartId, count, typeOfDelyvery) => {
-    dispatch(paymentsAdd({ cartId, count, summFromArr, typeOfDelyvery }));
-  };
-  console.log(data);
-
   const formik = useFormik({
     initialValues: {
       phone: '',
       email: '',
+      cashEmail: '',
       country: '',
       city: '',
       street: '',
       house: '',
       apartment: '',
       postcode: '',
-      storeAdress: '',
+      storeAddress: '',
       agreenment: false,
+      paymentType: '',
+      card: '',
+      cardDate: '',
+      cardCVV: '',
     },
   });
-  console.log(formik.values);
+  console.log(cartArrProducts?.cart);
+
+  const handleSelect = () => {
+    const postData = {
+      products: '',
+      deliveryMethod: '',
+      paymentMethod: paymentType,
+      totalPrice: summFromArr?.toFixed(2),
+      phone: formik.values.phone,
+      email: formik.values.email,
+      country: formik.values.country,
+      cashEmail: formik.values.cashEmail,
+      city: formik.values.city,
+      street: formik.values.street,
+      house: formik.values.house,
+      apartment: formik.values.apartment,
+      postcode: formik.values.postcode,
+      storeAddress: formik.values.storeAddress,
+      card: formik.values.card,
+      cardDate: formik.values.cardDate,
+      cardCVV: formik.values.cardCVV,
+    };
+
+    dispatch(paymentsAdd({ postData }));
+  };
+  console.log(data);
 
   return (
     <div className={styles.cart} data-test-id='cart'>
@@ -115,7 +141,15 @@ export const Cart = ({ closeCart }) => {
       <div className={styles.cartMain}>
         {isProductsActive && <CartProducts cart={cartArrProducts?.cart} handleSelect={handleSelect} formik={formik} />}
         {isDelyveryActive && <CartDelivery cart={cartArrProducts?.cart} handleSelect={handleSelect} formik={formik} />}
-        {isPaymentActive && <CartPayment cart={cartArrProducts?.cart} handleSelect={handleSelect} formik={formik} />}
+        {isPaymentActive && (
+          <CartPayment
+            cart={cartArrProducts?.cart}
+            handleSelect={handleSelect}
+            formik={formik}
+            paymentType={paymentType}
+            setPaymentType={setPaymentType}
+          />
+        )}
       </div>
       {cartArrProducts.cart.length ? (
         <div className={styles.cardFooter}>
@@ -123,7 +157,14 @@ export const Cart = ({ closeCart }) => {
             <span className={styles.totalText}>Total</span>
             <span className={styles.totalPrice}>$ {summFromArr.toFixed(2)}</span>
           </div>
-          <button type='submit' className={classNames(styles.further, styles.button)} onClick={handleClick}>
+          <button
+            type='submit'
+            className={classNames(styles.further, styles.button)}
+            onClick={() => {
+              handleClick();
+              handleSelect();
+            }}
+          >
             Further
           </button>
           <button type='button' className={classNames(styles.viewCart, styles.button)} onClick={closeCart}>

@@ -16,8 +16,7 @@ import { Visa } from './visa/visa';
 
 import styles from './cart-payment.module.scss';
 
-export const CartPayment = ({ cart, formik }) => {
-  const [radioPay, setRadioPay] = useState('');
+export const CartPayment = ({ cart, formik, paymentType, setPaymentType }) => {
   return (
     <div className={styles.wrapper}>
       {cart.length ? (
@@ -29,7 +28,7 @@ export const CartPayment = ({ cart, formik }) => {
             }}
           >
             {({ values }) => (
-              <Form>
+              <Form onChange={formik.handleChange}>
                 <h2 className={styles.delyveryTitle}>Method of payments</h2>
                 <div className={styles.radioGroup}>
                   <div className={styles.horisontalLine} />
@@ -59,15 +58,15 @@ export const CartPayment = ({ cart, formik }) => {
                     Cash
                   </label>
                 </div>
-                {setRadioPay(values.paymentType)}
+                {setPaymentType(values.paymentType)}
               </Form>
             )}
           </Formik>
           <form>
-            {radioPay === 'paypal' && <Paypal />}
-            {radioPay === 'visa' && <Visa />}
-            {radioPay === 'mastercard' && <Mastercard />}
-            {radioPay === 'cash' && <Cash />}
+            {paymentType === 'paypal' && <Paypal formik={formik} />}
+            {paymentType === 'visa' && <Visa formik={formik} />}
+            {paymentType === 'mastercard' && <Mastercard formik={formik} />}
+            {paymentType === 'cash' && <Cash formik={formik} />}
           </form>
         </form>
       ) : (

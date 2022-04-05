@@ -1,19 +1,39 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { Form, Formik, Field } from 'formik';
 
 import styles from './mastercard.module.scss';
 
-export const Mastercard = () => (
-  <Formik>
-    <Form className={styles.dataItem}>
-      <label htmlFor='mastercard' className={styles.dataLabel}>
-        CARD
-      </label>
-      <Field type='text' name='card' id='mastercard' className={styles.input} placeholder='----------------' />
-      <div className={styles.dubleInput}>
-        <Field type='text' name='year-month' id='year-month' className={styles.input} placeholder='YY/MM' />
-        <Field type='text' name='cvv' id='cvv' className={styles.input} placeholder='CVV' />
-      </div>
-    </Form>
-  </Formik>
+export const Mastercard = ({ formik }) => (
+  <form className={styles.dataItem} onChange={formik.handleChange}>
+    <label htmlFor='mastercard' className={styles.dataLabel}>
+      CARD
+    </label>
+    <input
+      type='text'
+      name='card'
+      id='mastercard'
+      className={styles.input}
+      placeholder='----------------'
+      value={formik.values.card}
+    />
+    <div className={styles.dubleInput}>
+      <input
+        type='text'
+        name='cardDate'
+        id='cardDate'
+        className={styles.input}
+        placeholder='YY/MM'
+        value={formik.values.cardDate}
+      />
+      <input
+        type='text'
+        name='cardCVV'
+        id='cardCVV'
+        className={styles.input}
+        placeholder='CVV'
+        value={formik.values.cardCVV}
+      />
+    </div>
+  </form>
 );

@@ -44,11 +44,11 @@ export const SelfForm = ({ formik }) => (
           value={formik.values.country}
         />
         <select
-          name='storeAdress'
+          name='storeAddress'
           id='store'
           className={styles.input}
           placeholder='Store adress'
-          value={formik.values.storeAdress}
+          value={formik.values.storeAddress}
         >
           <option value='minsk'>Minsk</option>
           <option value='orsha'>Orsha</option>

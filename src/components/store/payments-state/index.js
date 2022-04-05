@@ -7,11 +7,9 @@ const paymentsSlice = createSlice({
   initialState: paymentsState,
   reducers: {
     paymentsAdd: (state, action) => {
-      const { cartId, count, price, typeOfDelyvery, summFromArr } = action.payload;
+      const { postData } = action.payload;
       // state.data.products.name = cartId;
-      state.data.quantity = count;
-      state.data.totalPrice = summFromArr;
-      state.data.paymentMethod = typeOfDelyvery;
+      state.data = postData;
     },
     // postSubscriptionRequest: (state, action) => {
     //   const { values } = action.payload;
