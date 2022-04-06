@@ -1,9 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
 import { Field, Form, Formik } from 'formik';
-
-import classNames from 'classnames';
 
 import visa from './assets/visa.svg';
 import mastercard from './assets/mastercard.svg';

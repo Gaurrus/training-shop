@@ -1,7 +1,5 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { Form, Formik, Field } from 'formik';
-
 import styles from './mastercard.module.scss';
 
 export const Mastercard = ({ formik }) => (

@@ -46,8 +46,10 @@ export const App = () => {
   const cartIcoOnClick = () => {
     if (isCartActive && isAnimationActive) {
       setIsAnimationActive(!isAnimationActive);
-      setTimeout(() => setIsCartActive(!isCartActive), 1000);
-      enableBodyScroll();
+      setTimeout(() => {
+        setIsCartActive(!isCartActive);
+        enableBodyScroll();
+      }, 1000);
     }
     if (!isCartActive && !isAnimationActive) {
       setIsCartActive(!isCartActive);

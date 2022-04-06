@@ -77,11 +77,24 @@ export const Cart = ({ closeCart }) => {
       cardCVV: '',
     },
   });
-  console.log(cartArrProducts?.cart);
+
+  let paymentArrayProducts = [];
+  useEffect(() => {
+    paymentArrayProducts = cartArrProducts?.cart?.map((item) => {
+      const array = {
+        name: item?.dressCart?.name,
+        size: item?.size,
+        color: item?.color,
+        quantity: item?.count,
+      };
+      return array;
+    });
+    console.log(paymentArrayProducts);
+  }, [cartArrProducts, formik]);
 
   const handleSelect = () => {
     const postData = {
-      products: '',
+      products: paymentArrayProducts,
       deliveryMethod: '',
       paymentMethod: paymentType,
       totalPrice: summFromArr?.toFixed(2),
@@ -157,17 +170,29 @@ export const Cart = ({ closeCart }) => {
             <span className={styles.totalText}>Total</span>
             <span className={styles.totalPrice}>$ {summFromArr.toFixed(2)}</span>
           </div>
-          <button
-            type='submit'
-            className={classNames(styles.further, styles.button)}
-            onClick={() => {
-              handleClick();
-              handleSelect();
-            }}
-          >
-            Further
-          </button>
-          <button type='button' className={classNames(styles.viewCart, styles.button)} onClick={closeCart}>
+          {isPaymentActive ? (
+            <button
+              type='submit'
+              className={classNames(styles.further, styles.button)}
+              onClick={() => {
+                handleSelect();
+              }}
+            >
+              Check Out
+            </button>
+          ) : (
+            <button
+              type='submit'
+              className={classNames(styles.further, styles.button)}
+              onClick={() => {
+                handleClick();
+                // handleSelect();
+              }}
+            >
+              Further
+            </button>
+          )}
+          <button type='button' className={classNames(styles.viewCart, styles.button)} onClick={cartProductsOnClick}>
             View Cart
           </button>
         </div>

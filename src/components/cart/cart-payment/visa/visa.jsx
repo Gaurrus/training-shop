@@ -1,7 +1,5 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { Field, Form, Formik } from 'formik';
-
 import styles from './visa.module.scss';
 
 export const Visa = ({ formik }) => (
