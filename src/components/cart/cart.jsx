@@ -18,6 +18,7 @@ export const Cart = ({ closeCart }) => {
   const [isDelyveryActive, setIsDelyveryActive] = useState(false);
   const [isPaymentActive, setIsPaymentActive] = useState(false);
   const [paymentType, setPaymentType] = useState('');
+  const [radioDeliveryMethod, setRadioDeliveryMethod] = useState('pickup from post offices');
   const dispatch = useDispatch();
 
   useEffect(() => setIsProductsActive(true), []);
@@ -95,8 +96,8 @@ export const Cart = ({ closeCart }) => {
   const handleSelect = () => {
     const postData = {
       products: paymentArrayProducts,
-      deliveryMethod: '',
-      paymentMethod: paymentType,
+      deliveryMethod: radioDeliveryMethod,
+      paymentMethod: paymentType === 'visa' || paymentType === 'mastercard' ? 'card' : paymentType,
       totalPrice: summFromArr?.toFixed(2),
       phone: formik.values.phone,
       email: formik.values.email,
@@ -127,33 +128,29 @@ export const Cart = ({ closeCart }) => {
         </div>
       </div>
       <div className={styles.cartNav}>
-        <span
-          aria-hidden
-          className={classNames(styles.navItem, { [styles.itemActive]: isProductsActive })}
-          onClick={cartProductsOnClick}
-        >
+        <span aria-hidden className={classNames(styles.navItem, { [styles.itemActive]: isProductsActive })}>
           Item in Cart
         </span>
         /
-        <span
-          aria-hidden
-          className={classNames(styles.navItem, { [styles.itemActive]: isDelyveryActive })}
-          onClick={cartDelyveryOnClick}
-        >
+        <span aria-hidden className={classNames(styles.navItem, { [styles.itemActive]: isDelyveryActive })}>
           Delivery Info
         </span>
         /
-        <span
-          aria-hidden
-          className={classNames(styles.navItem, { [styles.itemActive]: isPaymentActive })}
-          onClick={cartPaymentOnClick}
-        >
+        <span aria-hidden className={classNames(styles.navItem, { [styles.itemActive]: isPaymentActive })}>
           Payment
         </span>
       </div>
       <div className={styles.cartMain}>
         {isProductsActive && <CartProducts cart={cartArrProducts?.cart} handleSelect={handleSelect} formik={formik} />}
-        {isDelyveryActive && <CartDelivery cart={cartArrProducts?.cart} handleSelect={handleSelect} formik={formik} />}
+        {isDelyveryActive && (
+          <CartDelivery
+            cart={cartArrProducts?.cart}
+            handleSelect={handleSelect}
+            formik={formik}
+            radioDeliveryMethod={radioDeliveryMethod}
+            setRadioDeliveryMethod={setRadioDeliveryMethod}
+          />
+        )}
         {isPaymentActive && (
           <CartPayment
             cart={cartArrProducts?.cart}

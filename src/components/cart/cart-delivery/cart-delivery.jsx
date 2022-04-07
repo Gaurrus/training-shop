@@ -9,9 +9,7 @@ import { SelfForm } from './self-form/self-form';
 
 import styles from './cart-delivery.module.scss';
 
-export const CartDelivery = ({ cart, handleSelect, formik }) => {
-  const [radio, setRadio] = useState('post');
-
+export const CartDelivery = ({ cart, handleSelect, formik, radioDeliveryMethod, setRadioDeliveryMethod }) => {
   const handleChange = (values) => {
     const typeOfDelyvery = values;
     handleSelect(typeOfDelyvery);
@@ -37,7 +35,13 @@ export const CartDelivery = ({ cart, handleSelect, formik }) => {
                 <div className={styles.radioGroup}>
                   <div className={styles.horisontalLine} />
                   <label htmlFor='post' className={styles.label}>
-                    <Field type='radio' id='post' name='delyveryType' value='post' className={styles.castomRadio} />
+                    <Field
+                      type='radio'
+                      id='post'
+                      name='delyveryType'
+                      value='pickup from post offices'
+                      className={styles.castomRadio}
+                    />
                     Pickup from post offices
                   </label>
                   <div className={styles.horisontalLine} />
@@ -46,26 +50,32 @@ export const CartDelivery = ({ cart, handleSelect, formik }) => {
                       type='radio'
                       id='express'
                       name='delyveryType'
-                      value='express'
+                      value='express delivery'
                       className={styles.castomRadio}
                     />
                     Express delivery
                   </label>
                   <div className={styles.horisontalLine} />
                   <label htmlFor='self' className={styles.label}>
-                    <Field type='radio' id='self' name='delyveryType' value='self' className={styles.castomRadio} />
+                    <Field
+                      type='radio'
+                      id='self'
+                      name='delyveryType'
+                      value='store pickup'
+                      className={styles.castomRadio}
+                    />
                     Store pickup
                   </label>
                   <div className={styles.horisontalLine} />
                 </div>
-                {setRadio(values.delyveryType)}
+                {setRadioDeliveryMethod(values.delyveryType)}
               </Form>
             )}
           </Formik>
           <form>
-            {radio === 'post' && <PostForm formik={formik} />}
-            {radio === 'express' && <ExpressForm formik={formik} />}
-            {radio === 'self' && <SelfForm formik={formik} />}
+            {radioDeliveryMethod === 'pickup from post offices' && <PostForm formik={formik} />}
+            {radioDeliveryMethod === 'express delivery' && <ExpressForm formik={formik} />}
+            {radioDeliveryMethod === 'store pickup' && <SelfForm formik={formik} />}
           </form>
         </form>
       ) : (
