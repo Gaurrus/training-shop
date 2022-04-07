@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { Field, Form, Formik, useFormik } from 'formik';
+import { IMaskInput } from 'react-imask';
+
 import styles from './post-form.module.scss';
 
 export const PostForm = ({ formik }) => {
@@ -11,7 +13,8 @@ export const PostForm = ({ formik }) => {
           <label htmlFor='phone' className={styles.dataLabel}>
             PHONE
           </label>
-          <input
+          <IMaskInput
+            mask='+{375}(00)000-00-00'
             type='text'
             name='phone'
             id='phone'
@@ -84,7 +87,8 @@ export const PostForm = ({ formik }) => {
           <label htmlFor='postcode' className={styles.dataLabel}>
             POSTcode
           </label>
-          <input
+          <IMaskInput
+            mask='{BY} 000000'
             type='text'
             name='postcode'
             id='postcode'

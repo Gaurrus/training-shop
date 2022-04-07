@@ -90,7 +90,6 @@ export const Cart = ({ closeCart }) => {
       };
       return array;
     });
-    console.log(paymentArrayProducts);
   }, [cartArrProducts, formik]);
 
   const handleSelect = () => {
@@ -116,7 +115,6 @@ export const Cart = ({ closeCart }) => {
 
     dispatch(paymentsAdd({ postData }));
   };
-  console.log(data);
 
   return (
     <div className={styles.cart} data-test-id='cart'>

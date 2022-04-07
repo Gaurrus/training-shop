@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { useEffect } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getCountriesRequest } from '../../../store/countries-state';
@@ -14,7 +14,6 @@ export const SelfForm = ({ formik }) => {
   const { data } = useSelector(countriesSelector);
   useEffect(() => {
     dispatch(getCountriesRequest());
-    console.log(data);
   }, []);
   return (
     <form onChange={formik.handleChange}>

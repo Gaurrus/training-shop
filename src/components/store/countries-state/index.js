@@ -12,7 +12,6 @@ const countriesSlice = createSlice({
       state.data = countriesInitialState.data;
     },
     getCountriesSeccess: (state, action) => {
-      console.log(action.payload);
       state.isCountriesLoading = false;
       state.isCountriesError = false;
       state.data = action.payload;
