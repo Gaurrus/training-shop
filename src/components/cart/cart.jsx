@@ -10,6 +10,7 @@ import { CartPayment } from './cart-payment';
 
 import { cartSelector, paymentsSelector } from '../../selectors';
 import { paymentsAdd } from '../store/payments-state';
+import { validateCart as validate } from '../utils/validate-form';
 
 import styles from './cart.module.scss';
 
@@ -77,6 +78,7 @@ export const Cart = ({ closeCart }) => {
       cardDate: '',
       cardCVV: '',
     },
+    validate,
   });
 
   let paymentArrayProducts = [];
@@ -165,7 +167,103 @@ export const Cart = ({ closeCart }) => {
             <span className={styles.totalText}>Total</span>
             <span className={styles.totalPrice}>$ {summFromArr.toFixed(2)}</span>
           </div>
-          {isPaymentActive ? (
+          {isProductsActive && (
+            <button
+              type='submit'
+              className={classNames(styles.further, styles.button)}
+              onClick={() => {
+                handleClick();
+              }}
+            >
+              Further
+            </button>
+          )}
+          {isDelyveryActive && radioDeliveryMethod === 'pickup from post offices' && (
+            <button
+              type='submit'
+              className={classNames(styles.further, styles.button)}
+              onClick={() => {
+                handleClick();
+              }}
+              disabled={
+                formik.errors.phone ||
+                formik.errors.email ||
+                formik.errors.country ||
+                formik.errors.city ||
+                formik.errors.street ||
+                formik.errors.house ||
+                formik.errors.apartment ||
+                formik.errors.postcode ||
+                formik.errors.agreenment
+              }
+            >
+              Further
+            </button>
+          )}
+          {isDelyveryActive && radioDeliveryMethod === 'express delivery' && (
+            <button
+              type='submit'
+              className={classNames(styles.further, styles.button)}
+              onClick={() => {
+                handleClick();
+              }}
+              disabled={
+                formik.errors.phone ||
+                formik.errors.email ||
+                formik.errors.country ||
+                formik.errors.city ||
+                formik.errors.street ||
+                formik.errors.house ||
+                formik.errors.apartment ||
+                formik.errors.agreenment
+              }
+            >
+              Further
+            </button>
+          )}
+          {isDelyveryActive && radioDeliveryMethod === 'store pickup' && (
+            <button
+              type='submit'
+              className={classNames(styles.further, styles.button)}
+              onClick={() => {
+                handleClick();
+              }}
+              disabled={
+                formik.errors.phone ||
+                formik.errors.email ||
+                formik.errors.country ||
+                formik.errors.storeAddress ||
+                formik.errors.agreenment
+              }
+            >
+              Further
+            </button>
+          )}
+          {isPaymentActive && paymentType === 'paypal' && (
+            <button
+              type='submit'
+              className={classNames(styles.further, styles.button)}
+              onClick={() => {
+                handleSelect();
+              }}
+              disabled={formik.errors.cashEmail}
+            >
+              Check Out
+            </button>
+          )}
+          {isPaymentActive && (paymentType === 'visa' || paymentType === 'mastercard') && (
+            <button
+              type='submit'
+              className={classNames(styles.further, styles.button)}
+              onClick={() => {
+                handleSelect();
+              }}
+              disabled={formik.errors.card || formik.errors.cardDate || formik.errors.cardCVV}
+            >
+              Check Out
+            </button>
+          )}
+          {isPaymentActive && paymentType === 'cash' && (
             <button
               type='submit'
               className={classNames(styles.further, styles.button)}
@@ -175,18 +273,8 @@ export const Cart = ({ closeCart }) => {
             >
               Check Out
             </button>
-          ) : (
-            <button
-              type='submit'
-              className={classNames(styles.further, styles.button)}
-              onClick={() => {
-                handleClick();
-                // handleSelect();
-              }}
-            >
-              Further
-            </button>
           )}
+
           <button type='button' className={classNames(styles.viewCart, styles.button)} onClick={cartProductsOnClick}>
             View Cart
           </button>

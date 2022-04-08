@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { Field, Form, Formik, useFormik } from 'formik';
+import classNames from 'classnames';
 import { IMaskInput } from 'react-imask';
 
 import styles from './post-form.module.scss';
@@ -18,7 +18,7 @@ export const PostForm = ({ formik }) => {
             type='text'
             name='phone'
             id='phone'
-            className={styles.input}
+            className={classNames(styles.input, { [styles.error]: formik.errors.phone })}
             placeholder='+375  (__) _______'
             value={formik.values.phone}
           />
@@ -31,7 +31,7 @@ export const PostForm = ({ formik }) => {
             type='email'
             name='email'
             id='email'
-            className={styles.input}
+            className={classNames(styles.input, { [styles.error]: formik.errors.email })}
             placeholder='e-mail'
             values={formik.values.email}
           />
@@ -44,7 +44,7 @@ export const PostForm = ({ formik }) => {
             type='text'
             name='country'
             id='adress'
-            className={styles.input}
+            className={classNames(styles.input, { [styles.error]: formik.errors.country })}
             placeholder='Country'
             values={formik.values.country}
           />
@@ -52,7 +52,7 @@ export const PostForm = ({ formik }) => {
             type='text'
             name='city'
             id='adress'
-            className={styles.input}
+            className={classNames(styles.input, { [styles.error]: formik.errors.city })}
             placeholder='City'
             values={formik.values.city}
           />
@@ -60,7 +60,7 @@ export const PostForm = ({ formik }) => {
             type='text'
             name='street'
             id='adress'
-            className={styles.input}
+            className={classNames(styles.input, { [styles.error]: formik.errors.street })}
             placeholder='Street'
             values={formik.values.street}
           />
@@ -69,7 +69,7 @@ export const PostForm = ({ formik }) => {
               type='text'
               name='house'
               id='adress'
-              className={styles.input}
+              className={classNames(styles.input, { [styles.error]: formik.errors.house })}
               placeholder='House'
               values={formik.values.house}
             />
@@ -92,7 +92,7 @@ export const PostForm = ({ formik }) => {
             type='text'
             name='postcode'
             id='postcode'
-            className={styles.input}
+            className={classNames(styles.input, { [styles.error]: formik.errors.postcode })}
             placeholder='BY ______'
             values={formik.values.postcode}
           />
@@ -102,7 +102,7 @@ export const PostForm = ({ formik }) => {
             type='checkbox'
             id='agreenment'
             name='agreenment'
-            className={styles.castomCheckbox}
+            className={classNames(styles.castomCheckbox, { [styles.error]: formik.errors.agreenment })}
             values={formik.values.agreenment}
           />
           I agree to the processing of my personal information

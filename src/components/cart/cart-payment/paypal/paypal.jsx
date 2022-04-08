@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
+import classNames from 'classnames';
+
 import styles from './paypal.module.scss';
 
 export const Paypal = ({ formik }) => (
@@ -11,7 +13,7 @@ export const Paypal = ({ formik }) => (
       type='text'
       name='cashEmail'
       id='paypal'
-      className={styles.input}
+      className={classNames(styles.input, { [styles.error]: formik.errors.cashEmail })}
       placeholder='e-mail'
       value={formik.values.cashEmail}
     />

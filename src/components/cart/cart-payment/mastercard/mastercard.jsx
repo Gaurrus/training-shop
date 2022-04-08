@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
+import classNames from 'classnames';
 import { useEffect, useRef, useState } from 'react';
+
 import styles from './mastercard.module.scss';
 
 export const Mastercard = ({ formik }) => {
@@ -30,7 +32,7 @@ export const Mastercard = ({ formik }) => {
         type='text'
         name='card'
         id='mastercard'
-        className={styles.input}
+        className={classNames(styles.input, { [styles.error]: formik.errors.card })}
         placeholder='---- ---- ---- ----'
         value={formik.values.card}
         onChange={handleChange}
@@ -41,7 +43,7 @@ export const Mastercard = ({ formik }) => {
           type='text'
           name='cardDate'
           id='cardDate'
-          className={styles.input}
+          className={classNames(styles.input, { [styles.error]: formik.errors.cardDate })}
           placeholder='YY/MM'
           value={formik.values.cardDate}
         />
@@ -49,7 +51,7 @@ export const Mastercard = ({ formik }) => {
           type='text'
           name='cardCVV'
           id='cardCVV'
-          className={styles.input}
+          className={classNames(styles.input, { [styles.error]: formik.errors.cardCVV })}
           placeholder='CVV'
           value={formik.values.cardCVV}
         />

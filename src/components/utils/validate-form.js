@@ -18,3 +18,47 @@ export const validateReview = (values) => {
   }
   return errors;
 };
+
+export const validateCart = (values) => {
+  const errors = {};
+  if (!values.phone) {
+    errors.phone = 'Required field';
+  }
+  if (!values.email) {
+    errors.email = 'Required field';
+  }
+  if (!values.country) {
+    errors.country = 'Required field';
+  }
+  if (!values.cashEmail) {
+    errors.cashEmail = 'Required field';
+  }
+  if (!values.city) {
+    errors.city = 'Required field';
+  }
+  if (!values.street) {
+    errors.street = 'Required field';
+  }
+  if (!values.house) {
+    errors.house = 'Required field';
+  }
+  if (!values.postcode) {
+    errors.postcode = 'Required field';
+  }
+  if (!values.storeAddress) {
+    errors.storeAddress = 'Required field';
+  }
+  if (!values.card) {
+    errors.card = 'Required field';
+  }
+  if (!values.cardDate) {
+    errors.cardDate = 'Required field';
+  }
+  if (!values.cardCVV) {
+    errors.cardCVV = 'Required field';
+  }
+  if (!values.agreenment) {
+    errors.agreenment = 'Required field';
+  }
+  return errors;
+};

@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useEffect, useState, useRef } from 'react';
+import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getCountriesRequest } from '../../../store/countries-state';
@@ -26,7 +27,7 @@ export const SelfForm = ({ formik }) => {
             type='text'
             name='phone'
             id='phone'
-            className={styles.input}
+            className={classNames(styles.input, { [styles.error]: formik.errors.phone })}
             placeholder='+375  (__) _______'
             value={formik.values.phone}
           />
@@ -39,7 +40,7 @@ export const SelfForm = ({ formik }) => {
             type='email'
             name='email'
             id='email'
-            className={styles.input}
+            className={classNames(styles.input, { [styles.error]: formik.errors.email })}
             placeholder='e-mail'
             value={formik.values.email}
           />
@@ -51,7 +52,7 @@ export const SelfForm = ({ formik }) => {
           <select
             name='country'
             id='adress'
-            className={styles.input}
+            className={classNames(styles.input, { [styles.error]: formik.errors.country })}
             placeholder='Country'
             value={formik.values.country}
           >
@@ -62,7 +63,7 @@ export const SelfForm = ({ formik }) => {
           <select
             name='storeAddress'
             id='store'
-            className={styles.input}
+            className={classNames(styles.input, { [styles.error]: formik.errors.storeAddress })}
             placeholder='Store adress'
             value={formik.values.storeAddress}
           >
@@ -72,8 +73,13 @@ export const SelfForm = ({ formik }) => {
           </select>
         </div>
         <label htmlFor='agreenment' className={styles.checkboxLabel}>
-          <input type='checkbox' id='agreenment' name='agreenment' className={styles.castomCheckbox} />I agree to the
-          processing of my personal information
+          <input
+            type='checkbox'
+            id='agreenment'
+            name='agreenment'
+            className={classNames(styles.castomCheckbox, { [styles.error]: formik.errors.agreenment })}
+          />
+          I agree to the processing of my personal information
         </label>
       </div>
     </form>
