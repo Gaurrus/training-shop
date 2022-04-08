@@ -26,12 +26,16 @@ export const validateCart = (values) => {
   }
   if (!values.email) {
     errors.email = 'Required field';
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+    errors.email = 'E-mail format error';
   }
   if (!values.country) {
     errors.country = 'Required field';
   }
   if (!values.cashEmail) {
     errors.cashEmail = 'Required field';
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.cashEmail)) {
+    errors.cashEmail = 'E-mail format error';
   }
   if (!values.city) {
     errors.city = 'Required field';

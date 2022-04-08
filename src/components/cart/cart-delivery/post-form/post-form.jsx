@@ -1,11 +1,15 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import classNames from 'classnames';
+import { useEffect } from 'react';
 import { IMaskInput } from 'react-imask';
 
 import styles from './post-form.module.scss';
 
 export const PostForm = ({ formik }) => {
+  useEffect(() => {
+    formik.resetForm(formik.initialValues);
+  }, []);
   return (
     <form onChange={formik.handleChange}>
       <div className={styles.postDeliveryData}>
@@ -14,12 +18,12 @@ export const PostForm = ({ formik }) => {
             PHONE
           </label>
           <IMaskInput
-            mask='+{375}(00)000-00-00'
+            mask='+{375} (00)000-00-00'
             type='text'
             name='phone'
             id='phone'
             className={classNames(styles.input, { [styles.error]: formik.errors.phone })}
-            placeholder='+375  (__) _______'
+            placeholder='+375 (__) ___-__-__'
             value={formik.values.phone}
           />
         </div>

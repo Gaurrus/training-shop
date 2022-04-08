@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useEffect, useState, useRef } from 'react';
+import { IMaskInput } from 'react-imask';
 import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -14,6 +15,7 @@ export const SelfForm = ({ formik }) => {
 
   const { data } = useSelector(countriesSelector);
   useEffect(() => {
+    formik.resetForm(formik.initialValues);
     dispatch(getCountriesRequest());
   }, []);
   return (
@@ -23,12 +25,13 @@ export const SelfForm = ({ formik }) => {
           <label htmlFor='phone' className={styles.dataLabel}>
             PHONE
           </label>
-          <input
+          <IMaskInput
+            mask='+{375} (00)000-00-00'
             type='text'
             name='phone'
             id='phone'
             className={classNames(styles.input, { [styles.error]: formik.errors.phone })}
-            placeholder='+375  (__) _______'
+            placeholder='+375 (__) ___-__-__'
             value={formik.values.phone}
           />
         </div>

@@ -167,6 +167,18 @@ export const Cart = ({ closeCart }) => {
             <span className={styles.totalText}>Total</span>
             <span className={styles.totalPrice}>$ {summFromArr.toFixed(2)}</span>
           </div>
+          {/* {(isProductsActive || isDelyveryActive) &&
+            radioDeliveryMethod !== 'pickup from post offices' &&
+            radioDeliveryMethod !== 'express delivery' &&
+            radioDeliveryMethod !== 'store pickup' &&
+            paymentType !== 'paypal' &&
+            paymentType !== 'visa' &&
+            paymentType !== 'mastercard' &&
+            paymentType !== 'cash' && (
+              <button type='button' className={classNames(styles.further, styles.button)} disabled>
+                Further
+              </button>
+            )} */}
           {isProductsActive && (
             <button
               type='submit'
@@ -192,9 +204,15 @@ export const Cart = ({ closeCart }) => {
                 formik.errors.city ||
                 formik.errors.street ||
                 formik.errors.house ||
-                formik.errors.apartment ||
                 formik.errors.postcode ||
-                formik.errors.agreenment
+                formik.errors.agreenment ||
+                formik.values.phone === '' ||
+                formik.values.email === '' ||
+                formik.values.country === '' ||
+                formik.values.city === '' ||
+                formik.values.street === '' ||
+                formik.values.postcode === '' ||
+                formik.values.agreenment === false
               }
             >
               Further
@@ -214,8 +232,14 @@ export const Cart = ({ closeCart }) => {
                 formik.errors.city ||
                 formik.errors.street ||
                 formik.errors.house ||
-                formik.errors.apartment ||
-                formik.errors.agreenment
+                formik.errors.agreenment ||
+                formik.values.phone === '' ||
+                formik.values.email === '' ||
+                formik.values.country === '' ||
+                formik.values.city === '' ||
+                formik.values.street === '' ||
+                formik.values.house === '' ||
+                formik.values.agreenment === false
               }
             >
               Further
@@ -233,7 +257,12 @@ export const Cart = ({ closeCart }) => {
                 formik.errors.email ||
                 formik.errors.country ||
                 formik.errors.storeAddress ||
-                formik.errors.agreenment
+                formik.errors.agreenment ||
+                formik.values.phone === '' ||
+                formik.values.email === '' ||
+                formik.values.country === '' ||
+                formik.values.storeAddress === '' ||
+                formik.values.agreenment === false
               }
             >
               Further
@@ -246,7 +275,7 @@ export const Cart = ({ closeCart }) => {
               onClick={() => {
                 handleSelect();
               }}
-              disabled={formik.errors.cashEmail}
+              disabled={formik.errors.cashEmail || formik.values.cashEmail === ''}
             >
               Check Out
             </button>
@@ -258,7 +287,14 @@ export const Cart = ({ closeCart }) => {
               onClick={() => {
                 handleSelect();
               }}
-              disabled={formik.errors.card || formik.errors.cardDate || formik.errors.cardCVV}
+              disabled={
+                formik.errors.card ||
+                formik.errors.cardDate ||
+                formik.errors.cardCVV ||
+                formik.values.card === '' ||
+                formik.values.cardDate === '' ||
+                formik.values.cardCVV === ''
+              }
             >
               Check Out
             </button>
