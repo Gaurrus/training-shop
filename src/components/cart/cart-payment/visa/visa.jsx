@@ -7,6 +7,7 @@ import { IMaskInput } from 'react-imask';
 import styles from './visa.module.scss';
 
 export const Visa = ({ formik }) => {
+  const [isHidden, setIsHidden] = useState(true);
   // const [card, setCard] = useState();
   // const inputCard = useRef();
 
@@ -37,7 +38,6 @@ export const Visa = ({ formik }) => {
         className={classNames(styles.input, { [styles.error]: formik.errors.card })}
         placeholder='---- ---- ---- ----'
         values={formik.values.card}
-        // onChange={handleChange}
       />
       <div className={styles.dubleInput}>
         <IMaskInput
@@ -51,13 +51,14 @@ export const Visa = ({ formik }) => {
         />
         <IMaskInput
           mask='000'
-          type='text'
+          type={isHidden ? 'password' : 'text'}
           name='cardCVV'
           id='cardCVV'
           className={classNames(styles.input, { [styles.error]: formik.errors.cardCVV })}
           placeholder='CVV'
           values={formik.values.cardCVV}
         />
+        <div aria-hidden className={styles.eyeButton} onClick={() => setIsHidden(!isHidden)} />
       </div>
     </form>
   );

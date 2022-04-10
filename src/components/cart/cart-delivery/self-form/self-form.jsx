@@ -10,7 +10,7 @@ import { countriesSelector } from '../../../../selectors';
 
 import styles from './self-form.module.scss';
 
-export const SelfForm = ({ formik }) => {
+export const SelfForm = ({ formik, formError }) => {
   const dispatch = useDispatch();
 
   const { data } = useSelector(countriesSelector);
@@ -69,6 +69,7 @@ export const SelfForm = ({ formik }) => {
             className={classNames(styles.input, { [styles.error]: formik.errors.storeAddress })}
             placeholder='Store adress'
             value={formik.values.storeAddress}
+            disabled={data?.length === 0}
           >
             <option value='minsk'>Minsk</option>
             <option value='orsha'>Orsha</option>
@@ -80,6 +81,7 @@ export const SelfForm = ({ formik }) => {
             type='checkbox'
             id='agreenment'
             name='agreenment'
+            value={formError ? formik?.initialValues?.agreenment : formik?.values?.agreenment}
             className={classNames(styles.castomCheckbox, { [styles.error]: formik.errors.agreenment })}
           />
           I agree to the processing of my personal information

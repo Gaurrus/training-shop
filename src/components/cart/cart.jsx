@@ -18,6 +18,7 @@ export const Cart = ({ closeCart }) => {
   const [isProductsActive, setIsProductsActive] = useState(false);
   const [isDelyveryActive, setIsDelyveryActive] = useState(false);
   const [isPaymentActive, setIsPaymentActive] = useState(false);
+  const [formError, setFormError] = useState(false);
   const [paymentType, setPaymentType] = useState('');
   const [radioDeliveryMethod, setRadioDeliveryMethod] = useState('pickup from post offices');
   const dispatch = useDispatch();
@@ -79,7 +80,46 @@ export const Cart = ({ closeCart }) => {
       cardCVV: '',
     },
     validate,
+    onSubmit: () => {
+      if (
+        formik?.errors.phone ||
+        formik?.errors.email ||
+        formik?.errors.cashEmail ||
+        formik?.errors.country ||
+        formik?.errors.city ||
+        formik?.errors.street ||
+        formik?.errors.house ||
+        formik?.errors.postcode ||
+        formik?.errors.storeAddress ||
+        formik?.errors.paymentType ||
+        formik?.errors.card ||
+        formik?.errors.cardDate ||
+        formik?.errors.cardCVV
+      ) {
+        formik?.setFieldValue.agreenment('false');
+      }
+    },
   });
+
+  // useEffect(() => {
+  //   if (
+  //     formik?.errors.phone ||
+  //     formik?.errors.email ||
+  //     formik?.errors.cashEmail ||
+  //     formik?.errors.country ||
+  //     formik?.errors.city ||
+  //     formik?.errors.street ||
+  //     formik?.errors.house ||
+  //     formik?.errors.postcode ||
+  //     formik?.errors.storeAddress ||
+  //     formik?.errors.paymentType ||
+  //     formik?.errors.card ||
+  //     formik?.errors.cardDate ||
+  //     formik?.errors.cardCVV
+  //   ) {
+  //     setFormError(true);
+  //   }
+  // }, [formik]);
 
   let paymentArrayProducts = [];
   useEffect(() => {
@@ -149,6 +189,7 @@ export const Cart = ({ closeCart }) => {
             formik={formik}
             radioDeliveryMethod={radioDeliveryMethod}
             setRadioDeliveryMethod={setRadioDeliveryMethod}
+            formError={formError}
           />
         )}
         {isPaymentActive && (
@@ -307,7 +348,7 @@ export const Cart = ({ closeCart }) => {
                 handleSelect();
               }}
             >
-              Check Out
+              Ready
             </button>
           )}
 

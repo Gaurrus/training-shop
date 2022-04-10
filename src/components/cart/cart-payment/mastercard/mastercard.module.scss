@@ -26,6 +26,7 @@
   flex-direction: column;
   align-items: left;
   gap: 8px;
+  position: relative;
   .dataLabel {
     font-weight: 600;
     font-size: 12px;
@@ -62,6 +63,20 @@
     display: flex;
     flex-direction: row;
     gap: 8px;
+    position: relative;
+    .eyeButton {
+      height: 20px;
+      width: 20px;
+      position: absolute;
+      right: 12px;
+      top: 12px;
+      background-image: url(./assets/eye.svg);
+      background-position: center;
+      background-repeat: no-repeat;
+      &.active {
+        background-image: url(./assets/eye-active.svg);
+      }
+    }
   }
 }
 .checkboxLabel {

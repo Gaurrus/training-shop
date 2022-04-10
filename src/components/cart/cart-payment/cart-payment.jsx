@@ -19,7 +19,7 @@ export const CartPayment = ({ cart, formik, paymentType, setPaymentType }) => {
       {cart.length ? (
         <form>
           <Formik
-            initialValues={{ paymentType: '' }}
+            initialValues={{ paymentType: 'visa' }}
             onSubmit={(values, { setSubmitting }) => {
               setSubmitting(false);
             }}

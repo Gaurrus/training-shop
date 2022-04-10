@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { Field, Form, Formik } from 'formik';
-import { useState } from 'react';
 
 import { PostForm } from './post-form/post-form';
 import { ExpressForm } from './express-form/express-form';
@@ -9,7 +8,14 @@ import { SelfForm } from './self-form/self-form';
 
 import styles from './cart-delivery.module.scss';
 
-export const CartDelivery = ({ cart, handleSelect, formik, radioDeliveryMethod, setRadioDeliveryMethod }) => {
+export const CartDelivery = ({
+  cart,
+  handleSelect,
+  formik,
+  radioDeliveryMethod,
+  setRadioDeliveryMethod,
+  formError,
+}) => {
   const handleChange = (values) => {
     const typeOfDelyvery = values;
     handleSelect(typeOfDelyvery);
@@ -20,7 +26,7 @@ export const CartDelivery = ({ cart, handleSelect, formik, radioDeliveryMethod, 
       {cart.length ? (
         <form>
           <Formik
-            initialValues={{ delyveryType: '' }}
+            initialValues={{ delyveryType: 'pickup from post offices' }}
             onSubmit={(values, { setSubmitting }) => {
               setSubmitting(false);
             }}
@@ -41,6 +47,7 @@ export const CartDelivery = ({ cart, handleSelect, formik, radioDeliveryMethod, 
                       name='delyveryType'
                       value='pickup from post offices'
                       className={styles.castomRadio}
+                      checked='checked'
                     />
                     Pickup from post offices
                   </label>
@@ -73,9 +80,9 @@ export const CartDelivery = ({ cart, handleSelect, formik, radioDeliveryMethod, 
             )}
           </Formik>
           <form>
-            {radioDeliveryMethod === 'pickup from post offices' && <PostForm formik={formik} />}
-            {radioDeliveryMethod === 'express delivery' && <ExpressForm formik={formik} />}
-            {radioDeliveryMethod === 'store pickup' && <SelfForm formik={formik} />}
+            {radioDeliveryMethod === 'pickup from post offices' && <PostForm formik={formik} formError={formError} />}
+            {radioDeliveryMethod === 'express delivery' && <ExpressForm formik={formik} formError={formError} />}
+            {radioDeliveryMethod === 'store pickup' && <SelfForm formik={formik} formError={formError} />}
           </form>
         </form>
       ) : (

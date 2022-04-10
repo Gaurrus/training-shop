@@ -62,6 +62,15 @@
     display: flex;
     flex-direction: row;
     gap: 8px;
+    position: relative;
+    .eyeButton {
+      height: 20px;
+      width: 20px;
+      position: absolute;
+      right: 12px;
+      top: 12px;
+      background-color: #121212;
+    }
   }
 }
 .checkboxLabel {

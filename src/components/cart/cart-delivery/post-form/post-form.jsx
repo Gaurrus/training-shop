@@ -6,7 +6,7 @@ import { IMaskInput } from 'react-imask';
 
 import styles from './post-form.module.scss';
 
-export const PostForm = ({ formik }) => {
+export const PostForm = ({ formik, formError }) => {
   useEffect(() => {
     formik.resetForm(formik.initialValues);
   }, []);
@@ -107,7 +107,7 @@ export const PostForm = ({ formik }) => {
             id='agreenment'
             name='agreenment'
             className={classNames(styles.castomCheckbox, { [styles.error]: formik.errors.agreenment })}
-            values={formik.values.agreenment}
+            value={formError ? formik?.initialValues?.agreenment : formik?.values?.agreenment}
           />
           I agree to the processing of my personal information
         </label>
