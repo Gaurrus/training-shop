@@ -11,20 +11,24 @@ export const PostForm = ({ formik, formError }) => {
     formik.resetForm(formik.initialValues);
   }, []);
   return (
-    <form onChange={formik.handleChange}>
+    <form onChange={formik.handleChange} id='post'>
+      {/* <button type='submit'>Submit</button> */}
       <div className={styles.postDeliveryData}>
         <div className={styles.dataItem}>
           <label htmlFor='phone' className={styles.dataLabel}>
             PHONE
           </label>
-          <IMaskInput
-            mask='+{375} (00)000-00-00'
+          <input
+            // mask='+{375}(00)000-00-00'
             type='text'
             name='phone'
             id='phone'
             className={classNames(styles.input, { [styles.error]: formik.errors.phone })}
             placeholder='+375 (__) ___-__-__'
             value={formik.values.phone}
+            required='true'
+            maxLength={13}
+            minLength={11}
           />
         </div>
         <div className={styles.dataItem}>

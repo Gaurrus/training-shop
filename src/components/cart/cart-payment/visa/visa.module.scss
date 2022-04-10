@@ -69,7 +69,12 @@
       position: absolute;
       right: 12px;
       top: 12px;
-      background-color: #121212;
+      background-image: url(./assets/eye.svg);
+      background-position: center;
+      background-repeat: no-repeat;
+      &.active {
+        background-image: url(./assets/eye-active.svg);
+      }
     }
   }
 }

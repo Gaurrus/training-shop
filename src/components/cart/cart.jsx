@@ -208,18 +208,6 @@ export const Cart = ({ closeCart }) => {
             <span className={styles.totalText}>Total</span>
             <span className={styles.totalPrice}>$ {summFromArr.toFixed(2)}</span>
           </div>
-          {/* {(isProductsActive || isDelyveryActive) &&
-            radioDeliveryMethod !== 'pickup from post offices' &&
-            radioDeliveryMethod !== 'express delivery' &&
-            radioDeliveryMethod !== 'store pickup' &&
-            paymentType !== 'paypal' &&
-            paymentType !== 'visa' &&
-            paymentType !== 'mastercard' &&
-            paymentType !== 'cash' && (
-              <button type='button' className={classNames(styles.further, styles.button)} disabled>
-                Further
-              </button>
-            )} */}
           {isProductsActive && (
             <button
               type='submit'
@@ -234,11 +222,14 @@ export const Cart = ({ closeCart }) => {
           {isDelyveryActive && radioDeliveryMethod === 'pickup from post offices' && (
             <button
               type='submit'
+              form='post'
               className={classNames(styles.further, styles.button)}
               onClick={() => {
                 handleClick();
+                formik.submitForm();
               }}
               disabled={
+                formik.isSubmitting ||
                 formik.errors.phone ||
                 formik.errors.email ||
                 formik.errors.country ||
@@ -246,14 +237,14 @@ export const Cart = ({ closeCart }) => {
                 formik.errors.street ||
                 formik.errors.house ||
                 formik.errors.postcode ||
-                formik.errors.agreenment ||
-                formik.values.phone === '' ||
-                formik.values.email === '' ||
-                formik.values.country === '' ||
-                formik.values.city === '' ||
-                formik.values.street === '' ||
-                formik.values.postcode === '' ||
-                formik.values.agreenment === false
+                formik.errors.agreenment
+                // formik.values.phone === '' ||
+                // formik.values.email === '' ||
+                // formik.values.country === '' ||
+                // formik.values.city === '' ||
+                // formik.values.street === '' ||
+                // formik.values.postcode === '' ||
+                // formik.values.agreenment === false
               }
             >
               Further
