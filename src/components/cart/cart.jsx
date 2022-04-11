@@ -9,7 +9,7 @@ import { CartDelivery } from './cart-delivery/cart-delivery';
 import { CartPayment } from './cart-payment';
 
 import { cartSelector, paymentsSelector } from '../../selectors';
-import { paymentsAdd } from '../store/payments-state';
+import { paymentsAdd, postPaymentsRequest } from '../store/payments-state';
 import { validateCart as validate } from '../utils/validate-form';
 
 import styles from './cart.module.scss';
@@ -80,46 +80,7 @@ export const Cart = ({ closeCart }) => {
       cardCVV: '',
     },
     validate,
-    onSubmit: () => {
-      if (
-        formik?.errors.phone ||
-        formik?.errors.email ||
-        formik?.errors.cashEmail ||
-        formik?.errors.country ||
-        formik?.errors.city ||
-        formik?.errors.street ||
-        formik?.errors.house ||
-        formik?.errors.postcode ||
-        formik?.errors.storeAddress ||
-        formik?.errors.paymentType ||
-        formik?.errors.card ||
-        formik?.errors.cardDate ||
-        formik?.errors.cardCVV
-      ) {
-        formik?.setFieldValue.agreenment('false');
-      }
-    },
   });
-
-  // useEffect(() => {
-  //   if (
-  //     formik?.errors.phone ||
-  //     formik?.errors.email ||
-  //     formik?.errors.cashEmail ||
-  //     formik?.errors.country ||
-  //     formik?.errors.city ||
-  //     formik?.errors.street ||
-  //     formik?.errors.house ||
-  //     formik?.errors.postcode ||
-  //     formik?.errors.storeAddress ||
-  //     formik?.errors.paymentType ||
-  //     formik?.errors.card ||
-  //     formik?.errors.cardDate ||
-  //     formik?.errors.cardCVV
-  //   ) {
-  //     setFormError(true);
-  //   }
-  // }, [formik]);
 
   let paymentArrayProducts = [];
   useEffect(() => {
@@ -156,7 +117,12 @@ export const Cart = ({ closeCart }) => {
     };
 
     dispatch(paymentsAdd({ postData }));
+    if (radioDeliveryMethod !== '' && paymentType !== '') dispatch(postPaymentsRequest({ postData }));
   };
+
+  // const handlePost = () => {
+  //   dispatch(postPaymentsRequest({ data }));
+  // };
 
   return (
     <div className={styles.cart} data-test-id='cart'>
@@ -308,6 +274,7 @@ export const Cart = ({ closeCart }) => {
               className={classNames(styles.further, styles.button)}
               onClick={() => {
                 handleSelect();
+                // handlePost();
               }}
               disabled={formik.errors.cashEmail || formik.values.cashEmail === ''}
             >
@@ -320,6 +287,7 @@ export const Cart = ({ closeCart }) => {
               className={classNames(styles.further, styles.button)}
               onClick={() => {
                 handleSelect();
+                // handlePost();
               }}
               disabled={
                 formik.errors.card ||
@@ -339,6 +307,7 @@ export const Cart = ({ closeCart }) => {
               className={classNames(styles.further, styles.button)}
               onClick={() => {
                 handleSelect();
+                // handlePost();
               }}
             >
               Ready

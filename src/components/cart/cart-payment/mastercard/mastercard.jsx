@@ -31,6 +31,7 @@ export const Mastercard = ({ formik }) => {
           placeholder='YY/MM'
           value={formik.values.cardDate}
         />
+        {formik.errors.cardDate}
         <InputMask
           mask='999'
           type={isHidden ? 'password' : 'text'}

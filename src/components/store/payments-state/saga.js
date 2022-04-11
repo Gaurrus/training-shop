@@ -1,16 +1,17 @@
 import axios from 'axios';
 import { takeLatest, call, put } from 'redux-saga/effects';
-import { postSubscriptionError, postSubscriptionRequest, postSubscriptionSeccess } from '.';
+import { postPaymentsError, postPaymentsRequest, postPaymentsSeccess } from '.';
 
-function* postSubscriptionWorker({ payload }) {
+function* postPaymentsWorker({ payload }) {
+  console.log(payload);
   try {
-    yield call(axios.post, `https://training.cleverland.by/shop/email`, payload.values);
-    yield put(postSubscriptionSeccess());
+    yield call(axios.post, `https://httpbin.org/post`, payload.postData);
+    yield put(postPaymentsSeccess());
   } catch {
-    yield put(postSubscriptionError());
+    yield put(postPaymentsError());
   }
 }
 
-export function* postSubscriptionSaga() {
-  yield takeLatest(postSubscriptionRequest.type, postSubscriptionWorker);
+export function* postPaymentsSaga() {
+  yield takeLatest(postPaymentsRequest.type, postPaymentsWorker);
 }

@@ -2,6 +2,7 @@
 import { all } from 'redux-saga/effects';
 import { getCountriesSaga } from './countries-state/saga';
 import { postFooterSaga } from './footer-post-state/saga';
+import { postPaymentsSaga } from './payments-state/saga';
 import { getProductSaga } from './product-state/saga';
 import { getProductsSaga } from './products-state/saga';
 import { reviewPostSaga } from './review-post-state/saga';
@@ -15,5 +16,6 @@ export function* rootSaga() {
     postFooterSaga(),
     reviewPostSaga(),
     getCountriesSaga(),
+    postPaymentsSaga(),
   ]);
 }
