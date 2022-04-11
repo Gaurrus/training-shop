@@ -226,7 +226,7 @@ export const Cart = ({ closeCart }) => {
               className={classNames(styles.further, styles.button)}
               onClick={() => {
                 handleClick();
-                formik.submitForm();
+                handleSelect();
               }}
               disabled={
                 formik.isSubmitting ||
@@ -237,14 +237,14 @@ export const Cart = ({ closeCart }) => {
                 formik.errors.street ||
                 formik.errors.house ||
                 formik.errors.postcode ||
-                formik.errors.agreenment
-                // formik.values.phone === '' ||
-                // formik.values.email === '' ||
-                // formik.values.country === '' ||
-                // formik.values.city === '' ||
-                // formik.values.street === '' ||
-                // formik.values.postcode === '' ||
-                // formik.values.agreenment === false
+                formik.errors.agreenment ||
+                formik.values.phone === '' ||
+                formik.values.email === '' ||
+                formik.values.country === '' ||
+                formik.values.city === '' ||
+                formik.values.street === '' ||
+                formik.values.postcode === '' ||
+                formik.values.agreenment === false
               }
             >
               Further
@@ -256,6 +256,7 @@ export const Cart = ({ closeCart }) => {
               className={classNames(styles.further, styles.button)}
               onClick={() => {
                 handleClick();
+                handleSelect();
               }}
               disabled={
                 formik.errors.phone ||
@@ -283,6 +284,7 @@ export const Cart = ({ closeCart }) => {
               className={classNames(styles.further, styles.button)}
               onClick={() => {
                 handleClick();
+                handleSelect();
               }}
               disabled={
                 formik.errors.phone ||

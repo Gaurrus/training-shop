@@ -21,9 +21,9 @@ export const validateReview = (values) => {
 
 export const validateCart = (values) => {
   const errors = {};
-  if (!values.phone) {
+  if (!values.phone || values.phone === '+375(__)_______') {
     errors.phone = 'Required field';
-  } else if (!/^(\+?375|80|\+7)(33|44|29|25|\d{3})(\d{7})/i.test(values.phone)) {
+  } else if (!/^(\+?375)(\()(33|44|29|25|)(\))(\d*)/i.test(values.phone)) {
     errors.phone = 'phone format error';
   }
   if (!values.email) {
@@ -48,23 +48,25 @@ export const validateCart = (values) => {
   if (!values.house) {
     errors.house = 'Required field';
   }
-  if (!values.postcode) {
+  if (!values.postcode || values.postcode === 'BY ______') {
     errors.postcode = 'Required field';
   }
   if (!values.storeAddress) {
     errors.storeAddress = 'Required field';
   }
-  if (!values.card) {
+  if (!values.card || values.card === '____-____-____-____') {
     errors.card = 'Required field';
-  } else if (!/(\d{0,4})(\d{0,4})(\d{0,4})(\d{0,4}){16}/i.test(values.card)) {
-    errors.card = 'Card number incorrect';
+  } else if (!/(\d){4}(-)(\d){4}(-)(\d){4}(-)(\d){4}/i.test(values.card)) {
+    errors.card = 'card number incorrect';
   }
-  if (!values.cardDate) {
+  if (!values.cardDate || values.cardDate === '__/__') {
     errors.cardDate = 'Required field';
-  } else if (!/(\d(1-12))(\/)?(\d(22,))/i.test(values.cardDate)) {
-    errors.cardDate = 'Card number incorrect';
+  } else if (!/((01|02|03|04|05|06|07|08|09|10|11|12))\/(22|23|24|25|26|27|28)/i.test(values.cardDate)) {
+    errors.cardDate = 'incorrect date';
+  } else if (parseInt(values.cardDate, 10)) {
+    errors.cardDate = 'incorrect date';
   }
-  if (!values.cardCVV) {
+  if (!values.cardCVV || values.cardCVV === '___') {
     errors.cardCVV = 'Required field';
   }
   if (!values.agreenment) {
@@ -72,3 +74,8 @@ export const validateCart = (values) => {
   }
   return errors;
 };
+
+const toodayMonth = new Date();
+
+console.log(toodayMonth.getMonth());
+console.log(toodayMonth.getFullYear());

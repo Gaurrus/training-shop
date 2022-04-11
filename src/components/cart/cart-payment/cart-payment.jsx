@@ -34,8 +34,8 @@ export const CartPayment = ({ cart, formik, paymentType, setPaymentType }) => {
                     <img src={paypal} alt='paypal-ico' />
                   </label>
                   <div className={styles.horisontalLine} />
-                  <label htmlFor='visa' className={styles.label}>
-                    <Field type='radio' id='visa' name='paymentType' value='visa' className={styles.castomRadio} />
+                  <label htmlFor='visaPoint' className={styles.label}>
+                    <Field type='radio' id='visaPoint' name='paymentType' value='visa' className={styles.castomRadio} />
                     <img src={visa} alt='visa-ico' />
                   </label>
                   <div className={styles.horisontalLine} />

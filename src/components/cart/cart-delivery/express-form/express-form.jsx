@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useEffect } from 'react';
+import InputMask from 'react-input-mask';
 import classNames from 'classnames';
-import { IMaskInput } from 'react-imask';
 
 import styles from './express-form.module.scss';
 
@@ -17,14 +17,15 @@ export const ExpressForm = ({ formik }) => {
           <label htmlFor='phone' className={styles.dataLabel}>
             PHONE
           </label>
-          <IMaskInput
-            mask='+{375} (00)000-00-00'
+          {formik.errors.phone}
+          <InputMask
+            mask='+375(99)9999999'
             type='text'
             name='phone'
             id='phone'
             className={classNames(styles.input, { [styles.error]: formik.errors.phone })}
-            placeholder='+375 (__) ___-__-__'
             value={formik.values.phone}
+            required='true'
           />
         </div>
         <div className={styles.dataItem}>

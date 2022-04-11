@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useEffect, useState, useRef } from 'react';
+import ReactInputMask from 'react-input-mask';
 import { IMaskInput } from 'react-imask';
 import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,13 +26,12 @@ export const SelfForm = ({ formik, formError }) => {
           <label htmlFor='phone' className={styles.dataLabel}>
             PHONE
           </label>
-          <IMaskInput
-            mask='+{375} (00)000-00-00'
+          <ReactInputMask
+            mask='+375(99)9999999'
             type='text'
             name='phone'
             id='phone'
             className={classNames(styles.input, { [styles.error]: formik.errors.phone })}
-            placeholder='+375 (__) ___-__-__'
             value={formik.values.phone}
           />
         </div>

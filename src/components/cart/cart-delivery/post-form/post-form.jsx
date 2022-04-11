@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import classNames from 'classnames';
 import { useEffect } from 'react';
-import { IMaskInput } from 'react-imask';
+import InputMask from 'react-input-mask';
 
 import styles from './post-form.module.scss';
 
@@ -18,17 +18,15 @@ export const PostForm = ({ formik, formError }) => {
           <label htmlFor='phone' className={styles.dataLabel}>
             PHONE
           </label>
-          <input
-            // mask='+{375}(00)000-00-00'
+          {formik.errors.phone}
+          <InputMask
+            mask='+375(99)9999999'
             type='text'
             name='phone'
             id='phone'
             className={classNames(styles.input, { [styles.error]: formik.errors.phone })}
-            placeholder='+375 (__) ___-__-__'
             value={formik.values.phone}
             required='true'
-            maxLength={13}
-            minLength={11}
           />
         </div>
         <div className={styles.dataItem}>
@@ -95,13 +93,12 @@ export const PostForm = ({ formik, formError }) => {
           <label htmlFor='postcode' className={styles.dataLabel}>
             POSTcode
           </label>
-          <IMaskInput
-            mask='{BY} 000000'
+          <InputMask
+            mask='BY 999999'
             type='text'
             name='postcode'
             id='postcode'
             className={classNames(styles.input, { [styles.error]: formik.errors.postcode })}
-            placeholder='BY ______'
             values={formik.values.postcode}
           />
         </div>
