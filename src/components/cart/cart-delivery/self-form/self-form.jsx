@@ -34,6 +34,7 @@ export const SelfForm = ({ formik, formError }) => {
             className={classNames(styles.input, { [styles.error]: formik.errors.phone })}
             value={formik.values.phone}
           />
+          {formik.errors.phone && <span className={styles.errorMessage}>{formik.errors.phone}</span>}
         </div>
         <div className={styles.dataItem}>
           <label htmlFor='email' className={styles.dataLabel}>
@@ -47,6 +48,7 @@ export const SelfForm = ({ formik, formError }) => {
             placeholder='e-mail'
             value={formik.values.email}
           />
+          {formik.errors.email && <span className={styles.errorMessage}>{formik.errors.email}</span>}
         </div>
         <div className={styles.dataItem}>
           <label htmlFor='adress' className={styles.dataLabel}>
@@ -63,6 +65,7 @@ export const SelfForm = ({ formik, formError }) => {
               <option value={item.name}>{item.name}</option>
             ))}
           </select>
+          {formik.errors.country && <span className={styles.errorMessage}>{formik.errors.country}</span>}
           <select
             name='storeAddress'
             id='store'
@@ -75,6 +78,7 @@ export const SelfForm = ({ formik, formError }) => {
             <option value='orsha'>Orsha</option>
             <option value='tolochin'>Tolochin</option>
           </select>
+          {formik.errors.storeAddress && <span className={styles.errorMessage}>{formik.errors.storeAddress}</span>}
         </div>
         <label htmlFor='agreenment' className={styles.checkboxLabel}>
           <input
@@ -86,6 +90,7 @@ export const SelfForm = ({ formik, formError }) => {
           />
           I agree to the processing of my personal information
         </label>
+        {formik.errors.agreenment && <span className={styles.errorMessage}>{formik.errors.agreenment}</span>}
       </div>
     </form>
   );

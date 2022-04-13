@@ -12,17 +12,17 @@ const paymentsSlice = createSlice({
     },
     postPaymentsRequest: (state, action) => {
       const { data } = action.payload;
-      state.isSubscriptionLoading = true;
-      state.isSubscriptionError = false;
+      state.isPaymentsLoading = true;
+      state.isPaymentsError = false;
       state.data = data;
     },
     postPaymentsSeccess: (state) => {
-      state.isSubscriptionLoading = false;
-      state.isSubscriptionError = false;
+      state.isPaymentsLoading = false;
+      state.isPaymentsError = false;
     },
     postPaymentsError: (state) => {
-      state.isSubscriptionLoading = false;
-      state.isSubscriptionError = true;
+      state.isPaymentsLoading = false;
+      state.isPaymentsError = true;
     },
   },
 });

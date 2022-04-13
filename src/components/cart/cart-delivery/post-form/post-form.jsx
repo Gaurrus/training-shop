@@ -18,7 +18,6 @@ export const PostForm = ({ formik, formError }) => {
           <label htmlFor='phone' className={styles.dataLabel}>
             PHONE
           </label>
-          {formik.errors.phone}
           <InputMask
             mask='+375(99)9999999'
             type='text'
@@ -28,6 +27,7 @@ export const PostForm = ({ formik, formError }) => {
             value={formik.values.phone}
             required='true'
           />
+          {formik.errors.phone && <span className={styles.errorMessage}>{formik.errors.phone}</span>}
         </div>
         <div className={styles.dataItem}>
           <label htmlFor='email' className={styles.dataLabel}>
@@ -41,6 +41,7 @@ export const PostForm = ({ formik, formError }) => {
             placeholder='e-mail'
             values={formik.values.email}
           />
+          {formik.errors.email && <span className={styles.errorMessage}>{formik.errors.email}</span>}
         </div>
         <div className={styles.dataItem}>
           <label htmlFor='adress' className={styles.dataLabel}>
@@ -54,6 +55,7 @@ export const PostForm = ({ formik, formError }) => {
             placeholder='Country'
             values={formik.values.country}
           />
+          {formik.errors.country && <span className={styles.errorMessage}>{formik.errors.country}</span>}
           <input
             type='text'
             name='city'
@@ -62,6 +64,7 @@ export const PostForm = ({ formik, formError }) => {
             placeholder='City'
             values={formik.values.city}
           />
+          {formik.errors.city && <span className={styles.errorMessage}>{formik.errors.city}</span>}
           <input
             type='text'
             name='street'
@@ -70,15 +73,19 @@ export const PostForm = ({ formik, formError }) => {
             placeholder='Street'
             values={formik.values.street}
           />
+          {formik.errors.street && <span className={styles.errorMessage}>{formik.errors.street}</span>}
           <div className={styles.dubleInput}>
-            <input
-              type='text'
-              name='house'
-              id='adress'
-              className={classNames(styles.input, { [styles.error]: formik.errors.house })}
-              placeholder='House'
-              values={formik.values.house}
-            />
+            <div>
+              <input
+                type='text'
+                name='house'
+                id='adress'
+                className={classNames(styles.input, { [styles.error]: formik.errors.house })}
+                placeholder='House'
+                values={formik.values.house}
+              />
+              {formik.errors.house && <span className={styles.errorMessage}>{formik.errors.house}</span>}
+            </div>
             <input
               type='text'
               name='apartment'
@@ -101,6 +108,7 @@ export const PostForm = ({ formik, formError }) => {
             className={classNames(styles.input, { [styles.error]: formik.errors.postcode })}
             values={formik.values.postcode}
           />
+          {formik.errors.postcode && <span className={styles.errorMessage}>{formik.errors.postcode}</span>}
         </div>
         <label htmlFor='agreenment' className={styles.checkboxLabel}>
           <input
@@ -112,6 +120,7 @@ export const PostForm = ({ formik, formError }) => {
           />
           I agree to the processing of my personal information
         </label>
+        {formik.errors.agreenment && <span className={styles.errorMessage}>{formik.errors.agreenment}</span>}
       </div>
     </form>
   );

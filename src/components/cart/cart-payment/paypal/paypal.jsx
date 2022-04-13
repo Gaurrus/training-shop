@@ -17,5 +17,6 @@ export const Paypal = ({ formik }) => (
       placeholder='e-mail'
       value={formik.values.cashEmail}
     />
+    {formik.errors.cashEmail && <span className={styles.errorMessage}>{formik.errors.cashEmail}</span>}
   </form>
 );

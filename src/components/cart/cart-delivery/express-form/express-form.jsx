@@ -27,6 +27,7 @@ export const ExpressForm = ({ formik }) => {
             value={formik.values.phone}
             required='true'
           />
+          {formik.errors.phone && <span className={styles.errorMessage}>{formik.errors.phone}</span>}
         </div>
         <div className={styles.dataItem}>
           <label htmlFor='email' className={styles.dataLabel}>
@@ -40,6 +41,7 @@ export const ExpressForm = ({ formik }) => {
             placeholder='e-mail'
             value={formik.values.email}
           />
+          {formik.errors.email && <span className={styles.errorMessage}>{formik.errors.email}</span>}
         </div>
         <div className={styles.dataItem}>
           <label htmlFor='adress' className={styles.dataLabel}>
@@ -53,6 +55,7 @@ export const ExpressForm = ({ formik }) => {
             placeholder='Country'
             value={formik.values.country}
           />
+          {formik.errors.country && <span className={styles.errorMessage}>{formik.errors.country}</span>}
           <input
             type='text'
             name='city'
@@ -61,6 +64,7 @@ export const ExpressForm = ({ formik }) => {
             placeholder='City'
             value={formik.values.city}
           />
+          {formik.errors.city && <span className={styles.errorMessage}>{formik.errors.city}</span>}
           <input
             type='text'
             name='street'
@@ -69,15 +73,19 @@ export const ExpressForm = ({ formik }) => {
             placeholder='Street'
             value={formik.values.street}
           />
+          {formik.errors.street && <span className={styles.errorMessage}>{formik.errors.street}</span>}
           <div className={styles.dubleInput}>
-            <input
-              type='text'
-              name='house'
-              id='adress'
-              className={classNames(styles.input, { [styles.error]: formik.errors.house })}
-              placeholder='House'
-              value={formik.values.house}
-            />
+            <div>
+              <input
+                type='text'
+                name='house'
+                id='adress'
+                className={classNames(styles.input, { [styles.error]: formik.errors.house })}
+                placeholder='House'
+                value={formik.values.house}
+              />
+              {formik.errors.house && <span className={styles.errorMessage}>{formik.errors.house}</span>}
+            </div>
             <input
               type='text'
               name='apartment'
@@ -98,6 +106,7 @@ export const ExpressForm = ({ formik }) => {
           />
           I agree to the processing of my personal information
         </label>
+        {formik.errors.agreenment && <span className={styles.errorMessage}>{formik.errors.agreenment}</span>}
       </div>
     </form>
   );
