@@ -20,7 +20,7 @@ export const Visa = ({ formik }) => {
         name='card'
         id='visa'
         className={classNames(styles.input, { [styles.error]: formik.errors.card })}
-        values={formik.values.card}
+        value={formik.values.card}
       />
       {formik.errors.card}
       <div className={styles.dubleInput}>
@@ -31,7 +31,9 @@ export const Visa = ({ formik }) => {
           id='cardDate'
           className={classNames(styles.input, { [styles.error]: formik.errors.cardDate })}
           placeholder='YY/MM'
-          values={formik.values.cardDate}
+          value={`${formik.values.cardDate
+            .slice(0, 2)
+            .replace(/(12|13|14|15|16|17|18|19)|[2-9][0-9]/, '12')}${formik.values.cardDate.slice(-2)}`}
         />
         {formik.errors.cardDate}
         <InputMask
@@ -41,7 +43,7 @@ export const Visa = ({ formik }) => {
           id='cardCVV'
           className={classNames(styles.input, { [styles.error]: formik.errors.cardCVV })}
           placeholder='CVV'
-          values={formik.values.cardCVV}
+          value={formik.values.cardCVV}
         />
         <div aria-hidden className={styles.eyeButton} onClick={() => setIsHidden(!isHidden)} />
       </div>

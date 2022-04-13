@@ -29,7 +29,9 @@ export const Mastercard = ({ formik }) => {
           id='cardDate'
           className={classNames(styles.input, { [styles.error]: formik.errors.cardDate })}
           placeholder='YY/MM'
-          value={formik.values.cardDate}
+          value={`${formik.values.cardDate
+            .slice(0, 2)
+            .replace(/(12|13|14|15|16|17|18|19)|[2-9][0-9]/, '12')}${formik.values.cardDate.slice(-2)}`}
         />
         {formik.errors.cardDate}
         <InputMask
