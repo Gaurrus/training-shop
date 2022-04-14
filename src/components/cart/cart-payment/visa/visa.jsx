@@ -24,27 +24,32 @@ export const Visa = ({ formik }) => {
       />
       {formik.errors.card && <span className={styles.errorMessage}>{formik.errors.card}</span>}
       <div className={styles.dubleInput}>
-        <InputMask
-          mask='99/99'
-          type='text'
-          name='cardDate'
-          id='cardDate'
-          className={classNames(styles.input, { [styles.error]: formik.errors.cardDate })}
-          placeholder='YY/MM'
-          value={`${formik.values.cardDate
-            .slice(0, 2)
-            .replace(/(12|13|14|15|16|17|18|19)|[2-9][0-9]/, '12')}${formik.values.cardDate.slice(-2)}`}
-        />
-        {formik.errors.cardDate}
-        <InputMask
-          mask='999'
-          type={isHidden ? 'password' : 'text'}
-          name='cardCVV'
-          id='cardCVV'
-          className={classNames(styles.input, { [styles.error]: formik.errors.cardCVV })}
-          placeholder='CVV'
-          value={formik.values.cardCVV}
-        />
+        <div>
+          <InputMask
+            mask='99/99'
+            type='text'
+            name='cardDate'
+            id='cardDate'
+            className={classNames(styles.input, { [styles.error]: formik.errors.cardDate })}
+            placeholder='YY/MM'
+            value={`${formik.values.cardDate
+              .slice(0, 2)
+              .replace(/(12|13|14|15|16|17|18|19)|[2-9][0-9]/, '12')}${formik.values.cardDate.slice(-2)}`}
+          />
+          {formik.errors.cardDate && <span className={styles.errorMessage}>{formik.errors.cardDate}</span>}
+        </div>
+        <div>
+          <InputMask
+            mask='999'
+            type={isHidden ? 'password' : 'text'}
+            name='cardCVV'
+            id='cardCVV'
+            className={classNames(styles.input, { [styles.error]: formik.errors.cardCVV })}
+            placeholder='CVV'
+            value={formik.values.cardCVV}
+          />
+          {formik.errors.cardCVV && <span className={styles.errorMessage}>{formik.errors.cardCVV}</span>}
+        </div>
         <div aria-hidden className={styles.eyeButton} onClick={() => setIsHidden(!isHidden)} />
       </div>
     </form>

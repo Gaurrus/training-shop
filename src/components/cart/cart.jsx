@@ -120,10 +120,6 @@ export const Cart = ({ closeCart }) => {
     if (radioDeliveryMethod !== '' && paymentType !== '') dispatch(postPaymentsRequest({ postData }));
   };
 
-  // const handlePost = () => {
-  //   dispatch(postPaymentsRequest({ data }));
-  // };
-
   return (
     <div className={styles.cart} data-test-id='cart'>
       <div className={styles.cartHeader}>

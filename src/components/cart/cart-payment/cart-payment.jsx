@@ -90,7 +90,13 @@ export const CartPayment = ({ cart, formik, paymentType, setPaymentType }) => {
           )}
         </div>
       ) : (
-        <div className={styles.successPayment}>Success</div>
+        <div className={styles.successPayment}>
+          <div className={styles.successMessage}>
+            <div className={styles.successTitle}>Thank you for your order </div>
+            <div className={styles.successSubtitle}>Information about your order will appear in your e-mail.</div>
+            <div className={styles.successSubtitle}>Our manager will call you back.</div>
+          </div>
+        </div>
       )}
     </div>
   );

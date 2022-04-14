@@ -11,7 +11,7 @@ export const PostForm = ({ formik, formError }) => {
     formik.resetForm(formik.initialValues);
   }, []);
   return (
-    <form onChange={formik.handleChange} id='post'>
+    <form onChange={formik.handleChange} id='postForm'>
       {/* <button type='submit'>Submit</button> */}
       <div className={styles.postDeliveryData}>
         <div className={styles.dataItem}>
@@ -40,6 +40,7 @@ export const PostForm = ({ formik, formError }) => {
             className={classNames(styles.input, { [styles.error]: formik.errors.email })}
             placeholder='e-mail'
             values={formik.values.email}
+            required='true'
           />
           {formik.errors.email && <span className={styles.errorMessage}>{formik.errors.email}</span>}
         </div>
