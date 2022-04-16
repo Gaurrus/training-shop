@@ -24,8 +24,13 @@ const paymentsSlice = createSlice({
       state.isPaymentsLoading = false;
       state.isPaymentsError = true;
     },
+    paymentsReset: (state) => {
+      state.isPaymentsLoading = true;
+      state.isPaymentsError = false;
+    },
   },
 });
 
-export const { paymentsAdd, postPaymentsSeccess, postPaymentsError, postPaymentsRequest } = paymentsSlice.actions;
+export const { paymentsAdd, postPaymentsSeccess, postPaymentsError, postPaymentsRequest, paymentsReset } =
+  paymentsSlice.actions;
 export default paymentsSlice.reducer;

@@ -7,9 +7,11 @@ import { useFormik } from 'formik';
 import { CartProducts } from './cart-products';
 import { CartDelivery } from './cart-delivery/cart-delivery';
 import { CartPayment } from './cart-payment';
+import { SuccessPayment } from './success-payment';
+import { ErrorPayment } from './error-payment';
 
 import { cartSelector, paymentsSelector } from '../../selectors';
-import { paymentsAdd, postPaymentsRequest } from '../store/payments-state';
+import { paymentsAdd, paymentsReset, postPaymentsRequest } from '../store/payments-state';
 import { validateCart as validate } from '../utils/validate-form';
 
 import styles from './cart.module.scss';
@@ -59,7 +61,7 @@ export const Cart = ({ closeCart }) => {
     }
   };
 
-  const { data } = useSelector(paymentsSelector);
+  const { data, isPaymentsError, isPaymentsLoading } = useSelector(paymentsSelector);
 
   const formik = useFormik({
     initialValues: {
@@ -120,206 +122,253 @@ export const Cart = ({ closeCart }) => {
     if (radioDeliveryMethod !== '' && paymentType !== '') dispatch(postPaymentsRequest({ postData }));
   };
 
+  const reset = () => {
+    dispatch(paymentsReset());
+  };
+
   return (
     <div className={styles.cart} data-test-id='cart'>
-      <div className={styles.cartHeader}>
-        <span className={styles.title}>Shopping Cart</span>
-        <div aria-hidden onClick={closeCart} className={styles.crossButton}>
-          <div className={styles.line} />
-          <div className={styles.line} />
-        </div>
-      </div>
-      <div className={styles.cartNav}>
-        <span aria-hidden className={classNames(styles.navItem, { [styles.itemActive]: isProductsActive })}>
-          Item in Cart
-        </span>
-        /
-        <span aria-hidden className={classNames(styles.navItem, { [styles.itemActive]: isDelyveryActive })}>
-          Delivery Info
-        </span>
-        /
-        <span aria-hidden className={classNames(styles.navItem, { [styles.itemActive]: isPaymentActive })}>
-          Payment
-        </span>
-      </div>
-      <div className={styles.cartMain}>
-        {isProductsActive && <CartProducts cart={cartArrProducts?.cart} handleSelect={handleSelect} formik={formik} />}
-        {isDelyveryActive && (
-          <CartDelivery
-            cart={cartArrProducts?.cart}
-            handleSelect={handleSelect}
-            formik={formik}
-            radioDeliveryMethod={radioDeliveryMethod}
-            setRadioDeliveryMethod={setRadioDeliveryMethod}
-            formError={formError}
-          />
-        )}
-        {isPaymentActive && (
-          <CartPayment
-            cart={cartArrProducts?.cart}
-            handleSelect={handleSelect}
-            formik={formik}
-            paymentType={paymentType}
-            setPaymentType={setPaymentType}
-          />
-        )}
-      </div>
-      {cartArrProducts.cart.length ? (
-        <div className={styles.cardFooter}>
-          <div className={styles.totalPrice}>
-            <span className={styles.totalText}>Total</span>
-            <span className={styles.totalPrice}>$ {summFromArr.toFixed(2)}</span>
+      {!isPaymentsError && !isPaymentsLoading && <SuccessPayment closeCart={closeCart} reset={reset} />}
+      {isPaymentsError && !isPaymentsLoading && (
+        <ErrorPayment closeCart={closeCart} cartProductsOnClick={cartProductsOnClick} reset={reset} />
+      )}
+      {!isPaymentsError && isPaymentsLoading && (
+        <>
+          <div className={styles.cartHeader}>
+            <span className={styles.title}>Shopping Cart</span>
+            <div aria-hidden onClick={closeCart} className={styles.crossButton}>
+              <div className={styles.line} />
+              <div className={styles.line} />
+            </div>
           </div>
-          {isProductsActive && (
-            <button
-              type='submit'
-              className={classNames(styles.further, styles.button)}
-              onClick={() => {
-                handleClick();
-              }}
-            >
-              Further
-            </button>
-          )}
-          {isDelyveryActive && radioDeliveryMethod === 'pickup from post offices' && (
-            <button
-              type='submit'
-              form='post'
-              className={classNames(styles.further, styles.button)}
-              onClick={() => {
-                handleClick();
-                handleSelect();
-              }}
-              disabled={
-                formik.isSubmitting ||
-                formik.errors.phone ||
-                formik.errors.email ||
-                formik.errors.country ||
-                formik.errors.city ||
-                formik.errors.street ||
-                formik.errors.house ||
-                formik.errors.postcode ||
-                formik.errors.agreenment ||
-                formik.values.phone === '' ||
-                formik.values.email === '' ||
-                formik.values.country === '' ||
-                formik.values.city === '' ||
-                formik.values.street === '' ||
-                formik.values.postcode === '' ||
-                formik.values.agreenment === false
-              }
-            >
-              Further
-            </button>
-          )}
-          {isDelyveryActive && radioDeliveryMethod === 'express delivery' && (
-            <button
-              type='submit'
-              className={classNames(styles.further, styles.button)}
-              onClick={() => {
-                handleClick();
-                handleSelect();
-              }}
-              disabled={
-                formik.errors.phone ||
-                formik.errors.email ||
-                formik.errors.country ||
-                formik.errors.city ||
-                formik.errors.street ||
-                formik.errors.house ||
-                formik.errors.agreenment ||
-                formik.values.phone === '' ||
-                formik.values.email === '' ||
-                formik.values.country === '' ||
-                formik.values.city === '' ||
-                formik.values.street === '' ||
-                formik.values.house === '' ||
-                formik.values.agreenment === false
-              }
-            >
-              Further
-            </button>
-          )}
-          {isDelyveryActive && radioDeliveryMethod === 'store pickup' && (
-            <button
-              type='submit'
-              className={classNames(styles.further, styles.button)}
-              onClick={() => {
-                handleClick();
-                handleSelect();
-              }}
-              disabled={
-                formik.errors.phone ||
-                formik.errors.email ||
-                formik.errors.country ||
-                formik.errors.storeAddress ||
-                formik.errors.agreenment ||
-                formik.values.phone === '' ||
-                formik.values.email === '' ||
-                formik.values.country === '' ||
-                formik.values.storeAddress === '' ||
-                formik.values.agreenment === false
-              }
-            >
-              Further
-            </button>
-          )}
-          {isPaymentActive && paymentType === 'paypal' && (
-            <button
-              type='submit'
-              className={classNames(styles.further, styles.button)}
-              onClick={() => {
-                handleSelect();
-                // handlePost();
-              }}
-              disabled={formik.errors.cashEmail || formik.values.cashEmail === ''}
-            >
-              Check Out
-            </button>
-          )}
-          {isPaymentActive && (paymentType === 'visa' || paymentType === 'mastercard') && (
-            <button
-              type='submit'
-              className={classNames(styles.further, styles.button)}
-              onClick={() => {
-                handleSelect();
-                // handlePost();
-              }}
-              disabled={
-                formik.errors.card ||
-                formik.errors.cardDate ||
-                formik.errors.cardCVV ||
-                formik.values.card === '' ||
-                formik.values.cardDate === '' ||
-                formik.values.cardCVV === ''
-              }
-            >
-              Check Out
-            </button>
-          )}
-          {isPaymentActive && paymentType === 'cash' && (
-            <button
-              type='submit'
-              className={classNames(styles.further, styles.button)}
-              onClick={() => {
-                handleSelect();
-                // handlePost();
-              }}
-            >
-              Ready
-            </button>
-          )}
+          <div className={styles.cartNav}>
+            <span aria-hidden className={classNames(styles.navItem, { [styles.itemActive]: isProductsActive })}>
+              Item in Cart
+            </span>
+            /
+            <span aria-hidden className={classNames(styles.navItem, { [styles.itemActive]: isDelyveryActive })}>
+              Delivery Info
+            </span>
+            /
+            <span aria-hidden className={classNames(styles.navItem, { [styles.itemActive]: isPaymentActive })}>
+              Payment
+            </span>
+          </div>
+          <div className={styles.cartMain}>
+            {isProductsActive && (
+              <CartProducts cart={cartArrProducts?.cart} handleSelect={handleSelect} formik={formik} />
+            )}
+            {isDelyveryActive && (
+              <CartDelivery
+                cart={cartArrProducts?.cart}
+                handleSelect={handleSelect}
+                formik={formik}
+                radioDeliveryMethod={radioDeliveryMethod}
+                setRadioDeliveryMethod={setRadioDeliveryMethod}
+                formError={formError}
+              />
+            )}
+            {isPaymentActive && (
+              <CartPayment
+                cart={cartArrProducts?.cart}
+                handleSelect={handleSelect}
+                formik={formik}
+                paymentType={paymentType}
+                setPaymentType={setPaymentType}
+              />
+            )}
+          </div>
+          {cartArrProducts.cart.length ? (
+            <div className={styles.cardFooter}>
+              <div className={styles.totalPrice}>
+                <span className={styles.totalText}>Total</span>
+                <span className={styles.totalPrice}>$ {summFromArr.toFixed(2)}</span>
+              </div>
+              {isProductsActive && (
+                <button
+                  type='submit'
+                  className={classNames(styles.further, styles.button)}
+                  onClick={() => {
+                    handleClick();
+                  }}
+                >
+                  Further
+                </button>
+              )}
+              {isDelyveryActive && radioDeliveryMethod === 'pickup from post offices' && (
+                <button
+                  type='submit'
+                  form='post'
+                  className={classNames(styles.further, styles.button)}
+                  onClick={() => {
+                    // formik.setFieldValue('phone', data.phone);
+                    // formik.setFieldValue('email', data.email);
+                    // formik.setFieldValue('country', data.country);
+                    // formik.setFieldValue('city', data.city);
+                    // formik.setFieldValue('street', data.street);
+                    // formik.setFieldValue('house', data.house);
+                    // formik.setFieldValue('apartment', data.apartment);
+                    // formik.setFieldValue('postcode', data.postcode);
+                    formik.validateForm();
+                    if (
+                      (!formik.errors.phone ||
+                        !formik.errors.email ||
+                        !formik.errors.country ||
+                        !formik.errors.city ||
+                        !formik.errors.street ||
+                        !formik.errors.house ||
+                        !formik.errors.postcode ||
+                        !formik.errors.agreenment) &&
+                      formik.values.agreenment === true &&
+                      formik.values.phone !== '' &&
+                      formik.values.email !== '' &&
+                      formik.values.country !== '' &&
+                      formik.values.city !== '' &&
+                      formik.values.street !== '' &&
+                      formik.values.postcode !== ''
+                    ) {
+                      handleClick();
+                    }
+                    handleSelect();
+                  }}
+                >
+                  Further
+                </button>
+              )}
+              {isDelyveryActive && radioDeliveryMethod === 'express delivery' && (
+                <button
+                  type='submit'
+                  className={classNames(styles.further, styles.button)}
+                  onClick={() => {
+                    formik.validateForm();
+                    if (
+                      (!formik.errors.phone ||
+                        !formik.errors.email ||
+                        !formik.errors.country ||
+                        !formik.errors.city ||
+                        !formik.errors.street ||
+                        !formik.errors.house ||
+                        !formik.errors.postcode ||
+                        !formik.errors.agreenment) &&
+                      formik.values.agreenment === true &&
+                      formik.values.phone !== '' &&
+                      formik.values.email !== '' &&
+                      formik.values.country !== '' &&
+                      formik.values.city !== '' &&
+                      formik.values.street !== '' &&
+                      formik.values.house !== '' &&
+                      formik.values.postcode !== ''
+                    ) {
+                      handleClick();
+                    }
+                    handleSelect();
+                  }}
+                >
+                  Further
+                </button>
+              )}
+              {isDelyveryActive && radioDeliveryMethod === 'store pickup' && (
+                <button
+                  type='submit'
+                  className={classNames(styles.further, styles.button)}
+                  onClick={() => {
+                    formik.validateForm();
+                    if (
+                      (!formik.errors.phone ||
+                        !formik.errors.email ||
+                        !formik.errors.country ||
+                        !formik.errors.city ||
+                        !formik.errors.street ||
+                        !formik.errors.house ||
+                        !formik.errors.postcode ||
+                        !formik.errors.agreenment) &&
+                      formik.values.agreenment === true &&
+                      formik.values.phone !== '' &&
+                      formik.values.email !== '' &&
+                      formik.values.country !== '' &&
+                      formik.values.storeAddress !== ''
+                    ) {
+                      handleClick();
+                    }
+                    handleSelect();
+                  }}
+                >
+                  Further
+                </button>
+              )}
+              {isPaymentActive && paymentType === 'paypal' && (
+                <button
+                  type='submit'
+                  className={classNames(styles.further, styles.button)}
+                  onClick={() => {
+                    handleSelect();
+                    // handlePost();
+                  }}
+                  disabled={formik.errors.cashEmail || formik.values.cashEmail === ''}
+                >
+                  Check Out
+                </button>
+              )}
+              {isPaymentActive && (paymentType === 'visa' || paymentType === 'mastercard') && (
+                <button
+                  type='submit'
+                  className={classNames(styles.further, styles.button)}
+                  onClick={() => {
+                    handleSelect();
+                    // handlePost();
+                  }}
+                  disabled={
+                    formik.errors.card ||
+                    formik.errors.cardDate ||
+                    formik.errors.cardCVV ||
+                    formik.values.card === '' ||
+                    formik.values.cardDate === '' ||
+                    formik.values.cardCVV === ''
+                  }
+                >
+                  Check Out
+                </button>
+              )}
+              {isPaymentActive && paymentType === 'cash' && (
+                <button
+                  type='submit'
+                  className={classNames(styles.further, styles.button)}
+                  onClick={() => {
+                    handleSelect();
+                    // handlePost();
+                  }}
+                >
+                  Ready
+                </button>
+              )}
 
-          <button type='button' className={classNames(styles.viewCart, styles.button)} onClick={cartProductsOnClick}>
-            View Cart
-          </button>
-        </div>
-      ) : (
-        <div className={styles.cardFooter}>
-          <button type='button' className={classNames(styles.further, styles.button)} onClick={closeCart}>
-            Back to shopping
-          </button>
-        </div>
+              {isDelyveryActive && (
+                <button
+                  type='button'
+                  className={classNames(styles.viewCart, styles.button)}
+                  onClick={cartProductsOnClick}
+                >
+                  View Cart
+                </button>
+              )}
+              {isPaymentActive && (
+                <button
+                  type='button'
+                  className={classNames(styles.viewCart, styles.button)}
+                  onClick={cartDelyveryOnClick}
+                >
+                  View Cart
+                </button>
+              )}
+            </div>
+          ) : (
+            <div className={styles.cardFooter}>
+              <button type='button' className={classNames(styles.further, styles.button)} onClick={closeCart}>
+                Back to shopping
+              </button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

@@ -7,9 +7,9 @@ import InputMask from 'react-input-mask';
 import styles from './post-form.module.scss';
 
 export const PostForm = ({ formik, formError }) => {
-  useEffect(() => {
-    formik.resetForm(formik.initialValues);
-  }, []);
+  // useEffect(() => {
+  //   formik.resetForm(formik.initialValues);
+  // }, []);
   return (
     <form onChange={formik.handleChange} id='postForm'>
       {/* <button type='submit'>Submit</button> */}

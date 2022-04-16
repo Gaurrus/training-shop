@@ -107,27 +107,3 @@
   line-height: 150%;
   text-align: center;
 }
-
-.successMessage {
-  display: flex;
-  flex-direction: column;
-  row-gap: 16px;
-  margin: 0 auto;
-  align-items: center;
-  justify-content: center;
-  max-width: 250px;
-  .successTitle {
-    margin-bottom: 8px;
-    max-width: 212px;
-    font-weight: 600;
-    font-size: 26px;
-    line-height: 150%;
-    text-align: center;
-  }
-  .successSubtitle {
-    text-align: center;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 22px;
-  }
-}
