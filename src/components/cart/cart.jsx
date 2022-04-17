@@ -128,9 +128,18 @@ export const Cart = ({ closeCart }) => {
 
   return (
     <div className={styles.cart} data-test-id='cart'>
-      {!isPaymentsError && !isPaymentsLoading && <SuccessPayment closeCart={closeCart} reset={reset} />}
+      {!isPaymentsError && !isPaymentsLoading && (
+        <SuccessPayment closeCart={closeCart} reset={reset} formik={formik} initialValues={formik.initialValues} />
+      )}
       {isPaymentsError && !isPaymentsLoading && (
-        <ErrorPayment closeCart={closeCart} cartProductsOnClick={cartProductsOnClick} reset={reset} />
+        <ErrorPayment
+          closeCart={closeCart}
+          cartProductsOnClick={cartProductsOnClick}
+          reset={reset}
+          formik={formik}
+          initialValues={formik.initialValues}
+          cartPaymentOnClick={cartPaymentOnClick}
+        />
       )}
       {!isPaymentsError && isPaymentsLoading && (
         <>
@@ -301,10 +310,11 @@ export const Cart = ({ closeCart }) => {
                   type='submit'
                   className={classNames(styles.further, styles.button)}
                   onClick={() => {
-                    handleSelect();
-                    // handlePost();
+                    formik.validateForm();
+                    if (!formik.errors.cashEmail && formik.values.cashEmail === '') {
+                      handleSelect();
+                    }
                   }}
-                  disabled={formik.errors.cashEmail || formik.values.cashEmail === ''}
                 >
                   Check Out
                 </button>
@@ -314,17 +324,16 @@ export const Cart = ({ closeCart }) => {
                   type='submit'
                   className={classNames(styles.further, styles.button)}
                   onClick={() => {
-                    handleSelect();
-                    // handlePost();
+                    formik.validateForm();
+                    if (
+                      (!formik.errors.card || !formik.errors.cardDate || !formik.errors.cardCVV) &&
+                      formik.values.card !== '' &&
+                      formik.values.cardDate !== '' &&
+                      formik.values.cardCVV !== ''
+                    ) {
+                      handleSelect();
+                    }
                   }}
-                  disabled={
-                    formik.errors.card ||
-                    formik.errors.cardDate ||
-                    formik.errors.cardCVV ||
-                    formik.values.card === '' ||
-                    formik.values.cardDate === '' ||
-                    formik.values.cardCVV === ''
-                  }
                 >
                   Check Out
                 </button>
@@ -335,7 +344,6 @@ export const Cart = ({ closeCart }) => {
                   className={classNames(styles.further, styles.button)}
                   onClick={() => {
                     handleSelect();
-                    // handlePost();
                   }}
                 >
                   Ready
@@ -355,7 +363,13 @@ export const Cart = ({ closeCart }) => {
                 <button
                   type='button'
                   className={classNames(styles.viewCart, styles.button)}
-                  onClick={cartDelyveryOnClick}
+                  onClick={() => {
+                    formik.setFieldValue('cashEmail', '');
+                    formik.setFieldValue('card', '');
+                    formik.setFieldValue('cardDate', '');
+                    formik.setFieldValue('cardCVV', '');
+                    cartDelyveryOnClick();
+                  }}
                 >
                   View Cart
                 </button>

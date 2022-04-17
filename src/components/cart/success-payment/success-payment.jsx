@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import styles from './success-payment.module.scss';
 
-export const SuccessPayment = ({ closeCart, reset }) => {
+export const SuccessPayment = ({ closeCart, reset, formik, initialValues }) => {
   return (
     <div className={styles.successPayment}>
       <div className={styles.cartHeader}>
@@ -25,6 +25,7 @@ export const SuccessPayment = ({ closeCart, reset }) => {
           onClick={() => {
             closeCart();
             setTimeout(() => reset(), 1000);
+            formik.resetForm(initialValues);
           }}
         >
           Back to shopping

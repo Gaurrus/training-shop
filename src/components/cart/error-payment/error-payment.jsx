@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import styles from './error-payment.module.scss';
 
-export const ErrorPayment = ({ closeCart, cartProductsOnClick, reset }) => {
+export const ErrorPayment = ({ closeCart, cartProductsOnClick, reset, formik, initialValues, cartPaymentOnClick }) => {
   return (
     <div className={styles.successPayment}>
       <div className={styles.cartHeader}>
@@ -24,11 +24,12 @@ export const ErrorPayment = ({ closeCart, cartProductsOnClick, reset }) => {
           type='button'
           className={classNames(styles.further, styles.button)}
           onClick={() => {
-            closeCart();
-            setTimeout(() => reset(), 1000);
+            cartPaymentOnClick();
+            reset();
+            // formik.resetForm(initialValues);
           }}
         >
-          Back to shopping
+          Back to payment
         </button>
         <button
           type='button'
