@@ -10,7 +10,7 @@ export const Mastercard = ({ formik }) => {
   const [isHidden, setIsHidden] = useState(true);
 
   return (
-    <form className={styles.dataItem} onChange={formik.handleChange}>
+    <div className={styles.dataItem}>
       <label htmlFor='mastercard' className={styles.dataLabel}>
         CARD
       </label>
@@ -55,6 +55,6 @@ export const Mastercard = ({ formik }) => {
           onClick={() => setIsHidden(!isHidden)}
         />
       </div>
-    </form>
+    </div>
   );
 };

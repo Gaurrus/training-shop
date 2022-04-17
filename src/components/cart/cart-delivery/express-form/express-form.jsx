@@ -6,12 +6,9 @@ import classNames from 'classnames';
 
 import styles from './express-form.module.scss';
 
-export const ExpressForm = ({ formik }) => {
-  useEffect(() => {
-    formik.resetForm(formik.initialValues);
-  }, []);
+export const ExpressForm = ({ formik, handleSelect }) => {
   return (
-    <form onChange={formik.handleChange}>
+    <div>
       <div className={styles.postDeliveryData}>
         <div className={styles.dataItem}>
           <label htmlFor='phone' className={styles.dataLabel}>
@@ -103,11 +100,15 @@ export const ExpressForm = ({ formik }) => {
             name='agreenment'
             className={classNames(styles.castomCheckbox, { [styles.error]: formik.errors.house })}
             value={formik.values.agreenment}
+            checked={formik?.values?.agreenment}
+            onChange={() => {
+              handleSelect();
+            }}
           />
           I agree to the processing of my personal information
         </label>
         {formik.errors.agreenment && <span className={styles.errorMessage}>{formik.errors.agreenment}</span>}
       </div>
-    </form>
+    </div>
   );
 };

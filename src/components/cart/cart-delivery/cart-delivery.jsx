@@ -15,6 +15,7 @@ export const CartDelivery = ({
   radioDeliveryMethod,
   setRadioDeliveryMethod,
   formError,
+  handleSearch,
 }) => {
   const handleChange = (values) => {
     const typeOfDelyvery = values;
@@ -24,7 +25,7 @@ export const CartDelivery = ({
   return (
     <div className={styles.wrapper}>
       {cart.length ? (
-        <form>
+        <div>
           <Formik
             initialValues={{ delyveryType: 'pickup from post offices' }}
             onSubmit={(values, { setSubmitting }) => {
@@ -79,12 +80,18 @@ export const CartDelivery = ({
               </Form>
             )}
           </Formik>
-          <form>
-            {radioDeliveryMethod === 'pickup from post offices' && <PostForm formik={formik} formError={formError} />}
-            {radioDeliveryMethod === 'express delivery' && <ExpressForm formik={formik} formError={formError} />}
-            {radioDeliveryMethod === 'store pickup' && <SelfForm formik={formik} formError={formError} />}
-          </form>
-        </form>
+          <div>
+            {radioDeliveryMethod === 'pickup from post offices' && (
+              <PostForm formik={formik} formError={formError} handleSelect={handleSelect} />
+            )}
+            {radioDeliveryMethod === 'express delivery' && (
+              <ExpressForm formik={formik} formError={formError} handleSelect={handleSelect} />
+            )}
+            {radioDeliveryMethod === 'store pickup' && (
+              <SelfForm formik={formik} formError={formError} handleSelect={handleSelect} handleSearch={handleSearch} />
+            )}
+          </div>
+        </div>
       ) : (
         <span className={styles.emptyCart}>Sorry, your cart is empty</span>
       )}

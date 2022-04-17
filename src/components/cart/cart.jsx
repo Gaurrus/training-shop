@@ -81,6 +81,8 @@ export const Cart = ({ closeCart }) => {
       cardDate: '',
       cardCVV: '',
     },
+    validateOnChange: false,
+    validateOnBlur: true,
     validate,
   });
 
@@ -116,10 +118,12 @@ export const Cart = ({ closeCart }) => {
       card: formik.values.card,
       cardDate: formik.values.cardDate,
       cardCVV: formik.values.cardCVV,
+      agree: formik.values.agreenment,
     };
 
     dispatch(paymentsAdd({ postData }));
-    if (radioDeliveryMethod !== '' && paymentType !== '') dispatch(postPaymentsRequest({ postData }));
+    if (radioDeliveryMethod !== '' && paymentType !== '' && isPaymentActive)
+      dispatch(postPaymentsRequest({ postData }));
   };
 
   const reset = () => {
@@ -127,7 +131,7 @@ export const Cart = ({ closeCart }) => {
   };
 
   return (
-    <div className={styles.cart} data-test-id='cart'>
+    <form className={styles.cart} data-test-id='cart' onChange={formik.handleChange} onBlur={formik.handleBlur}>
       {!isPaymentsError && !isPaymentsLoading && (
         <SuccessPayment closeCart={closeCart} reset={reset} formik={formik} initialValues={formik.initialValues} />
       )}
@@ -206,19 +210,22 @@ export const Cart = ({ closeCart }) => {
               )}
               {isDelyveryActive && radioDeliveryMethod === 'pickup from post offices' && (
                 <button
-                  type='submit'
+                  type='button'
                   form='post'
                   className={classNames(styles.further, styles.button)}
                   onClick={() => {
-                    // formik.setFieldValue('phone', data.phone);
-                    // formik.setFieldValue('email', data.email);
-                    // formik.setFieldValue('country', data.country);
-                    // formik.setFieldValue('city', data.city);
-                    // formik.setFieldValue('street', data.street);
-                    // formik.setFieldValue('house', data.house);
-                    // formik.setFieldValue('apartment', data.apartment);
-                    // formik.setFieldValue('postcode', data.postcode);
                     formik.validateForm();
+                    if (
+                      formik.errors.phone ||
+                      formik.errors.email ||
+                      formik.errors.country ||
+                      formik.errors.city ||
+                      formik.errors.street ||
+                      formik.errors.house ||
+                      formik.errors.postcode
+                    ) {
+                      formik.setFieldValue('agreenment', false);
+                    }
                     if (
                       (!formik.errors.phone ||
                         !formik.errors.email ||
@@ -246,7 +253,7 @@ export const Cart = ({ closeCart }) => {
               )}
               {isDelyveryActive && radioDeliveryMethod === 'express delivery' && (
                 <button
-                  type='submit'
+                  type='button'
                   className={classNames(styles.further, styles.button)}
                   onClick={() => {
                     formik.validateForm();
@@ -278,7 +285,7 @@ export const Cart = ({ closeCart }) => {
               )}
               {isDelyveryActive && radioDeliveryMethod === 'store pickup' && (
                 <button
-                  type='submit'
+                  type='button'
                   className={classNames(styles.further, styles.button)}
                   onClick={() => {
                     formik.validateForm();
@@ -307,11 +314,12 @@ export const Cart = ({ closeCart }) => {
               )}
               {isPaymentActive && paymentType === 'paypal' && (
                 <button
-                  type='submit'
+                  type='button'
                   className={classNames(styles.further, styles.button)}
                   onClick={() => {
+                    console.log('paypal', formik.errors.cashEmail, formik.values.cashEmail);
                     formik.validateForm();
-                    if (!formik.errors.cashEmail && formik.values.cashEmail === '') {
+                    if (!formik.errors.cashEmail && formik.values.cashEmail !== '') {
                       handleSelect();
                     }
                   }}
@@ -321,7 +329,7 @@ export const Cart = ({ closeCart }) => {
               )}
               {isPaymentActive && (paymentType === 'visa' || paymentType === 'mastercard') && (
                 <button
-                  type='submit'
+                  type='button'
                   className={classNames(styles.further, styles.button)}
                   onClick={() => {
                     formik.validateForm();
@@ -340,7 +348,7 @@ export const Cart = ({ closeCart }) => {
               )}
               {isPaymentActive && paymentType === 'cash' && (
                 <button
-                  type='submit'
+                  type='button'
                   className={classNames(styles.further, styles.button)}
                   onClick={() => {
                     handleSelect();
@@ -354,7 +362,10 @@ export const Cart = ({ closeCart }) => {
                 <button
                   type='button'
                   className={classNames(styles.viewCart, styles.button)}
-                  onClick={cartProductsOnClick}
+                  onClick={() => {
+                    cartProductsOnClick();
+                    formik.setFieldValue('agreenment', false);
+                  }}
                 >
                   View Cart
                 </button>
@@ -364,10 +375,6 @@ export const Cart = ({ closeCart }) => {
                   type='button'
                   className={classNames(styles.viewCart, styles.button)}
                   onClick={() => {
-                    formik.setFieldValue('cashEmail', '');
-                    formik.setFieldValue('card', '');
-                    formik.setFieldValue('cardDate', '');
-                    formik.setFieldValue('cardCVV', '');
                     cartDelyveryOnClick();
                   }}
                 >
@@ -384,7 +391,7 @@ export const Cart = ({ closeCart }) => {
           )}
         </>
       )}
-    </div>
+    </form>
   );
 };
 

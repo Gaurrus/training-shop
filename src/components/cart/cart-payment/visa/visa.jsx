@@ -10,7 +10,7 @@ export const Visa = ({ formik }) => {
   const [isHidden, setIsHidden] = useState(true);
 
   return (
-    <form className={styles.dataItem} onChange={formik.handleChange}>
+    <div className={styles.dataItem}>
       <label htmlFor='visa' className={styles.dataLabel}>
         CARD
       </label>
@@ -52,6 +52,6 @@ export const Visa = ({ formik }) => {
         </div>
         <div aria-hidden className={styles.eyeButton} onClick={() => setIsHidden(!isHidden)} />
       </div>
-    </form>
+    </div>
   );
 };

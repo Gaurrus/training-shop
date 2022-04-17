@@ -6,12 +6,9 @@ import InputMask from 'react-input-mask';
 
 import styles from './post-form.module.scss';
 
-export const PostForm = ({ formik, formError }) => {
-  // useEffect(() => {
-  //   formik.resetForm(formik.initialValues);
-  // }, []);
+export const PostForm = ({ formik, formError, handleSelect }) => {
   return (
-    <form onChange={formik.handleChange} id='postForm'>
+    <div id='postForm'>
       {/* <button type='submit'>Submit</button> */}
       <div className={styles.postDeliveryData}>
         <div className={styles.dataItem}>
@@ -26,6 +23,7 @@ export const PostForm = ({ formik, formError }) => {
             className={classNames(styles.input, { [styles.error]: formik.errors.phone })}
             value={formik.values.phone}
             required='true'
+            // onBlur={formik.handleBlur}
           />
           {formik.errors.phone && <span className={styles.errorMessage}>{formik.errors.phone}</span>}
         </div>
@@ -39,7 +37,7 @@ export const PostForm = ({ formik, formError }) => {
             id='email'
             className={classNames(styles.input, { [styles.error]: formik.errors.email })}
             placeholder='e-mail'
-            values={formik.values.email}
+            value={formik.values.email}
             required='true'
           />
           {formik.errors.email && <span className={styles.errorMessage}>{formik.errors.email}</span>}
@@ -54,7 +52,7 @@ export const PostForm = ({ formik, formError }) => {
             id='adress'
             className={classNames(styles.input, { [styles.error]: formik.errors.country })}
             placeholder='Country'
-            values={formik.values.country}
+            value={formik.values.country}
           />
           {formik.errors.country && <span className={styles.errorMessage}>{formik.errors.country}</span>}
           <input
@@ -63,7 +61,7 @@ export const PostForm = ({ formik, formError }) => {
             id='adress'
             className={classNames(styles.input, { [styles.error]: formik.errors.city })}
             placeholder='City'
-            values={formik.values.city}
+            value={formik.values.city}
           />
           {formik.errors.city && <span className={styles.errorMessage}>{formik.errors.city}</span>}
           <input
@@ -72,7 +70,7 @@ export const PostForm = ({ formik, formError }) => {
             id='adress'
             className={classNames(styles.input, { [styles.error]: formik.errors.street })}
             placeholder='Street'
-            values={formik.values.street}
+            value={formik.values.street}
           />
           {formik.errors.street && <span className={styles.errorMessage}>{formik.errors.street}</span>}
           <div className={styles.dubleInput}>
@@ -83,7 +81,7 @@ export const PostForm = ({ formik, formError }) => {
                 id='adress'
                 className={classNames(styles.input, { [styles.error]: formik.errors.house })}
                 placeholder='House'
-                values={formik.values.house}
+                value={formik.values.house}
               />
               {formik.errors.house && <span className={styles.errorMessage}>{formik.errors.house}</span>}
             </div>
@@ -93,7 +91,7 @@ export const PostForm = ({ formik, formError }) => {
               id='adress'
               className={styles.input}
               placeholder='Apartment'
-              values={formik.values.apartment}
+              value={formik.values.apartment}
             />
           </div>
         </div>
@@ -107,7 +105,7 @@ export const PostForm = ({ formik, formError }) => {
             name='postcode'
             id='postcode'
             className={classNames(styles.input, { [styles.error]: formik.errors.postcode })}
-            values={formik.values.postcode}
+            value={formik.values.postcode}
           />
           {formik.errors.postcode && <span className={styles.errorMessage}>{formik.errors.postcode}</span>}
         </div>
@@ -117,12 +115,16 @@ export const PostForm = ({ formik, formError }) => {
             id='agreenment'
             name='agreenment'
             className={classNames(styles.castomCheckbox, { [styles.error]: formik.errors.agreenment })}
-            value={formError ? formik?.initialValues?.agreenment : formik?.values?.agreenment}
+            value={formik?.values?.agreenment}
+            checked={formik?.values?.agreenment}
+            onChange={() => {
+              handleSelect();
+            }}
           />
           I agree to the processing of my personal information
         </label>
         {formik.errors.agreenment && <span className={styles.errorMessage}>{formik.errors.agreenment}</span>}
       </div>
-    </form>
+    </div>
   );
 };

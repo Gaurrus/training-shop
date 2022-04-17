@@ -7,12 +7,8 @@ import classNames from 'classnames';
 import styles from './paypal.module.scss';
 
 export const Paypal = ({ formik }) => {
-  useEffect(() => {
-    // formik.setFieldValue('cashEmail', '');
-    formik.setFieldError('cashEmail', false);
-  }, []);
   return (
-    <form className={styles.dataItem} onChange={formik.handleChange}>
+    <div className={styles.dataItem}>
       <label htmlFor='paypal' className={styles.dataLabel}>
         E-MAIL
       </label>
@@ -25,6 +21,6 @@ export const Paypal = ({ formik }) => {
         value={formik.values.cashEmail}
       />
       {formik.errors.cashEmail && <span className={styles.errorMessage}>{formik.errors.cashEmail}</span>}
-    </form>
+    </div>
   );
 };

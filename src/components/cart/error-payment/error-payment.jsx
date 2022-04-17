@@ -26,7 +26,6 @@ export const ErrorPayment = ({ closeCart, cartProductsOnClick, reset, formik, in
           onClick={() => {
             cartPaymentOnClick();
             reset();
-            // formik.resetForm(initialValues);
           }}
         >
           Back to payment
@@ -37,6 +36,7 @@ export const ErrorPayment = ({ closeCart, cartProductsOnClick, reset, formik, in
           onClick={() => {
             reset();
             cartProductsOnClick();
+            formik.resetForm(initialValues);
           }}
         >
           View Cart

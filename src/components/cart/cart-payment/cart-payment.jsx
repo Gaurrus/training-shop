@@ -22,7 +22,7 @@ export const CartPayment = ({ cart, formik, paymentType, setPaymentType }) => {
     <div>
       <div className={styles.wrapper}>
         {cart.length ? (
-          <form>
+          <div>
             <Formik
               initialValues={{ paymentType: 'visa' }}
               onSubmit={(values, { setSubmitting }) => {
@@ -77,13 +77,13 @@ export const CartPayment = ({ cart, formik, paymentType, setPaymentType }) => {
               )}
             </Formik>
 
-            <form>
+            <div>
               {paymentType === 'paypal' && <Paypal formik={formik} />}
               {paymentType === 'visa' && <Visa formik={formik} />}
               {paymentType === 'mastercard' && <Mastercard formik={formik} />}
               {paymentType === 'cash' && <Cash formik={formik} />}
-            </form>
-          </form>
+            </div>
+          </div>
         ) : (
           <span className={styles.emptyCart}>Sorry, your cart is empty</span>
         )}

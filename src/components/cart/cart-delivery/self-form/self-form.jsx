@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useEffect, useState, useRef } from 'react';
@@ -7,20 +8,32 @@ import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getCountriesRequest } from '../../../store/countries-state';
-import { countriesSelector } from '../../../../selectors';
+import { countriesSelector, searchStoreSelector } from '../../../../selectors';
+import { searchStorePostRequest } from '../../../store/search-store-post-state';
 
 import styles from './self-form.module.scss';
 
-export const SelfForm = ({ formik, formError }) => {
+export const SelfForm = ({ formik, handleSelect }) => {
   const dispatch = useDispatch();
 
-  const { data } = useSelector(countriesSelector);
+  const { data: countries } = useSelector(countriesSelector);
   useEffect(() => {
-    formik.resetForm(formik.initialValues);
     dispatch(getCountriesRequest());
   }, []);
+
+  useEffect(() => {
+    const postData = {
+      city: formik.values.storeAddress,
+      country: formik.values.country,
+    };
+    if (formik.values.storeAddress.length >= 3) {
+      dispatch(searchStorePostRequest({ postData }));
+    }
+  }, [formik.values]);
+
+  const { response } = useSelector(searchStoreSelector);
   return (
-    <form onChange={formik.handleChange}>
+    <div>
       <div className={styles.postDeliveryData}>
         <div className={styles.dataItem}>
           <label htmlFor='phone' className={styles.dataLabel}>
@@ -61,23 +74,32 @@ export const SelfForm = ({ formik, formError }) => {
             placeholder='Country'
             value={formik.values.country}
           >
-            {data?.map((item) => (
+            {countries?.map((item) => (
               <option value={item.name}>{item.name}</option>
             ))}
           </select>
           {formik.errors.country && <span className={styles.errorMessage}>{formik.errors.country}</span>}
-          <select
-            name='storeAddress'
-            id='store'
+          <input
             className={classNames(styles.input, { [styles.error]: formik.errors.storeAddress })}
-            placeholder='Store adress'
+            type='text'
+            name='storeAddress'
             value={formik.values.storeAddress}
-            disabled={data?.length === 0}
-          >
-            <option value='minsk'>Minsk</option>
-            <option value='orsha'>Orsha</option>
-            <option value='tolochin'>Tolochin</option>
-          </select>
+            disabled={countries?.length === 0}
+          />
+          {response.length > 0 ? (
+            <select
+              name='storeAddressSelect'
+              id='store'
+              className={classNames(styles.input, { [styles.error]: formik.errors.storeAddress })}
+              value={formik.values.storeAddressSelect}
+            >
+              {response?.map((item) => (
+                <option key={item.city} value={item.city}>
+                  {item.city}
+                </option>
+              ))}
+            </select>
+          ) : null}
           {formik.errors.storeAddress && <span className={styles.errorMessage}>{formik.errors.storeAddress}</span>}
         </div>
         <label htmlFor='agreenment' className={styles.checkboxLabel}>
@@ -85,13 +107,17 @@ export const SelfForm = ({ formik, formError }) => {
             type='checkbox'
             id='agreenment'
             name='agreenment'
-            value={formError ? formik?.initialValues?.agreenment : formik?.values?.agreenment}
+            value={formik?.values?.agreenment}
+            checked={formik?.values?.agreenment}
+            onChange={() => {
+              handleSelect();
+            }}
             className={classNames(styles.castomCheckbox, { [styles.error]: formik.errors.agreenment })}
           />
           I agree to the processing of my personal information
         </label>
         {formik.errors.agreenment && <span className={styles.errorMessage}>{formik.errors.agreenment}</span>}
       </div>
-    </form>
+    </div>
   );
 };
