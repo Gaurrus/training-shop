@@ -5,7 +5,7 @@ import { postPaymentsError, postPaymentsRequest, postPaymentsSeccess } from '.';
 function* postPaymentsWorker({ payload }) {
   console.log(payload);
   try {
-    yield call(axios.post, `https://httpbin.org/post`, payload.postData);
+    yield call(axios.post, `https://training.cleverland.by/shop/cart`, payload.postData);
     yield put(postPaymentsSeccess());
   } catch {
     yield put(postPaymentsError());

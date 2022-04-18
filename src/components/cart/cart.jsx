@@ -264,7 +264,6 @@ export const Cart = ({ closeCart }) => {
                         !formik.errors.city ||
                         !formik.errors.street ||
                         !formik.errors.house ||
-                        !formik.errors.postcode ||
                         !formik.errors.agreenment) &&
                       formik.values.agreenment === true &&
                       formik.values.phone !== '' &&
@@ -272,8 +271,7 @@ export const Cart = ({ closeCart }) => {
                       formik.values.country !== '' &&
                       formik.values.city !== '' &&
                       formik.values.street !== '' &&
-                      formik.values.house !== '' &&
-                      formik.values.postcode !== ''
+                      formik.values.house !== ''
                     ) {
                       handleClick();
                     }
@@ -293,10 +291,7 @@ export const Cart = ({ closeCart }) => {
                       (!formik.errors.phone ||
                         !formik.errors.email ||
                         !formik.errors.country ||
-                        !formik.errors.city ||
-                        !formik.errors.street ||
-                        !formik.errors.house ||
-                        !formik.errors.postcode ||
+                        !formik.errors.storeAddress ||
                         !formik.errors.agreenment) &&
                       formik.values.agreenment === true &&
                       formik.values.phone !== '' &&
