@@ -1,9 +1,8 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import ReactInputMask from 'react-input-mask';
-import { IMaskInput } from 'react-imask';
 import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -15,10 +14,14 @@ import styles from './self-form.module.scss';
 
 export const SelfForm = ({ formik, handleSelect }) => {
   const dispatch = useDispatch();
+  const [clickedStore, setClickedStore] = useState('');
+
+  const { isLoading, isError } = useSelector(searchStoreSelector);
 
   const { data: countries } = useSelector(countriesSelector);
   useEffect(() => {
     dispatch(getCountriesRequest());
+    formik.setFieldValue('country', countries[0]?.name);
   }, []);
 
   useEffect(() => {
@@ -67,6 +70,7 @@ export const SelfForm = ({ formik, handleSelect }) => {
           <label htmlFor='adress' className={styles.dataLabel}>
             ADRESS OF STORE
           </label>
+          {isError && !isLoading && <span className={styles.errorMessage}>Connection error</span>}
           <select
             name='country'
             id='adress'
@@ -86,20 +90,26 @@ export const SelfForm = ({ formik, handleSelect }) => {
             value={formik.values.storeAddress}
             disabled={countries?.length === 0}
           />
-          {response.length > 0 ? (
-            <select
-              name='storeAddressSelect'
-              id='store'
-              className={classNames(styles.input, { [styles.error]: formik.errors.storeAddress })}
-              value={formik.values.storeAddressSelect}
-            >
+          {response.length > 0 && formik.values.storeAddress !== clickedStore && (
+            <ul className={styles.list}>
               {response?.map((item) => (
-                <option key={item.city} value={item.city}>
+                <li
+                  aria-hidden
+                  className={styles.option}
+                  key={item.city}
+                  onClick={() => {
+                    setClickedStore(item.city);
+                    formik.setFieldValue('storeAddress', item.city);
+                  }}
+                >
                   {item.city}
-                </option>
+                </li>
               ))}
-            </select>
-          ) : null}
+            </ul>
+          )}
+          {response.length === 0 && formik.values.storeAddress !== '' && (
+            <span className={styles.errorMessage}>Sity is not found</span>
+          )}
           {formik.errors.storeAddress && <span className={styles.errorMessage}>{formik.errors.storeAddress}</span>}
         </div>
         <label htmlFor='agreenment' className={styles.checkboxLabel}>

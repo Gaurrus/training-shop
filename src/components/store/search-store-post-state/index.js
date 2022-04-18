@@ -18,7 +18,7 @@ const searchStorePostSlice = createSlice({
       console.log(action.payload);
     },
     searchStorePostError: (state) => {
-      state.isLoading = true;
+      state.isLoading = false;
       state.isError = true;
     },
   },

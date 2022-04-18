@@ -22,6 +22,7 @@
   height: 18px;
 }
 .dataItem {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: left;
@@ -56,6 +57,30 @@
     &.error {
       border-color: #ff0000;
       box-shadow: 0 0 5px #ff0000;
+    }
+  }
+  .list {
+    position: absolute;
+    width: 337px;
+    top: 154px;
+    .option {
+      display: flex;
+      align-items: center;
+      justify-content: left;
+      width: 100%;
+      height: 48px;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 18px;
+      color: #9c9c9c;
+      border: unset;
+      background-color: #f8f8f8;
+      text-indent: 16px;
+      &:hover {
+        background-color: #ffffff;
+        text-decoration: underline;
+        cursor: pointer;
+      }
     }
   }
   .dubleInput {
