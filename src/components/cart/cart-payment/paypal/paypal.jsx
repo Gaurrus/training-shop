@@ -16,11 +16,13 @@ export const Paypal = ({ formik }) => {
         type='text'
         name='cashEmail'
         id='paypal'
-        className={classNames(styles.input, { [styles.error]: formik.errors.cashEmail })}
+        className={classNames(styles.input, { [styles.error]: formik.errors.cashEmail && formik.touched.cashEmail })}
         placeholder='e-mail'
         value={formik.values.cashEmail}
       />
-      {formik.errors.cashEmail && <span className={styles.errorMessage}>{formik.errors.cashEmail}</span>}
+      {formik.errors.cashEmail && formik.touched.cashEmail && (
+        <span className={styles.errorMessage}>{formik.errors.cashEmail}</span>
+      )}
     </div>
   );
 };
