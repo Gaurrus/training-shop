@@ -21,7 +21,7 @@ export const SelfForm = ({ formik, handleSelect }) => {
   const { data: countries } = useSelector(countriesSelector);
   useEffect(() => {
     dispatch(getCountriesRequest());
-    formik.setFieldValue('country', countries[0]?.name);
+    formik.setFieldValue('country', 'Выберите страну');
   }, []);
 
   useEffect(() => {
@@ -78,6 +78,9 @@ export const SelfForm = ({ formik, handleSelect }) => {
             placeholder='Country'
             value={formik.values.country}
           >
+            <option value='Выберите страну' disabled>
+              Выберите страну
+            </option>
             {countries?.map((item) => (
               <option value={item.name}>{item.name}</option>
             ))}
@@ -88,7 +91,9 @@ export const SelfForm = ({ formik, handleSelect }) => {
             type='text'
             name='storeAddress'
             value={formik.values.storeAddress}
-            disabled={countries?.length === 0}
+            disabled={
+              countries?.length === 0 || formik.values.country === '' || formik.values.country === 'Выберите страну'
+            }
           />
           {response.length > 0 && formik.values.storeAddress !== clickedStore && (
             <ul className={styles.list}>
