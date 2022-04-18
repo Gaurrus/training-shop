@@ -1,6 +1,6 @@
 export const searchStorePostState = {
   isLoading: true,
-  isError: true,
+  isError: false,
   data: {},
   response: [],
 };
