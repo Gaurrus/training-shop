@@ -1,8 +1,9 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import classNames from 'classnames';
-import { useFormik } from 'formik';
 
 import { CartProducts } from './cart-products';
 import { CartDelivery } from './cart-delivery/cart-delivery';
@@ -12,11 +13,10 @@ import { ErrorPayment } from './error-payment';
 
 import { cartSelector, paymentsSelector } from '../../selectors';
 import { paymentsAdd, paymentsReset, postPaymentsRequest } from '../store/payments-state';
-import { validateCart as validate } from '../utils/validate-form';
 
 import styles from './cart.module.scss';
 
-export const Cart = ({ closeCart }) => {
+export const Cart = ({ closeCart, formik }) => {
   const [isProductsActive, setIsProductsActive] = useState(false);
   const [isDelyveryActive, setIsDelyveryActive] = useState(false);
   const [isPaymentActive, setIsPaymentActive] = useState(false);
@@ -62,29 +62,6 @@ export const Cart = ({ closeCart }) => {
   };
 
   const { data, isPaymentsError, isPaymentsLoading } = useSelector(paymentsSelector);
-
-  const formik = useFormik({
-    initialValues: {
-      phone: '',
-      email: '',
-      cashEmail: '',
-      country: '',
-      city: '',
-      street: '',
-      house: '',
-      apartment: '',
-      postcode: '',
-      storeAddress: '',
-      agreenment: false,
-      paymentType: '',
-      card: '',
-      cardDate: '',
-      cardCVV: '',
-    },
-    validateOnChange: false,
-    validateOnBlur: true,
-    validate,
-  });
 
   let paymentArrayProducts = [];
   useEffect(() => {
@@ -214,6 +191,13 @@ export const Cart = ({ closeCart }) => {
                   form='post'
                   className={classNames(styles.further, styles.button)}
                   onClick={() => {
+                    formik.touched.phone = true;
+                    formik.touched.email = true;
+                    formik.touched.country = true;
+                    formik.touched.city = true;
+                    formik.touched.street = true;
+                    formik.touched.house = true;
+                    formik.touched.postcode = true;
                     formik.validateForm();
                     if (
                       formik.errors.phone ||
@@ -256,6 +240,13 @@ export const Cart = ({ closeCart }) => {
                   type='button'
                   className={classNames(styles.further, styles.button)}
                   onClick={() => {
+                    formik.touched.phone = true;
+                    formik.touched.email = true;
+                    formik.touched.country = true;
+                    formik.touched.city = true;
+                    formik.touched.street = true;
+                    formik.touched.house = true;
+                    formik.touched.agreenment = true;
                     formik.validateForm();
                     if (
                       (!formik.errors.phone ||
@@ -286,6 +277,11 @@ export const Cart = ({ closeCart }) => {
                   type='button'
                   className={classNames(styles.further, styles.button)}
                   onClick={() => {
+                    formik.touched.phone = true;
+                    formik.touched.email = true;
+                    formik.touched.country = true;
+                    formik.touched.storeAddress = true;
+                    formik.touched.agreenment = true;
                     formik.validateForm();
                     if (
                       (!formik.errors.phone ||
@@ -312,7 +308,7 @@ export const Cart = ({ closeCart }) => {
                   type='button'
                   className={classNames(styles.further, styles.button)}
                   onClick={() => {
-                    console.log('paypal', formik.errors.cashEmail, formik.values.cashEmail);
+                    formik.touched.cashEmail = true;
                     formik.validateForm();
                     if (!formik.errors.cashEmail && formik.values.cashEmail !== '') {
                       handleSelect();
@@ -327,6 +323,9 @@ export const Cart = ({ closeCart }) => {
                   type='button'
                   className={classNames(styles.further, styles.button)}
                   onClick={() => {
+                    formik.touched.card = true;
+                    formik.touched.cardDate = true;
+                    formik.touched.cardCVV = true;
                     formik.validateForm();
                     if (
                       (!formik.errors.card || !formik.errors.cardDate || !formik.errors.cardCVV) &&
@@ -358,6 +357,21 @@ export const Cart = ({ closeCart }) => {
                   type='button'
                   className={classNames(styles.viewCart, styles.button)}
                   onClick={() => {
+                    formik.touched.phone = false;
+                    formik.touched.email = false;
+                    formik.touched.cashEmail = false;
+                    formik.touched.country = false;
+                    formik.touched.city = false;
+                    formik.touched.street = false;
+                    formik.touched.house = false;
+                    formik.touched.apartment = false;
+                    formik.touched.postcode = false;
+                    formik.touched.storeAddress = false;
+                    formik.touched.agreenment = false;
+                    formik.touched.paymentType = false;
+                    formik.touched.card = false;
+                    formik.touched.cardDate = false;
+                    formik.touched.cardCVV = false;
                     cartProductsOnClick();
                     formik.setFieldValue('agreenment', false);
                   }}
@@ -370,6 +384,10 @@ export const Cart = ({ closeCart }) => {
                   type='button'
                   className={classNames(styles.viewCart, styles.button)}
                   onClick={() => {
+                    formik.touched.cashEmail = false;
+                    formik.touched.card = false;
+                    formik.touched.cardDate = false;
+                    formik.touched.cardCVV = false;
                     cartDelyveryOnClick();
                   }}
                 >

@@ -14,17 +14,18 @@ export const ExpressForm = ({ formik, handleSelect }) => {
           <label htmlFor='phone' className={styles.dataLabel}>
             PHONE
           </label>
-          {formik.errors.phone}
           <InputMask
             mask='+375(99)9999999'
             type='text'
             name='phone'
             id='phone'
-            className={classNames(styles.input, { [styles.error]: formik.errors.phone })}
+            className={classNames(styles.input, { [styles.error]: formik.errors.phone && formik.touched.phone })}
             value={formik.values.phone}
             required='true'
           />
-          {formik.errors.phone && <span className={styles.errorMessage}>{formik.errors.phone}</span>}
+          {formik.errors.phone && formik.touched.phone && (
+            <span className={styles.errorMessage}>{formik.errors.phone}</span>
+          )}
         </div>
         <div className={styles.dataItem}>
           <label htmlFor='email' className={styles.dataLabel}>
@@ -34,11 +35,13 @@ export const ExpressForm = ({ formik, handleSelect }) => {
             type='email'
             name='email'
             id='email'
-            className={classNames(styles.input, { [styles.error]: formik.errors.email })}
+            className={classNames(styles.input, { [styles.error]: formik.errors.email && formik.touched.email })}
             placeholder='e-mail'
             value={formik.values.email}
           />
-          {formik.errors.email && <span className={styles.errorMessage}>{formik.errors.email}</span>}
+          {formik.errors.email && formik.touched.email && (
+            <span className={styles.errorMessage}>{formik.errors.email}</span>
+          )}
         </div>
         <div className={styles.dataItem}>
           <label htmlFor='adress' className={styles.dataLabel}>
@@ -48,40 +51,48 @@ export const ExpressForm = ({ formik, handleSelect }) => {
             type='text'
             name='country'
             id='adress'
-            className={classNames(styles.input, { [styles.error]: formik.errors.country })}
+            className={classNames(styles.input, { [styles.error]: formik.errors.country && formik.touched.country })}
             placeholder='Country'
             value={formik.values.country}
           />
-          {formik.errors.country && <span className={styles.errorMessage}>{formik.errors.country}</span>}
+          {formik.errors.country && formik.touched.country && (
+            <span className={styles.errorMessage}>{formik.errors.country}</span>
+          )}
           <input
             type='text'
             name='city'
             id='adress'
-            className={classNames(styles.input, { [styles.error]: formik.errors.city })}
+            className={classNames(styles.input, { [styles.error]: formik.errors.city && formik.touched.city })}
             placeholder='City'
             value={formik.values.city}
           />
-          {formik.errors.city && <span className={styles.errorMessage}>{formik.errors.city}</span>}
+          {formik.errors.city && formik.touched.city && (
+            <span className={styles.errorMessage}>{formik.errors.city}</span>
+          )}
           <input
             type='text'
             name='street'
             id='adress'
-            className={classNames(styles.input, { [styles.error]: formik.errors.street })}
+            className={classNames(styles.input, { [styles.error]: formik.errors.street && formik.touched.street })}
             placeholder='Street'
             value={formik.values.street}
           />
-          {formik.errors.street && <span className={styles.errorMessage}>{formik.errors.street}</span>}
+          {formik.errors.street && formik.touched.street && (
+            <span className={styles.errorMessage}>{formik.errors.street}</span>
+          )}
           <div className={styles.dubleInput}>
             <div>
               <input
                 type='text'
                 name='house'
                 id='adress'
-                className={classNames(styles.input, { [styles.error]: formik.errors.house })}
+                className={classNames(styles.input, { [styles.error]: formik.errors.house && formik.touched.house })}
                 placeholder='House'
                 value={formik.values.house}
               />
-              {formik.errors.house && <span className={styles.errorMessage}>{formik.errors.house}</span>}
+              {formik.errors.house && formik.touched.house && (
+                <span className={styles.errorMessage}>{formik.errors.house}</span>
+              )}
             </div>
             <input
               type='text'
@@ -98,7 +109,9 @@ export const ExpressForm = ({ formik, handleSelect }) => {
             type='checkbox'
             id='agreenment'
             name='agreenment'
-            className={classNames(styles.castomCheckbox, { [styles.error]: formik.errors.house })}
+            className={classNames(styles.castomCheckbox, {
+              [styles.error]: formik.errors.agreenment && formik.touched.agreenment,
+            })}
             value={formik.values.agreenment}
             checked={formik?.values?.agreenment}
             onChange={() => {
@@ -107,7 +120,9 @@ export const ExpressForm = ({ formik, handleSelect }) => {
           />
           I agree to the processing of my personal information
         </label>
-        {formik.errors.agreenment && <span className={styles.errorMessage}>{formik.errors.agreenment}</span>}
+        {formik.errors.agreenment && formik.touched.agreenment && (
+          <span className={styles.errorMessage}>{formik.errors.agreenment}</span>
+        )}
       </div>
     </div>
   );

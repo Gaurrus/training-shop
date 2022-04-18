@@ -19,10 +19,10 @@ export const Visa = ({ formik }) => {
         type='text'
         name='card'
         id='visa'
-        className={classNames(styles.input, { [styles.error]: formik.errors.card })}
+        className={classNames(styles.input, { [styles.error]: formik.errors.card && formik.touched.card })}
         value={formik.values.card}
       />
-      {formik.errors.card && <span className={styles.errorMessage}>{formik.errors.card}</span>}
+      {formik.errors.card && formik.touched.card && <span className={styles.errorMessage}>{formik.errors.card}</span>}
       <div className={styles.dubleInput}>
         <div>
           <InputMask
@@ -30,13 +30,15 @@ export const Visa = ({ formik }) => {
             type='text'
             name='cardDate'
             id='cardDate'
-            className={classNames(styles.input, { [styles.error]: formik.errors.cardDate })}
+            className={classNames(styles.input, { [styles.error]: formik.errors.cardDate && formik.touched.cardDate })}
             placeholder='YY/MM'
             value={`${formik.values.cardDate
               .slice(0, 2)
               .replace(/(12|13|14|15|16|17|18|19)|[2-9][0-9]/, '12')}${formik.values.cardDate.slice(-2)}`}
           />
-          {formik.errors.cardDate && <span className={styles.errorMessage}>{formik.errors.cardDate}</span>}
+          {formik.errors.cardDate && formik.touched.cardDate && (
+            <span className={styles.errorMessage}>{formik.errors.cardDate}</span>
+          )}
         </div>
         <div>
           <InputMask
@@ -44,11 +46,13 @@ export const Visa = ({ formik }) => {
             type={isHidden ? 'password' : 'text'}
             name='cardCVV'
             id='cardCVV'
-            className={classNames(styles.input, { [styles.error]: formik.errors.cardCVV })}
+            className={classNames(styles.input, { [styles.error]: formik.errors.cardCVV && formik.touched.cardCVV })}
             placeholder='CVV'
             value={formik.values.cardCVV}
           />
-          {formik.errors.cardCVV && <span className={styles.errorMessage}>{formik.errors.cardCVV}</span>}
+          {formik.errors.cardCVV && formik.touched.cardCVV && (
+            <span className={styles.errorMessage}>{formik.errors.cardCVV}</span>
+          )}
         </div>
         <div aria-hidden className={styles.eyeButton} onClick={() => setIsHidden(!isHidden)} />
       </div>

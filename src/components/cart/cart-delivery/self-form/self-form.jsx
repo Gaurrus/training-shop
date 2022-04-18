@@ -47,10 +47,12 @@ export const SelfForm = ({ formik, handleSelect }) => {
             type='text'
             name='phone'
             id='phone'
-            className={classNames(styles.input, { [styles.error]: formik.errors.phone })}
+            className={classNames(styles.input, { [styles.error]: formik.errors.phone && formik.touched.phone })}
             value={formik.values.phone}
           />
-          {formik.errors.phone && <span className={styles.errorMessage}>{formik.errors.phone}</span>}
+          {formik.errors.phone && formik.touched.phone && (
+            <span className={styles.errorMessage}>{formik.errors.phone}</span>
+          )}
         </div>
         <div className={styles.dataItem}>
           <label htmlFor='email' className={styles.dataLabel}>
@@ -60,21 +62,23 @@ export const SelfForm = ({ formik, handleSelect }) => {
             type='email'
             name='email'
             id='email'
-            className={classNames(styles.input, { [styles.error]: formik.errors.email })}
+            className={classNames(styles.input, { [styles.error]: formik.errors.email && formik.touched.email })}
             placeholder='e-mail'
             value={formik.values.email}
           />
-          {formik.errors.email && <span className={styles.errorMessage}>{formik.errors.email}</span>}
+          {formik.errors.email && formik.touched.email && (
+            <span className={styles.errorMessage}>{formik.errors.email}</span>
+          )}
         </div>
         <div className={styles.dataItem}>
           <label htmlFor='adress' className={styles.dataLabel}>
             ADRESS OF STORE
           </label>
-          {isError && !isLoading && <span className={styles.errorMessage}>Connection error</span>}
+          {isError && !isLoading && <span className={styles.errorMessage}>Ошибка связи</span>}
           <select
             name='country'
             id='adress'
-            className={classNames(styles.input, { [styles.error]: formik.errors.country })}
+            className={classNames(styles.input, { [styles.error]: formik.errors.country && formik.touched.country })}
             placeholder='Country'
             value={formik.values.country}
           >
@@ -85,9 +89,13 @@ export const SelfForm = ({ formik, handleSelect }) => {
               <option value={item.name}>{item.name}</option>
             ))}
           </select>
-          {formik.errors.country && <span className={styles.errorMessage}>{formik.errors.country}</span>}
+          {formik.errors.country && formik.touched.country && (
+            <span className={styles.errorMessage}>{formik.errors.country}</span>
+          )}
           <input
-            className={classNames(styles.input, { [styles.error]: formik.errors.storeAddress })}
+            className={classNames(styles.input, {
+              [styles.error]: formik.errors.storeAddress && formik.touched.storeAddress,
+            })}
             type='text'
             name='storeAddress'
             value={formik.values.storeAddress}
@@ -113,9 +121,11 @@ export const SelfForm = ({ formik, handleSelect }) => {
             </ul>
           )}
           {response.length === 0 && formik.values.storeAddress !== '' && (
-            <span className={styles.errorMessage}>Sity is not found</span>
+            <span className={styles.errorMessage}>Город не найден</span>
           )}
-          {formik.errors.storeAddress && <span className={styles.errorMessage}>{formik.errors.storeAddress}</span>}
+          {formik.errors.storeAddress && formik.touched.storeAddress && (
+            <span className={styles.errorMessage}>{formik.errors.storeAddress}</span>
+          )}
         </div>
         <label htmlFor='agreenment' className={styles.checkboxLabel}>
           <input
@@ -127,11 +137,15 @@ export const SelfForm = ({ formik, handleSelect }) => {
             onChange={() => {
               handleSelect();
             }}
-            className={classNames(styles.castomCheckbox, { [styles.error]: formik.errors.agreenment })}
+            className={classNames(styles.castomCheckbox, {
+              [styles.error]: formik.errors.agreenment && formik.touched.agreenment,
+            })}
           />
           I agree to the processing of my personal information
         </label>
-        {formik.errors.agreenment && <span className={styles.errorMessage}>{formik.errors.agreenment}</span>}
+        {formik.errors.agreenment && formik.touched.agreenment && (
+          <span className={styles.errorMessage}>{formik.errors.agreenment}</span>
+        )}
       </div>
     </div>
   );
