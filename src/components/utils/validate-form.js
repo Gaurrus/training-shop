@@ -3,7 +3,7 @@ export const validate = (values) => {
   if (!values.mail) {
     errors.mail = 'Поле должно быть заполнено';
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.mail)) {
-    errors.mail = 'E-mail format error';
+    errors.mail = 'Ошибка формата e-mail';
   }
   return errors;
 };
@@ -83,7 +83,7 @@ export const validateCart = (values) => {
     errors.cardCVV = 'Поле должно быть заполнено';
   }
   if (!values.agreenment) {
-    errors.agreenment = 'Поле должно быть заполнено';
+    errors.agreenment = 'Вы должны согласиться на обработку личной информации';
   }
   return errors;
 };
