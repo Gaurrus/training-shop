@@ -7,7 +7,7 @@ import { changeCountMinus, changeCountPlus } from '../../store/cart-state';
 
 import styles from './cart-item.module.scss';
 
-export const CartItem = ({ url, name, color, size, handleRemove, cartId, price, trashIco, count }) => {
+export const CartItem = ({ url, name, color, size, handleRemove, cartId, price, trashIco, count, handleSelect }) => {
   const dispatch = useDispatch();
   const [isDisable, setIsDisable] = useState(false);
 
@@ -36,17 +36,31 @@ export const CartItem = ({ url, name, color, size, handleRemove, cartId, price, 
               <div
                 className={classNames(styles.buttonMinus, { [styles.buttonDisabled]: count === 1 })}
                 aria-hidden
-                onClick={() => decrement(cartId)}
+                onClick={() => {
+                  decrement(cartId);
+                  handleSelect(cartId, count, price);
+                }}
                 data-test-id='minus-product'
                 disable={isDisable}
               >
                 -
               </div>
-              <input type='number' className={styles.amount} min='1' value={count} />
+              <input
+                type='number'
+                className={styles.amount}
+                min='1'
+                value={count}
+                onChange={() => {
+                  handleSelect(cartId, count);
+                }}
+              />
               <div
                 className={styles.buttonPlus}
                 aria-hidden
-                onClick={() => increment(cartId)}
+                onClick={() => {
+                  increment(cartId);
+                  handleSelect(cartId, count, price);
+                }}
                 data-test-id='plus-product'
               >
                 +

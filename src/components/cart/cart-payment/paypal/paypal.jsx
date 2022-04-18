@@ -1,14 +1,26 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { Field, Form, Formik } from 'formik';
+import { useEffect } from 'react';
+
+import classNames from 'classnames';
+
 import styles from './paypal.module.scss';
 
-export const Paypal = () => (
-  <Formik>
-    <Form className={styles.dataItem}>
+export const Paypal = ({ formik }) => {
+  return (
+    <div className={styles.dataItem}>
       <label htmlFor='paypal' className={styles.dataLabel}>
         E-MAIL
       </label>
-      <Field type='text' name='paypal' id='paypal' className={styles.input} placeholder='e-mail' />
-    </Form>
-  </Formik>
-);
+      <input
+        type='text'
+        name='cashEmail'
+        id='paypal'
+        className={classNames(styles.input, { [styles.error]: formik.errors.cashEmail })}
+        placeholder='e-mail'
+        value={formik.values.cashEmail}
+      />
+      {formik.errors.cashEmail && <span className={styles.errorMessage}>{formik.errors.cashEmail}</span>}
+    </div>
+  );
+};
