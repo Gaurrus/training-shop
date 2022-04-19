@@ -15,13 +15,15 @@ import styles from './self-form.module.scss';
 export const SelfForm = ({ formik, handleSelect }) => {
   const dispatch = useDispatch();
   const [clickedStore, setClickedStore] = useState('');
+  const [clickedCountry, setClickedCountry] = useState('');
+  const [isCountryListActive, setIsCountryListActive] = useState(false);
 
   const { isLoading, isError } = useSelector(searchStoreSelector);
 
   const { data: countries } = useSelector(countriesSelector);
   useEffect(() => {
     dispatch(getCountriesRequest());
-    formik.setFieldValue('country', 'Выберите страну');
+    // formik.setFieldValue('country', 'Выберите страну');
   }, []);
 
   useEffect(() => {
@@ -75,11 +77,41 @@ export const SelfForm = ({ formik, handleSelect }) => {
             ADRESS OF STORE
           </label>
           {isError && !isLoading && <span className={styles.errorMessage}>Ошибка связи</span>}
-          <select
+          <div>
+            <input
+              type='text'
+              name='country'
+              id='country'
+              className={classNames(styles.input, { [styles.error]: formik.errors.country && formik.touched.country })}
+              placeholder='Country'
+              value={formik.values.country}
+              onClick={() => setIsCountryListActive(!isCountryListActive)}
+              autoComplete='off'
+            />
+            {countries.length > 0 && isCountryListActive && (
+              <ul className={classNames(styles.list, styles.country)}>
+                {countries?.map((item) => (
+                  <li
+                    aria-hidden
+                    className={classNames(styles.option, styles.country)}
+                    key={item.name}
+                    onClick={() => {
+                      setIsCountryListActive(false);
+                      setClickedCountry(item.name);
+                      formik.setFieldValue('country', item.name);
+                    }}
+                  >
+                    {item.name}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+          {/* <select
             name='country'
             id='adress'
             className={classNames(styles.input, { [styles.error]: formik.errors.country && formik.touched.country })}
-            placeholder='Country'
+            // placeholder='Country'
             value={formik.values.country}
           >
             <option value='Выберите страну' disabled>
@@ -88,7 +120,7 @@ export const SelfForm = ({ formik, handleSelect }) => {
             {countries?.map((item) => (
               <option value={item.name}>{item.name}</option>
             ))}
-          </select>
+          </select> */}
           {formik.errors.country && formik.touched.country && (
             <span className={styles.errorMessage}>{formik.errors.country}</span>
           )}
@@ -100,8 +132,11 @@ export const SelfForm = ({ formik, handleSelect }) => {
             name='storeAddress'
             value={formik.values.storeAddress}
             disabled={
-              countries?.length === 0 || formik.values.country === '' || formik.values.country === 'Выберите страну'
+              countries?.length === 0 ||
+              formik.values.country === '' ||
+              !countries?.find((item) => item.name === formik.values.country)
             }
+            autoComplete='off'
           />
           {response.length > 0 && formik.values.storeAddress !== clickedStore && (
             <ul className={styles.list}>
