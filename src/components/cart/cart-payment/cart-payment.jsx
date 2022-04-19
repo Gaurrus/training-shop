@@ -11,9 +11,9 @@ import { Paypal } from './paypal/paypal';
 import { Mastercard } from './mastercard';
 import { Cash } from './cash/cash';
 import { Visa } from './visa/visa';
+import { paymentsSelector } from '../../../selectors';
 
 import styles from './cart-payment.module.scss';
-import { paymentsSelector } from '../../../selectors';
 
 export const CartPayment = ({ cart, formik, paymentType, setPaymentType }) => {
   const { isPaymentsLoading, isPaymentsError } = useSelector(paymentsSelector);
