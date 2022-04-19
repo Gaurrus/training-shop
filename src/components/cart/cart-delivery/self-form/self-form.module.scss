@@ -45,6 +45,7 @@
     border: unset;
     background-color: #f8f8f8;
     text-indent: 16px;
+    cursor: pointer;
     &::placeholder {
       font-weight: 500;
       font-size: 14px;
@@ -63,7 +64,11 @@
     position: absolute;
     width: 337px;
     top: 154px;
+    &.country {
+      top: 100px;
+    }
     .option {
+      border: 1px solid #F8F8F8;
       display: flex;
       align-items: center;
       justify-content: left;
@@ -80,6 +85,9 @@
         background-color: #ffffff;
         text-decoration: underline;
         cursor: pointer;
+      }
+      &:nth-of-type(2n){
+        background-color: #e2e2e2;
       }
     }
   }
