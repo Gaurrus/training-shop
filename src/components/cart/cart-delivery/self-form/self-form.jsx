@@ -85,6 +85,7 @@ export const SelfForm = ({ formik, handleSelect }) => {
               className={classNames(styles.input, { [styles.error]: formik.errors.country && formik.touched.country })}
               placeholder='Country'
               value={formik.values.country}
+              onFocus={() => formik.setFieldValue('country', 'Беларусь')}
               onClick={(e) => {
                 e.preventDefault();
                 setIsCountryListActive(!isCountryListActive);
