@@ -56,8 +56,8 @@ export const validateCart = (values) => {
   }
   if (!values.postcode || values.postcode === '______') {
     errors.postcode = 'Поле должно быть заполнено';
-  } else if (!/(\d){6}/i.test(values.card)) {
-    errors.card = 'мало знаков индекса';
+  } else if (!/(\d){6}/i.test(values.postcode)) {
+    errors.postcode = 'мало знаков индекса';
   }
   if (!values.storeAddress) {
     errors.storeAddress = 'Поле должно быть заполнено';
