@@ -79,13 +79,16 @@ export const SelfForm = ({ formik, handleSelect }) => {
           {isError && !isLoading && <span className={styles.errorMessage}>Ошибка связи</span>}
           <div>
             <input
-              type='text'
+              type='submit'
               name='country'
               id='country'
               className={classNames(styles.input, { [styles.error]: formik.errors.country && formik.touched.country })}
               placeholder='Country'
               value={formik.values.country}
-              onClick={() => setIsCountryListActive(!isCountryListActive)}
+              onClick={(e) => {
+                e.preventDefault();
+                setIsCountryListActive(!isCountryListActive);
+              }}
               autoComplete='off'
             />
             {countries.length > 0 && isCountryListActive && (
