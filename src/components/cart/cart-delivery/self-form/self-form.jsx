@@ -23,7 +23,7 @@ export const SelfForm = ({ formik, handleSelect }) => {
   const { data: countries } = useSelector(countriesSelector);
   useEffect(() => {
     dispatch(getCountriesRequest());
-    formik.setFieldValue('country', 'Беларусь');
+    // formik.setFieldValue('country', '');
   }, []);
 
   useEffect(() => {

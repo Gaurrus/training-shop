@@ -54,15 +54,17 @@ export const validateCart = (values) => {
   if (!values.house) {
     errors.house = 'Поле должно быть заполнено';
   }
-  if (!values.postcode || values.postcode === 'BY ______') {
+  if (!values.postcode || values.postcode === '______') {
     errors.postcode = 'Поле должно быть заполнено';
+  } else if (!/(\d){6}/i.test(values.card)) {
+    errors.card = 'мало знаков индекса';
   }
   if (!values.storeAddress) {
     errors.storeAddress = 'Поле должно быть заполнено';
   }
-  if (!values.card || values.card === '____-____-____-____') {
+  if (!values.card || values.card === '________________') {
     errors.card = 'Поле должно быть заполнено';
-  } else if (!/(\d){4}(-)(\d){4}(-)(\d){4}(-)(\d){4}/i.test(values.card)) {
+  } else if (!/((\d){4}(\d){4}(\d){4}(\d){4})/i.test(values.card)) {
     errors.card = 'некорректный номер карты';
   }
   if (!values.cardDate || values.cardDate === '__/__') {
