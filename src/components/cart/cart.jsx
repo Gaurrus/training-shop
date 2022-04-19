@@ -207,14 +207,14 @@ export const Cart = ({ closeCart, formik, reset }) => {
                       formik.setFieldValue('agreenment', false);
                     }
                     if (
-                      (!formik.errors.phone ||
-                        !formik.errors.email ||
-                        !formik.errors.country ||
-                        !formik.errors.city ||
-                        !formik.errors.street ||
-                        !formik.errors.house ||
-                        !formik.errors.postcode ||
-                        !formik.errors.agreenment) &&
+                      !formik.errors.phone &&
+                      !formik.errors.email &&
+                      !formik.errors.country &&
+                      !formik.errors.city &&
+                      !formik.errors.street &&
+                      !formik.errors.house &&
+                      !formik.errors.postcode &&
+                      !formik.errors.agreenment &&
                       formik.values.agreenment === true &&
                       formik.values.phone !== '' &&
                       formik.values.email !== '' &&
@@ -255,13 +255,13 @@ export const Cart = ({ closeCart, formik, reset }) => {
                       formik.setFieldValue('agreenment', false);
                     }
                     if (
-                      (!formik.errors.phone ||
-                        !formik.errors.email ||
-                        !formik.errors.country ||
-                        !formik.errors.city ||
-                        !formik.errors.street ||
-                        !formik.errors.house ||
-                        !formik.errors.agreenment) &&
+                      !formik.errors.phone &&
+                      !formik.errors.email &&
+                      !formik.errors.country &&
+                      !formik.errors.city &&
+                      !formik.errors.street &&
+                      !formik.errors.house &&
+                      !formik.errors.agreenment &&
                       formik.values.agreenment === true &&
                       formik.values.phone !== '' &&
                       formik.values.email !== '' &&
@@ -298,11 +298,11 @@ export const Cart = ({ closeCart, formik, reset }) => {
                       formik.setFieldValue('agreenment', false);
                     }
                     if (
-                      (!formik.errors.phone ||
-                        !formik.errors.email ||
-                        !formik.errors.country ||
-                        !formik.errors.storeAddress ||
-                        !formik.errors.agreenment) &&
+                      !formik.errors.phone &&
+                      !formik.errors.email &&
+                      !formik.errors.country &&
+                      !formik.errors.storeAddress &&
+                      !formik.errors.agreenment &&
                       formik.values.agreenment === true &&
                       formik.values.phone !== '' &&
                       formik.values.email !== '' &&
