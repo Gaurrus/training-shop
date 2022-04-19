@@ -10,7 +10,7 @@ import { removeProduct } from '../../store/cart-state';
 
 import styles from './cart-products.module.scss';
 
-export const CartProducts = ({ cart }) => {
+export const CartProducts = ({ cart, handleSelect, formik }) => {
   const dispatch = useDispatch();
 
   const handleRemove = (productCartId, price) => {
@@ -42,6 +42,7 @@ export const CartProducts = ({ cart }) => {
               trashIco={trashIco}
               count={item.count}
               url={item.url}
+              handleSelect={handleSelect}
             />
           ))
         ) : (

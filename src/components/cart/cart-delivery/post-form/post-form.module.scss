@@ -53,6 +53,10 @@
     &:focus {
       border: unset;
     }
+    &.error {
+      border-color: #ff0000;
+      box-shadow: 0 0 5px #ff0000;
+    }
   }
   .dubleInput {
     display: flex;
@@ -74,4 +78,12 @@
     border: 1px solid #e6e6e6;
     box-sizing: border-box;
   }
+  &.error {
+    color: red;
+  }
+}
+.errorMessage {
+  text-align: right;
+  color: red;
+  font-size: 14px;
 }

@@ -22,6 +22,7 @@
   height: 18px;
 }
 .dataItem {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: left;
@@ -35,6 +36,7 @@
     margin: 12px 0 8px;
   }
   .input {
+    text-align: left;
     width: 100%;
     height: 48px;
     font-weight: 500;
@@ -44,6 +46,7 @@
     border: unset;
     background-color: #f8f8f8;
     text-indent: 16px;
+    cursor: pointer;
     &::placeholder {
       font-weight: 500;
       font-size: 14px;
@@ -52,6 +55,41 @@
     }
     &:focus {
       border: unset;
+    }
+    &.error {
+      border-color: #ff0000;
+      box-shadow: 0 0 5px #ff0000;
+    }
+  }
+  .list {
+    position: absolute;
+    width: 337px;
+    top: 154px;
+    &.country {
+      top: 100px;
+    }
+    .option {
+      border: 1px solid #f8f8f8;
+      display: flex;
+      align-items: center;
+      justify-content: left;
+      width: 100%;
+      height: 48px;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 18px;
+      color: #9c9c9c;
+      border: unset;
+      background-color: #f8f8f8;
+      text-indent: 16px;
+      &:hover {
+        background-color: #ffffff;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+      &:nth-of-type(2n) {
+        background-color: #e2e2e2;
+      }
     }
   }
   .dubleInput {
@@ -74,4 +112,12 @@
     border: 1px solid #e6e6e6;
     box-sizing: border-box;
   }
+  &.error {
+    color: red;
+  }
+}
+.errorMessage {
+  text-align: right;
+  color: red;
+  font-size: 14px;
 }
