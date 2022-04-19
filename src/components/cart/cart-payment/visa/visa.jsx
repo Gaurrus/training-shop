@@ -15,7 +15,7 @@ export const Visa = ({ formik }) => {
         CARD
       </label>
       <InputMask
-        mask='9999-9999-9999-9999'
+        mask='9999999999999999'
         type='text'
         name='card'
         id='visa'

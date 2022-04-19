@@ -342,7 +342,9 @@ export const Cart = ({ closeCart, formik, reset }) => {
                     formik.touched.cardCVV = true;
                     formik.validateForm();
                     if (
-                      (!formik.errors.card || !formik.errors.cardDate || !formik.errors.cardCVV) &&
+                      !formik.errors.card &&
+                      !formik.errors.cardDate &&
+                      !formik.errors.cardCVV &&
                       formik.values.card !== '' &&
                       formik.values.cardDate !== '' &&
                       formik.values.cardCVV !== ''

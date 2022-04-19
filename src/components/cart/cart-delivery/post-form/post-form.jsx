@@ -112,7 +112,7 @@ export const PostForm = ({ formik, formError, handleSelect }) => {
             POSTcode
           </label>
           <InputMask
-            mask='BY 999999'
+            mask='999999'
             type='text'
             name='postcode'
             id='postcode'

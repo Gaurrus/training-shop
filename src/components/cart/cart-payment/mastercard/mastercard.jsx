@@ -15,7 +15,7 @@ export const Mastercard = ({ formik }) => {
         CARD
       </label>
       <InputMask
-        mask='9999-9999-9999-9999'
+        mask='9999999999999999'
         name='card'
         id='mastercard'
         className={classNames(styles.input, { [styles.error]: formik.errors.card && formik.touched.card })}
