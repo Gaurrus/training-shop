@@ -245,6 +245,16 @@ export const Cart = ({ closeCart, formik, reset }) => {
                     formik.touched.agreenment = true;
                     formik.validateForm();
                     if (
+                      formik.errors.phone ||
+                      formik.errors.email ||
+                      formik.errors.country ||
+                      formik.errors.city ||
+                      formik.errors.street ||
+                      formik.errors.house
+                    ) {
+                      formik.setFieldValue('agreenment', false);
+                    }
+                    if (
                       (!formik.errors.phone ||
                         !formik.errors.email ||
                         !formik.errors.country ||
@@ -279,6 +289,14 @@ export const Cart = ({ closeCart, formik, reset }) => {
                     formik.touched.storeAddress = true;
                     formik.touched.agreenment = true;
                     formik.validateForm();
+                    if (
+                      formik.errors.phone ||
+                      formik.errors.email ||
+                      formik.errors.country ||
+                      formik.errors.storeAddress
+                    ) {
+                      formik.setFieldValue('agreenment', false);
+                    }
                     if (
                       (!formik.errors.phone ||
                         !formik.errors.email ||
