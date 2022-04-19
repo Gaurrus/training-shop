@@ -26,6 +26,7 @@ import { getProductsRequest } from '../store/products-state';
 import './reset.scss';
 import './App.scss';
 import { FaultOfLoad } from '../loader/fault-of-load';
+import { paymentsReset } from '../store/payments-state';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -68,6 +69,7 @@ export const App = () => {
   });
 
   const cartIcoOnClick = () => {
+    formik.resetForm(formik.initialValues);
     formik.touched.phone = false;
     formik.touched.email = false;
     formik.touched.cashEmail = false;
@@ -86,6 +88,7 @@ export const App = () => {
     if (isCartActive && isAnimationActive) {
       setIsAnimationActive(!isAnimationActive);
       setTimeout(() => {
+        dispatch(paymentsReset());
         setIsCartActive(!isCartActive);
         enableBodyScroll();
       }, 1000);
@@ -95,6 +98,10 @@ export const App = () => {
       setTimeout(() => setIsAnimationActive(!isAnimationActive));
       disableBodyScroll({ savePosition: true });
     }
+  };
+
+  const reset = () => {
+    dispatch(paymentsReset());
   };
 
   return (
@@ -134,7 +141,7 @@ export const App = () => {
         />
       </Routes>
       <Modal isCartActive={isCartActive} isAnimationActive={isAnimationActive} formik={formik}>
-        <Cart closeCart={cartIcoOnClick} formik={formik} />
+        <Cart closeCart={cartIcoOnClick} formik={formik} reset={reset} />
       </Modal>
       <Loader isLoading={products.isLoading}>{products.isError ? <FaultOfLoad /> : <LoadingIco />}</Loader>
       <Footer />

@@ -16,7 +16,7 @@ import { paymentsAdd, paymentsReset, postPaymentsRequest } from '../store/paymen
 
 import styles from './cart.module.scss';
 
-export const Cart = ({ closeCart, formik }) => {
+export const Cart = ({ closeCart, formik, reset }) => {
   const [isProductsActive, setIsProductsActive] = useState(false);
   const [isDelyveryActive, setIsDelyveryActive] = useState(false);
   const [isPaymentActive, setIsPaymentActive] = useState(false);
@@ -101,10 +101,6 @@ export const Cart = ({ closeCart, formik }) => {
     dispatch(paymentsAdd({ postData }));
     if (radioDeliveryMethod !== '' && paymentType !== '' && isPaymentActive)
       dispatch(postPaymentsRequest({ postData }));
-  };
-
-  const reset = () => {
-    dispatch(paymentsReset());
   };
 
   return (

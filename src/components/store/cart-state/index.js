@@ -31,8 +31,12 @@ const cartSlice = createSlice({
       const index = cart?.findIndex((item) => productCartId === item.cartId);
       cart[index].count -= 1;
     },
+    cleanCart: (state) => {
+      state.cart = initialCartState.cart;
+    },
   },
 });
 
-export const { addProductInCart, removeProduct, setSumm, changeCountPlus, changeCountMinus } = cartSlice.actions;
+export const { addProductInCart, removeProduct, setSumm, changeCountPlus, changeCountMinus, cleanCart } =
+  cartSlice.actions;
 export default cartSlice.reducer;
