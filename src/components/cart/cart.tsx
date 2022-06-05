@@ -2,7 +2,6 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { PropTypes } from 'prop-types';
 import classNames from 'classnames';
 
 import { CartProducts } from './cart-products';
@@ -15,8 +14,16 @@ import { cartSelector, paymentsSelector } from '../../selectors';
 import { paymentsAdd, paymentsReset, postPaymentsRequest } from '../store/payments-state';
 
 import styles from './cart.module.scss';
+import { Formik } from '../../types/types';
+import React from 'react';
 
-export const Cart = ({ closeCart, formik, reset }) => {
+type CartTypes = {
+  closeCart: (a: string) => void;
+  formik: Formik;
+  reset: (a: string) => void;
+};
+
+export const Cart = ({ closeCart, formik, reset }: CartTypes) => {
   const [isProductsActive, setIsProductsActive] = useState(false);
   const [isDelyveryActive, setIsDelyveryActive] = useState(false);
   const [isPaymentActive, setIsPaymentActive] = useState(false);
@@ -45,7 +52,7 @@ export const Cart = ({ closeCart, formik, reset }) => {
 
   const cartArrProducts = useSelector(cartSelector);
 
-  const summFromArr = cartArrProducts?.cart?.reduce((summ, item) => {
+  const summFromArr = cartArrProducts?.cart?.reduce((summ: number, item: { price: number; count: number; }) => {
     return summ + item.price * item.count;
   }, 0);
 
@@ -63,9 +70,9 @@ export const Cart = ({ closeCart, formik, reset }) => {
 
   const { data, isPaymentsError, isPaymentsLoading } = useSelector(paymentsSelector);
 
-  let paymentArrayProducts = [];
+  let paymentArrayProducts: never[] = [];
   useEffect(() => {
-    paymentArrayProducts = cartArrProducts?.cart?.map((item) => {
+    paymentArrayProducts = cartArrProducts?.cart?.map((item: { dressCart: { name: string; }; size: string; color: string; count: number; }) => {
       const array = {
         name: item?.dressCart?.name,
         size: item?.size,
@@ -151,8 +158,7 @@ export const Cart = ({ closeCart, formik, reset }) => {
                 formik={formik}
                 radioDeliveryMethod={radioDeliveryMethod}
                 setRadioDeliveryMethod={setRadioDeliveryMethod}
-                formError={formError}
-              />
+                formError={formError} handleSearch={undefined}              />
             )}
             {isPaymentActive && (
               <CartPayment
